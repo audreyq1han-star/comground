@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CommonGround — iPhone Mockup</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f1f5f9; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; min-height: 100vh; }
+  h1 { font-size: 20px; font-weight: 700; color: #0284c7; margin-bottom: 4px; }
+  .subtitle { font-size: 12px; color: #94a3b8; margin-bottom: 28px; }
+  .controls { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; justify-content: center; align-items: center; }
+  .tab-btn { padding: 7px 16px; border-radius: 20px; font-size: 12px; font-weight: 500; border: 1.5px solid #0284c7; cursor: pointer; background: white; color: #0284c7; transition: all 0.15s; }
+  .tab-btn.active { background: #0284c7; color: white; }
+  .mode-btn { padding: 7px 16px; border-radius: 20px; font-size: 12px; font-weight: 500; border: 1.5px solid #334155; cursor: pointer; background: white; color: #334155; transition: all 0.15s; margin-left: 8px; }
+  .divider { width: 1px; height: 28px; background: #e2e8f0; margin: 0 4px; }
+
+  .iphone { width: 320px; height: 680px; background: #0e1f2e; border-radius: 50px; padding: 13px; box-shadow: 0 0 0 1px #2a3a4a, 0 28px 70px rgba(0,0,0,0.4); position: relative; flex-shrink: 0; }
+  .iphone-inner { width: 100%; height: 100%; border-radius: 40px; overflow: hidden; display: flex; flex-direction: column; position: relative; transition: background 0.2s; }
+  .iphone-inner.light { background: white; }
+  .iphone-inner.dark { background: #0e1f2e; }
+  .notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 110px; height: 30px; background: #0e1f2e; border-radius: 0 0 20px 20px; z-index: 10; display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .notch-dot { width: 9px; height: 9px; background: #1a2a3a; border-radius: 50%; }
+  .notch-bar { width: 52px; height: 4px; background: #1a2a3a; border-radius: 2px; }
+
+  .screen { display: none; flex-direction: column; flex: 1; overflow: hidden; }
+  .screen.visible { display: flex; }
+
+  .sbar { height: 46px; display: flex; align-items: flex-end; justify-content: space-between; padding: 0 22px 7px; font-size: 11px; font-weight: 600; flex-shrink: 0; }
+  .sbar.light { color: #111; background: white; }
+  .sbar.dark-bar { color: #f0f9ff; background: #0e1f2e; }
+  .sbar.transparent { position: absolute; top: 0; left: 0; right: 0; z-index: 5; color: white; background: transparent; }
+
+  .bnav { height: 62px; display: flex; align-items: center; flex-shrink: 0; padding-bottom: 6px; border-top: 0.5px solid; transition: background 0.2s, border-color 0.2s; }
+  .bnav.light { background: white; border-color: #e5e7eb; }
+  .bnav.dark { background: #0e1f2e; border-color: #1e3a5f; }
+  .ni { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+  .ni svg { width: 20px; height: 20px; }
+  .ni-lbl { font-size: 9px; }
+  .ni-on { color: #0284c7; }
+  .ni-off-light { color: #bbb; }
+  .ni-off-dark { color: #334155; }
+
+  /* WELCOME */
+  .welcome-grad { flex: 1; background: linear-gradient(170deg, #0284c7 0%, #06c4b0 60%, #fde68a 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 22px 20px; text-align: center; }
+  .wlogo { width: 68px; height: 68px; background: white; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; box-shadow: 0 6px 24px rgba(0,0,0,0.15); }
+  .wtitle { font-size: 26px; font-weight: 700; color: white; letter-spacing: -0.5px; }
+  .wsub { font-size: 13px; color: rgba(255,255,255,0.85); margin-top: 8px; line-height: 1.5; }
+  .wbtn1 { background: white; color: #0284c7; border: none; border-radius: 26px; padding: 14px; font-size: 14px; font-weight: 600; margin-top: 22px; width: 100%; cursor: pointer; }
+  .wbtn2 { background: rgba(255,255,255,0.18); color: white; border: 1.5px solid rgba(255,255,255,0.55); border-radius: 26px; padding: 12px; font-size: 13px; font-weight: 500; margin-top: 10px; width: 100%; cursor: pointer; }
+  .wprev { display: flex; gap: 8px; margin-top: 18px; width: 100%; }
+  .wpc { flex: 1; background: rgba(255,255,255,0.9); border-radius: 14px; padding: 10px 11px; }
+  .wpc-t { font-size: 8px; color: #0284c7; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .wpc-n { font-size: 10px; font-weight: 600; color: #111; margin-top: 3px; line-height: 1.3; }
+  .wpc-s { font-size: 9px; color: #06c4b0; margin-top: 4px; font-weight: 600; }
+
+  /* DISCOVER */
+  .dhead { padding: 14px 18px 10px; flex-shrink: 0; transition: background 0.2s; }
+  .dhead.light { background: white; border-bottom: 0.5px solid #f0f9ff; }
+  .dhead.dark { background: #0e1f2e; border-bottom: 0.5px solid #1e3a5f; }
+  .dgreet { font-size: 15px; font-weight: 600; }
+  .dgreet.light { color: #111; } .dgreet.dark { color: #f0f9ff; }
+  .dsub { font-size: 11px; margin-top: 2px; }
+  .dsub.light { color: #64748b; } .dsub.dark { color: #475569; }
+  .frow { display: flex; gap: 6px; padding: 9px 16px; overflow: hidden; flex-shrink: 0; transition: background 0.2s; }
+  .frow.light { background: white; border-bottom: 0.5px solid #e5e7eb; }
+  .frow.dark { background: #0e1f2e; border-bottom: 0.5px solid #1e3a5f; }
+  .chip { font-size: 10px; padding: 4px 11px; border-radius: 12px; white-space: nowrap; font-weight: 500; }
+  .chip-on { background: #0284c7; color: white; }
+  .chip-off-light { background: #f0f9ff; color: #0284c7; }
+  .chip-off-dark { background: #1e3a5f; color: #38bdf8; }
+  .cscroll { flex: 1; overflow-y: auto; padding: 10px 13px; display: flex; flex-direction: column; gap: 10px; }
+  .cscroll.light { background: #f8fafc; } .cscroll.dark { background: #0a1520; }
+  .ocard { border-radius: 18px; padding: 13px 15px; }
+  .ocard.light { background: white; border: 0.5px solid #e5e7eb; }
+  .ocard.dark { background: #132b3e; border: 0.5px solid #1e3a5f; }
+  .ocard.featured.light { border: 2px solid #0284c7; }
+  .ocard.featured.dark { border: 2px solid #06c4b0; }
+  .mpill { font-size: 9px; font-weight: 600; padding: 3px 9px; border-radius: 8px; display: inline-block; margin-bottom: 7px; }
+  .mpill.light { background: #f0f9ff; color: #0284c7; } .mpill.dark { background: #1e3a5f; color: #38bdf8; }
+  .mscore { font-size: 9px; color: #06c4b0; font-weight: 600; margin-left: 6px; }
+  .otitle { font-size: 13px; font-weight: 600; }
+  .otitle.light { color: #111; } .otitle.dark { color: #f0f9ff; }
+  .trow { display: flex; gap: 4px; margin-top: 5px; }
+  .t { font-size: 9px; padding: 2px 7px; border-radius: 6px; font-weight: 500; }
+  .tb { background: #e0f2fe; color: #0369a1; } .tt { background: #ccfbf1; color: #0f766e; } .to { background: #ffedd5; color: #c2410c; }
+  .tb-d { background: #1e3a5f; color: #38bdf8; } .tt-d { background: #134e4a; color: #5eead4; } .to-d { background: #431407; color: #fb923c; }
+  .why { border-radius: 10px; padding: 7px 9px; margin-top: 8px; font-size: 10px; line-height: 1.5; font-style: italic; }
+  .why.light { background: #f0f9ff; color: #0369a1; } .why.dark { background: #0e2d40; color: #7dd3fc; }
+  .cfoot { display: flex; justify-content: space-between; align-items: center; margin-top: 9px; }
+  .skilltxt { font-size: 9px; color: #94a3b8; }
+  .savebtn { background: #0284c7; color: white; border: none; border-radius: 9px; padding: 5px 13px; font-size: 10px; font-weight: 600; cursor: pointer; }
+  .bdgtxt { font-size: 9px; color: #fb923c; margin-top: 5px; font-weight: 500; }
+
+  /* SAVED */
+  .shead { flex-shrink: 0; padding: 14px 18px 0; }
+  .shead.light { background: white; } .shead.dark { background: #0e1f2e; }
+  .stitle { font-size: 17px; font-weight: 700; }
+  .stitle.light { color: #111; } .stitle.dark { color: #f0f9ff; }
+  .stabs { display: flex; margin-top: 12px; border-bottom: 1px solid; }
+  .stabs.light { border-color: #e5e7eb; } .stabs.dark { border-color: #1e3a5f; }
+  .stab { flex: 1; text-align: center; padding: 9px 0; font-size: 11px; font-weight: 500; }
+  .stab-a { color: #0284c7; border-bottom: 2px solid #0284c7; }
+  .stab-i-light { color: #bbb; } .stab-i-dark { color: #334155; }
+  .slist { flex: 1; overflow-y: auto; padding: 12px 13px; display: flex; flex-direction: column; gap: 10px; }
+  .slist.light { background: #f8fafc; } .slist.dark { background: #0a1520; }
+  .scard { border-radius: 16px; padding: 14px 16px; }
+  .scard.light { background: white; border: 0.5px solid #e5e7eb; }
+  .scard.dark { background: #132b3e; border: 0.5px solid #1e3a5f; }
+  .scard.done.light { border-color: #99f6e4; } .scard.done.dark { border-color: #0f766e; }
+  .sname { font-size: 12px; font-weight: 600; }
+  .sname.light { color: #111; } .sname.dark { color: #f0f9ff; }
+  .spill { display: inline-block; font-size: 9px; font-weight: 600; padding: 3px 9px; border-radius: 10px; margin-top: 5px; }
+  .sp-saved { background: #e0f2fe; color: #0369a1; } .sp-plan { background: #fef3c7; color: #92400e; }
+  .smeta { font-size: 9px; color: #94a3b8; margin-top: 4px; }
+  .snote { border-radius: 8px; padding: 6px 9px; margin-top: 8px; font-size: 10px; }
+  .snote.light { background: #f8fafc; color: #94a3b8; } .snote.dark { background: #0e2d40; color: #475569; }
+  .rfbtn { font-size: 9px; font-weight: 500; border-radius: 7px; padding: 4px 9px; margin-top: 8px; display: inline-block; border: 1px solid; cursor: pointer; }
+  .rfbtn.light { color: #06c4b0; border-color: #99f6e4; } .rfbtn.dark { color: #06c4b0; border-color: #0f766e; }
+  .done-row { display: flex; align-items: center; gap: 6px; }
+  .done-check { font-size: 14px; color: #06c4b0; }
+  .clabel { font-size: 10px; font-weight: 600; padding: 4px 0 2px; }
+  .clabel.light { color: #64748b; } .clabel.dark { color: #334155; }
+  .earned-txt { font-size: 10px; color: #fb923c; margin-top: 5px; font-weight: 500; }
+
+  /* GROWTH */
+  .gtop { padding: 20px 18px 18px; text-align: center; background: linear-gradient(140deg, #0284c7 0%, #06c4b0 100%); }
+  .gring { width: 66px; height: 66px; border-radius: 50%; background: white; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 28px; border: 3px solid rgba(255,255,255,0.4); }
+  .gname { font-size: 14px; font-weight: 600; color: white; margin-top: 9px; }
+  .gvibe { font-size: 10px; color: rgba(255,255,255,0.75); margin-top: 3px; }
+  .gbody { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+  .gbody.light { background: #f8fafc; } .gbody.dark { background: #0a1520; }
+  .gsec { border-radius: 16px; padding: 14px 16px; }
+  .gsec.light { background: white; border: 0.5px solid #e5e7eb; }
+  .gsec.dark { background: #132b3e; border: 0.5px solid #1e3a5f; }
+  .gsl { font-size: 10px; font-weight: 600; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .gsl.light { color: #64748b; } .gsl.dark { color: #334155; }
+  .bgrid { display: flex; gap: 10px; flex-wrap: wrap; }
+  .bi { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .bc { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .bc-e { background: #fef3c7; border: 2px solid #fbbf24; }
+  .bc-l { background: #f1f5f9; border: 2px solid #e2e8f0; }
+  .bc-l-dark { background: #1e3a5f; border: 2px solid #334155; }
+  .blbl { font-size: 8px; text-align: center; max-width: 44px; line-height: 1.2; }
+  .blbl.light { color: #64748b; } .blbl.dark { color: #334155; }
+  .skrow { display: flex; align-items: center; gap: 9px; margin-bottom: 7px; }
+  .skn { font-size: 10px; width: 82px; flex-shrink: 0; }
+  .skn.light { color: #64748b; } .skn.dark { color: #475569; }
+  .barbg { flex: 1; height: 6px; border-radius: 3px; }
+  .barbg.light { background: #f1f5f9; } .barbg.dark { background: #1e3a5f; }
+  .barfill { height: 100%; border-radius: 3px; }
+  .tbox { border-radius: 11px; padding: 11px 13px; }
+  .tbox.light { background: #f0f9ff; } .tbox.dark { background: #0e2d40; }
+  .ttxt { font-size: 10px; line-height: 1.6; font-style: italic; }
+  .ttxt.light { color: #0369a1; } .ttxt.dark { color: #7dd3fc; }
+
+  /* PROFILE */
+  .ptop { padding: 28px 18px 22px; text-align: center; background: linear-gradient(140deg, #0284c7, #06c4b0); }
+  .pavatar { width: 64px; height: 64px; border-radius: 50%; background: white; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 26px; border: 3px solid rgba(255,255,255,0.4); }
+  .pname { font-size: 17px; font-weight: 700; color: white; margin-top: 10px; }
+  .pgrade { font-size: 11px; color: rgba(255,255,255,0.75); margin-top: 3px; }
+  .pbody { flex: 1; overflow-y: auto; padding: 14px 13px; display: flex; flex-direction: column; gap: 6px; }
+  .pbody.light { background: #f8fafc; } .pbody.dark { background: #0a1520; }
+  .phead { font-size: 10px; font-weight: 600; padding: 6px 4px 4px; text-transform: uppercase; letter-spacing: 0.6px; }
+  .phead.light { color: #94a3b8; } .phead.dark { color: #334155; }
+  .psec { border-radius: 16px; overflow: hidden; }
+  .psec.light { background: white; border: 0.5px solid #e5e7eb; }
+  .psec.dark { background: #132b3e; border: 0.5px solid #1e3a5f; }
+  .prow { display: flex; justify-content: space-between; align-items: center; padding: 16px 18px; border-bottom: 0.5px solid; }
+  .prow.light { border-color: #f1f5f9; } .prow.dark { border-color: #1e3a5f; }
+  .prow:last-child { border-bottom: none; }
+  .prlabel { font-size: 13px; }
+  .prlabel.light { color: #111; } .prlabel.dark { color: #e2e8f0; }
+  .prval { font-size: 11px; color: #94a3b8; max-width: 140px; text-align: right; }
+  .prarrow { font-size: 14px; color: #cbd5e1; margin-left: 8px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<h1>CommonGround</h1>
+<p class="subtitle">iPhone App Mockup — click tabs to switch screens, toggle dark mode</p>
+
+<div class="controls">
+  <button class="tab-btn active" onclick="show('welcome',this)">Welcome</button>
+  <button class="tab-btn" onclick="show('discover',this)">Discover</button>
+  <button class="tab-btn" onclick="show('saved',this)">Saved</button>
+  <button class="tab-btn" onclick="show('growth',this)">Growth</button>
+  <button class="tab-btn" onclick="show('profile',this)">Profile</button>
+  <div class="divider"></div>
+  <button class="mode-btn" id="modeBtn" onclick="toggleMode()">Dark mode</button>
+</div>
+
+<div class="iphone">
+  <div class="iphone-inner light" id="phone">
+    <div class="notch"><div class="notch-dot"></div><div class="notch-bar"></div><div class="notch-dot"></div></div>
+
+    <!-- WELCOME -->
+    <div class="screen visible" id="screen-welcome">
+      <div class="sbar transparent"><span>9:41</span><span>●●●</span></div>
+      <div class="welcome-grad" style="padding-top:54px;">
+        <div class="wlogo">
+          <svg width="38" height="38" viewBox="0 0 48 48"><rect width="48" height="48" rx="13" fill="#0284c7"/><path d="M7 28 A17 17 0 0 1 41 28Z" fill="#fb923c"/><path d="M13 28 A11 11 0 0 1 35 28Z" fill="#fde68a"/><circle cx="24" cy="28" r="5" fill="white"/><path d="M7 28 A17 17 0 0 0 41 28Z" fill="#06c4b0" opacity="0.4"/><line x1="24" y1="15" x2="24" y2="8" stroke="#fde68a" stroke-width="2" stroke-linecap="round"/><line x1="35" y1="19" x2="38" y2="14" stroke="#fde68a" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/><line x1="13" y1="19" x2="10" y2="14" stroke="#fde68a" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/></svg>
+        </div>
+        <div class="wtitle">CommonGround</div>
+        <div class="wsub">Find opportunities that fit you. Build your future, one experience at a time.</div>
+        <button class="wbtn1">Get Started</button>
+        <button class="wbtn2">Log In</button>
+        <div class="wprev">
+          <div class="wpc"><div class="wpc-t">Volunteer</div><div class="wpc-n">Teen Library Program</div><div class="wpc-s">94% match</div></div>
+          <div class="wpc"><div class="wpc-t">Club</div><div class="wpc-n">Mental Health Awareness</div><div class="wpc-s">91% match</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DISCOVER -->
+    <div class="screen" id="screen-discover">
+      <div class="sbar light" id="disc-sbar"><span>9:41</span><span>●●●</span></div>
+      <div class="dhead light" id="disc-head"><div class="dgreet light" id="disc-greet">Hi Maya, your matches</div><div class="dsub light" id="disc-sub">Ranked by how well they fit you</div></div>
+      <div class="frow light" id="disc-frow">
+        <span class="chip chip-on">All</span>
+        <span class="chip chip-off-light" id="chip1">Volunteer</span>
+        <span class="chip chip-off-light" id="chip2">Online</span>
+        <span class="chip chip-off-light" id="chip3">Free</span>
+      </div>
+      <div class="cscroll light" id="disc-scroll">
+        <div class="ocard featured light" id="oc1">
+          <span class="mpill light" id="mp1">#1 Match</span><span class="mscore">94%</span>
+          <div class="otitle light" id="ot1">Hospital Teen Volunteer</div>
+          <div class="trow"><span class="t tb" id="tt1a">Volunteer</span><span class="t tt" id="tt1b">Local</span><span class="t to" id="tt1c">Free</span></div>
+          <div class="why light" id="w1">"You listed medicine as a career curiosity. This puts you in a real healthcare environment."</div>
+          <div class="cfoot"><div class="skilltxt">Builds: Empathy</div><button class="savebtn">Save</button></div>
+          <div class="bdgtxt">Unlocks: Health Explorer</div>
+        </div>
+        <div class="ocard light" id="oc2">
+          <span class="mpill light" id="mp2">#2 Match</span><span class="mscore">91%</span>
+          <div class="otitle light" id="ot2">Mental Health Awareness Club</div>
+          <div class="trow"><span class="t tb" id="tt2a">Club</span><span class="t to" id="tt2b">Free</span></div>
+          <div class="why light" id="w2">"Mental health is both an interest and a cause you care about."</div>
+          <div class="cfoot"><div class="skilltxt">Builds: Advocacy</div><button class="savebtn">Save</button></div>
+          <div class="bdgtxt">Unlocks: Wellness Advocate</div>
+        </div>
+        <div class="ocard light" id="oc3">
+          <span class="mpill light" id="mp3">#3 Match</span><span class="mscore">87%</span>
+          <div class="otitle light" id="ot3">Teen Library Volunteer</div>
+          <div class="trow"><span class="t tb" id="tt3a">Volunteer</span><span class="t tt" id="tt3b">Local</span><span class="t to" id="tt3c">Free</span></div>
+          <div class="why light" id="w3">"Fits your 3-hour weekly schedule and love of education."</div>
+          <div class="cfoot"><div class="skilltxt">Builds: Communication</div><button class="savebtn">Save</button></div>
+          <div class="bdgtxt">Unlocks: Community Builder</div>
+        </div>
+      </div>
+      <div class="bnav light" id="disc-bnav">
+        <div class="ni ni-off-light" id="ni-d1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="ni-lbl">Home</span></div>
+        <div class="ni ni-on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><span class="ni-lbl">Discover</span></div>
+        <div class="ni ni-off-light" id="ni-d2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg><span class="ni-lbl">Saved</span></div>
+        <div class="ni ni-off-light" id="ni-d3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg><span class="ni-lbl">Growth</span></div>
+        <div class="ni ni-off-light" id="ni-d4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="ni-lbl">Profile</span></div>
+      </div>
+    </div>
+
+    <!-- SAVED -->
+    <div class="screen" id="screen-saved">
+      <div class="sbar light" id="save-sbar"><span>9:41</span><span>●●●</span></div>
+      <div class="shead light" id="save-head">
+        <div class="stitle light" id="save-title">My Opportunities</div>
+        <div class="stabs light" id="save-tabs">
+          <div class="stab stab-a">Saved</div>
+          <div class="stab stab-i-light" id="stab2">Applying</div>
+          <div class="stab stab-i-light" id="stab3">Completed</div>
+        </div>
+      </div>
+      <div class="slist light" id="save-list">
+        <div class="scard light" id="sc1">
+          <div class="sname light" id="sn1">Hospital Teen Volunteer</div>
+          <div class="spill sp-plan">Planning to apply</div>
+          <div class="smeta">Deadline: Rolling · CHOC Children's</div>
+          <div class="snote light" id="snote1">Check if CHOC has weekend spots</div>
+          <div class="rfbtn light" id="rf1">Write reflection</div>
+        </div>
+        <div class="scard light" id="sc2">
+          <div class="sname light" id="sn2">Mental Health Awareness Club</div>
+          <div class="spill sp-saved">Saved</div>
+          <div class="smeta">Deadline: Start of semester</div>
+          <div class="rfbtn light" id="rf2">Write reflection</div>
+        </div>
+        <div class="clabel light" id="clbl">Completed</div>
+        <div class="scard done light" id="sc3">
+          <div class="done-row"><span class="done-check">✓</span><div class="sname light" id="sn3">Teen Library Volunteer</div></div>
+          <div class="smeta">12 hrs logged</div>
+          <div class="earned-txt">Community Builder earned</div>
+        </div>
+      </div>
+      <div class="bnav light" id="save-bnav">
+        <div class="ni ni-off-light" id="ni-s1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="ni-lbl">Home</span></div>
+        <div class="ni ni-off-light" id="ni-s2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><span class="ni-lbl">Discover</span></div>
+        <div class="ni ni-on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg><span class="ni-lbl">Saved</span></div>
+        <div class="ni ni-off-light" id="ni-s3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg><span class="ni-lbl">Growth</span></div>
+        <div class="ni ni-off-light" id="ni-s4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="ni-lbl">Profile</span></div>
+      </div>
+    </div>
+
+    <!-- GROWTH -->
+    <div class="screen" id="screen-growth">
+      <div class="sbar transparent"><span>9:41</span><span>●●●</span></div>
+      <div class="gtop" style="padding-top:46px;">
+        <div class="gring">🌱</div>
+        <div class="gname">Maya's Explorer</div>
+        <div class="gvibe">Helper · Grade 10 · Orange County</div>
+      </div>
+      <div class="gbody light" id="g-body">
+        <div class="gsec light" id="gs1"><div class="gsl light" id="gsl1">Badges</div><div class="bgrid"><div class="bi"><div class="bc bc-e">🏥</div><div class="blbl light" id="bl1">Health Explorer</div></div><div class="bi"><div class="bc bc-e">🤝</div><div class="blbl light" id="bl2">Community Builder</div></div><div class="bi"><div class="bc bc-e">💚</div><div class="blbl light" id="bl3">Wellness Advocate</div></div><div class="bi"><div class="bc bc-l" id="bcl1" style="font-size:14px;color:#cbd5e1;">🔒</div><div class="blbl light" id="bl4">STEM Explorer</div></div><div class="bi"><div class="bc bc-l" id="bcl2" style="font-size:14px;color:#cbd5e1;">🔒</div><div class="blbl light" id="bl5">Story Builder</div></div></div></div>
+        <div class="gsec light" id="gs2"><div class="gsl light" id="gsl2">Skills Developing</div><div class="skrow"><div class="skn light" id="sk1">Service</div><div class="barbg light" id="bb1"><div class="barfill" style="width:75%;background:#06c4b0;"></div></div></div><div class="skrow"><div class="skn light" id="sk2">Empathy</div><div class="barbg light" id="bb2"><div class="barfill" style="width:60%;background:#0284c7;"></div></div></div><div class="skrow"><div class="skn light" id="sk3">Advocacy</div><div class="barbg light" id="bb3"><div class="barfill" style="width:40%;background:#fb923c;"></div></div></div><div class="skrow"><div class="skn light" id="sk4">Leadership</div><div class="barbg light" id="bb4"><div class="barfill" style="width:20%;background:#fbbf24;"></div></div></div></div>
+        <div class="gsec light" id="gs3"><div class="gsl light" id="gsl3">Your Story</div><div class="tbox light" id="tbox"><div class="ttxt light" id="ttxt">"Your pattern shows healthcare, advocacy, and community. You're building a story around helping people."</div></div></div>
+      </div>
+      <div class="bnav light" id="g-bnav">
+        <div class="ni ni-off-light" id="ni-g1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="ni-lbl">Home</span></div>
+        <div class="ni ni-off-light" id="ni-g2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><span class="ni-lbl">Discover</span></div>
+        <div class="ni ni-off-light" id="ni-g3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg><span class="ni-lbl">Saved</span></div>
+        <div class="ni ni-on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg><span class="ni-lbl">Growth</span></div>
+        <div class="ni ni-off-light" id="ni-g4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="ni-lbl">Profile</span></div>
+      </div>
+    </div>
+
+    <!-- PROFILE -->
+    <div class="screen" id="screen-profile">
+      <div class="sbar transparent"><span>9:41</span><span>●●●</span></div>
+      <div class="ptop" style="padding-top:46px;">
+        <div class="pavatar">🌱</div>
+        <div class="pname">Maya</div>
+        <div class="pgrade">Grade 10 · Orange County, CA</div>
+      </div>
+      <div class="pbody light" id="p-body">
+        <div class="phead light" id="ph1">My Info</div>
+        <div class="psec light" id="ps1">
+          <div class="prow light" id="pr1"><span class="prlabel light" id="prl1">Grade</span><span class="prval">10th</span><span class="prarrow">›</span></div>
+          <div class="prow light" id="pr2"><span class="prlabel light" id="prl2">Location</span><span class="prval">Orange County, CA</span><span class="prarrow">›</span></div>
+          <div class="prow light" id="pr3"><span class="prlabel light" id="prl3">School</span><span class="prval">Add school</span><span class="prarrow">›</span></div>
+        </div>
+        <div class="phead light" id="ph2">Interests & Goals</div>
+        <div class="psec light" id="ps2">
+          <div class="prow light" id="pr4"><span class="prlabel light" id="prl4">Interests</span><span class="prval">Biology, Writing, Mental Health</span><span class="prarrow">›</span></div>
+          <div class="prow light" id="pr5"><span class="prlabel light" id="prl5">Activity Types</span><span class="prval">Volunteer, Club</span><span class="prarrow">›</span></div>
+          <div class="prow light" id="pr6"><span class="prlabel light" id="prl6">Availability</span><span class="prval">3 hrs/week · weekends</span><span class="prarrow">›</span></div>
+        </div>
+        <div class="phead light" id="ph3">Preferences</div>
+        <div class="psec light" id="ps3">
+          <div class="prow light" id="pr7"><span class="prlabel light" id="prl7">Location</span><span class="prval">Both</span><span class="prarrow">›</span></div>
+          <div class="prow light" id="pr8"><span class="prlabel light" id="prl8">Budget</span><span class="prval">Free only</span><span class="prarrow">›</span></div>
+          <div class="prow light" id="pr9"><span class="prlabel light" id="prl9">Experience</span><span class="prval">Beginner</span><span class="prarrow">›</span></div>
+        </div>
+        <div class="phead light" id="ph4">App</div>
+        <div class="psec light" id="ps4">
+          <div class="prow light" id="pr10"><span class="prlabel light" id="prl10">Appearance</span><span class="prval" id="appearance-val">Light mode</span><span class="prarrow">›</span></div>
+          <div class="prow light" id="pr11"><span class="prlabel light" id="prl11">Notifications</span><span class="prval">On</span><span class="prarrow">›</span></div>
+        </div>
+      </div>
+      <div class="bnav light" id="p-bnav">
+        <div class="ni ni-off-light" id="ni-p1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="ni-lbl">Home</span></div>
+        <div class="ni ni-off-light" id="ni-p2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><span class="ni-lbl">Discover</span></div>
+        <div class="ni ni-off-light" id="ni-p3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg><span class="ni-lbl">Saved</span></div>
+        <div class="ni ni-off-light" id="ni-p4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg><span class="ni-lbl">Growth</span></div>
+        <div class="ni ni-on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="ni-lbl">Profile</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+let isDark = false;
+function show(name, btn) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('visible'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('visible');
+  btn.classList.add('active');
+}
+function toggleMode() {
+  isDark = !isDark;
+  const phone = document.getElementById('phone');
+  const btn = document.getElementById('modeBtn');
+  if (isDark) {
+    phone.classList.replace('light','dark'); btn.textContent='Light mode';
+    btn.style.cssText='background:#0e1f2e;color:#38bdf8;border-color:#1e3a5f;';
+    applyDark(); document.getElementById('appearance-val').textContent='Dark mode';
+  } else {
+    phone.classList.replace('dark','light'); btn.textContent='Dark mode';
+    btn.style.cssText='background:white;color:#334155;border-color:#334155;';
+    applyLight(); document.getElementById('appearance-val').textContent='Light mode';
+  }
+}
+function m(id,cls){const e=document.getElementById(id);if(e)e.className=cls;}
+function applyDark(){
+  m('disc-sbar','sbar dark-bar');m('disc-head','dhead dark');m('disc-greet','dgreet dark');m('disc-sub','dsub dark');m('disc-frow','frow dark');m('disc-scroll','cscroll dark');m('disc-bnav','bnav dark');
+  m('oc1','ocard featured dark');m('oc2','ocard dark');m('oc3','ocard dark');
+  ['mp1','mp2','mp3'].forEach(id=>m(id,'mpill dark'));['ot1','ot2','ot3'].forEach(id=>m(id,'otitle dark'));
+  ['tt1a','tt2a','tt3a'].forEach(id=>m(id,'t tb-d'));['tt1b','tt3b'].forEach(id=>m(id,'t tt-d'));['tt1c','tt2b','tt3c'].forEach(id=>m(id,'t to-d'));
+  ['w1','w2','w3'].forEach(id=>m(id,'why dark'));['ni-d1','ni-d2','ni-d3','ni-d4'].forEach(id=>m(id,'ni ni-off-dark'));
+  m('save-sbar','sbar dark-bar');m('save-head','shead dark');m('save-title','stitle dark');m('save-tabs','stabs dark');m('stab2','stab stab-i-dark');m('stab3','stab stab-i-dark');m('save-list','slist dark');
+  m('sc1','scard dark');m('sc2','scard dark');m('sc3','scard done dark');
+  ['sn1','sn2','sn3'].forEach(id=>m(id,'sname dark'));m('snote1','snote dark');['rf1','rf2'].forEach(id=>m(id,'rfbtn dark'));m('clbl','clabel dark');m('save-bnav','bnav dark');['ni-s1','ni-s2','ni-s3','ni-s4'].forEach(id=>m(id,'ni ni-off-dark'));
+  m('g-body','gbody dark');m('g-bnav','bnav dark');['gs1','gs2','gs3'].forEach(id=>m(id,'gsec dark'));['gsl1','gsl2','gsl3'].forEach(id=>m(id,'gsl dark'));['bl1','bl2','bl3','bl4','bl5'].forEach(id=>m(id,'blbl dark'));
+  document.getElementById('bcl1').className='bc bc-l-dark';document.getElementById('bcl1').style.cssText='font-size:14px;color:#334155;';
+  document.getElementById('bcl2').className='bc bc-l-dark';document.getElementById('bcl2').style.cssText='font-size:14px;color:#334155;';
+  ['sk1','sk2','sk3','sk4'].forEach(id=>m(id,'skn dark'));['bb1','bb2','bb3','bb4'].forEach(id=>m(id,'barbg dark'));m('tbox','tbox dark');m('ttxt','ttxt dark');['ni-g1','ni-g2','ni-g3','ni-g4'].forEach(id=>m(id,'ni ni-off-dark'));
+  m('p-body','pbody dark');m('p-bnav','bnav dark');['ph1','ph2','ph3','ph4'].forEach(id=>m(id,'phead dark'));['ps1','ps2','ps3','ps4'].forEach(id=>m(id,'psec dark'));
+  for(let i=1;i<=11;i++){m('pr'+i,'prow dark');m('prl'+i,'prlabel dark');}['ni-p1','ni-p2','ni-p3','ni-p4'].forEach(id=>m(id,'ni ni-off-dark'));
+}
+function applyLight(){
+  m('disc-sbar','sbar light');m('disc-head','dhead light');m('disc-greet','dgreet light');m('disc-sub','dsub light');m('disc-frow','frow light');m('disc-scroll','cscroll light');m('disc-bnav','bnav light');
+  m('oc1','ocard featured light');m('oc2','ocard light');m('oc3','ocard light');
+  ['mp1','mp2','mp3'].forEach(id=>m(id,'mpill light'));['ot1','ot2','ot3'].forEach(id=>m(id,'otitle light'));
+  ['tt1a','tt2a','tt3a'].forEach(id=>m(id,'t tb'));['tt1b','tt3b'].forEach(id=>m(id,'t tt'));['tt1c','tt2b','tt3c'].forEach(id=>m(id,'t to'));
+  ['w1','w2','w3'].forEach(id=>m(id,'why light'));['ni-d1','ni-d2','ni-d3','ni-d4'].forEach(id=>m(id,'ni ni-off-light'));
+  m('save-sbar','sbar light');m('save-head','shead light');m('save-title','stitle light');m('save-tabs','stabs light');m('stab2','stab stab-i-light');m('stab3','stab stab-i-light');m('save-list','slist light');
+  m('sc1','scard light');m('sc2','scard light');m('sc3','scard done light');
+  ['sn1','sn2','sn3'].forEach(id=>m(id,'sname light'));m('snote1','snote light');['rf1','rf2'].forEach(id=>m(id,'rfbtn light'));m('clbl','clabel light');m('save-bnav','bnav light');['ni-s1','ni-s2','ni-s3','ni-s4'].forEach(id=>m(id,'ni ni-off-light'));
+  m('g-body','gbody light');m('g-bnav','bnav light');['gs1','gs2','gs3'].forEach(id=>m(id,'gsec light'));['gsl1','gsl2','gsl3'].forEach(id=>m(id,'gsl light'));['bl1','bl2','bl3','bl4','bl5'].forEach(id=>m(id,'blbl light'));
+  document.getElementById('bcl1').className='bc bc-l';document.getElementById('bcl1').style.cssText='font-size:14px;color:#cbd5e1;';
+  document.getElementById('bcl2').className='bc bc-l';document.getElementById('bcl2').style.cssText='font-size:14px;color:#cbd5e1;';
+  ['sk1','sk2','sk3','sk4'].forEach(id=>m(id,'skn light'));['bb1','bb2','bb3','bb4'].forEach(id=>m(id,'barbg light'));m('tbox','tbox light');m('ttxt','ttxt light');['ni-g1','ni-g2','ni-g3','ni-g4'].forEach(id=>m(id,'ni ni-off-light'));
+  m('p-body','pbody light');m('p-bnav','bnav light');['ph1','ph2','ph3','ph4'].forEach(id=>m(id,'phead light'));['ps1','ps2','ps3','ps4'].forEach(id=>m(id,'psec light'));
+  for(let i=1;i<=11;i++){m('pr'+i,'prow light');m('prl'+i,'prlabel light');}['ni-p1','ni-p2','ni-p3','ni-p4'].forEach(id=>m(id,'ni ni-off-light'));
+}
+</script>
+</body>
+</html>

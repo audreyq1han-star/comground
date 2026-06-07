@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CommonGround — Brand Guide</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f9fafb; color: #111; padding: 48px 40px; max-width: 900px; margin: 0 auto; transition: background 0.2s, color 0.2s; }
+  body.dark { background: #0e1f2e; color: #f0f9ff; }
+  body.dark .divider { border-color: #1e3a5f; }
+  body.dark .logo-box { background: #0e1f2e; border-color: #1e3a5f; }
+  body.dark .color-card { background: #132b3e; border-color: #1e3a5f; }
+  body.dark .color-name { color: #f0f9ff; }
+  body.dark .color-hex { color: #38bdf8; }
+  body.dark .color-use { color: #64748b; }
+  body.dark .type-card { background: #132b3e; border-color: #1e3a5f; }
+  body.dark .type-sample-h2 { color: #f0f9ff; }
+  body.dark .type-sample-body { color: #94a3b8; }
+  body.dark .type-sample-small { color: #64748b; }
+  body.dark .opp-card { background: #132b3e; border-color: #1e3a5f; }
+  body.dark .opp-card.featured { border-color: #06c4b0; }
+  body.dark .opp-name { color: #f0f9ff; }
+  body.dark .match-badge { background: #0e3a5a; color: #38bdf8; }
+  body.dark .why-box { background: #0e3a5a; color: #7dd3fc; }
+  body.dark .badge-chip { background: #132b3e; border-color: #1e3a5f; color: #f0f9ff; }
+  body.dark .btn-outline { color: #38bdf8; border-color: #38bdf8; }
+  body.dark .btn-ghost { background: #0e3a5a; color: #38bdf8; }
+  body.dark footer { color: #1e3a5f; }
+
+  .mode-toggle { position: fixed; top: 20px; right: 24px; display: flex; align-items: center; gap: 8px; background: white; border: 1px solid #e5e7eb; border-radius: 24px; padding: 6px 14px; cursor: pointer; font-size: 12px; font-weight: 500; color: #444; box-shadow: 0 1px 4px rgba(0,0,0,0.08); transition: background 0.2s, color 0.2s, border-color 0.2s; z-index: 100; user-select: none; }
+  body.dark .mode-toggle { background: #132b3e; border-color: #1e3a5f; color: #94a3b8; }
+
+  h1 { font-size: 28px; font-weight: 700; color: #0284c7; letter-spacing: -0.5px; }
+  .tagline { font-size: 14px; color: #666; margin-top: 4px; }
+  .divider { border: none; border-top: 1px solid #e5e7eb; margin: 36px 0; }
+  .section-title { font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: #999; margin-bottom: 20px; }
+
+  /* Logo section */
+  .logo-row { display: flex; gap: 24px; flex-wrap: wrap; align-items: flex-start; margin-bottom: 12px; }
+  .logo-box { background: white; border: 1px solid #e5e7eb; border-radius: 16px; padding: 32px; display: flex; align-items: center; justify-content: center; flex: 1; min-width: 180px; }
+  .logo-box.dark { background: #0e1f2e; }
+  .logo-label { font-size: 11px; color: #999; text-align: center; margin-top: 8px; }
+
+  /* Color palette */
+  .palette { display: flex; border-radius: 16px; overflow: hidden; height: 80px; margin-bottom: 16px; }
+  .color-swatch { flex: 1; }
+  .color-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .color-card { background: white; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; }
+  .color-block { height: 60px; }
+  .color-info { padding: 10px 12px; }
+  .color-name { font-size: 11px; font-weight: 600; color: #111; }
+  .color-hex { font-size: 10px; color: #888; font-family: 'Courier New', monospace; margin-top: 2px; }
+  .color-use { font-size: 10px; color: #aaa; margin-top: 3px; line-height: 1.3; }
+
+  /* Typography */
+  .type-row { display: flex; gap: 20px; flex-wrap: wrap; }
+  .type-card { background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px 24px; flex: 1; min-width: 200px; }
+  .type-label { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+  .type-sample-h1 { font-size: 26px; font-weight: 700; color: #0284c7; letter-spacing: -0.3px; line-height: 1.2; }
+  .type-sample-h2 { font-size: 18px; font-weight: 600; color: #111; margin-top: 8px; }
+  .type-sample-body { font-size: 14px; color: #444; margin-top: 8px; line-height: 1.6; }
+  .type-sample-small { font-size: 11px; color: #888; margin-top: 6px; }
+
+  /* Buttons */
+  .button-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .btn { padding: 10px 22px; border-radius: 24px; font-size: 13px; font-weight: 600; border: none; cursor: default; display: inline-block; }
+  .btn-primary { background: #0284c7; color: white; }
+  .btn-secondary { background: #06c4b0; color: white; }
+  .btn-outline { background: transparent; color: #0284c7; border: 2px solid #0284c7; }
+  .btn-coral { background: #fb923c; color: white; }
+  .btn-ghost { background: #f0f9ff; color: #0284c7; }
+
+  /* Cards */
+  .card-row { display: flex; gap: 16px; flex-wrap: wrap; }
+  .opp-card { background: white; border: 1px solid #e5e7eb; border-radius: 16px; padding: 16px 18px; flex: 1; min-width: 220px; }
+  .opp-card.featured { border: 2px solid #0284c7; }
+  .match-badge { display: inline-flex; align-items: center; gap: 4px; background: #f0f9ff; color: #0284c7; font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 8px; margin-bottom: 8px; }
+  .opp-name { font-size: 14px; font-weight: 600; color: #111; }
+  .opp-tags { display: flex; gap: 5px; margin-top: 6px; flex-wrap: wrap; }
+  .tag { font-size: 10px; padding: 2px 8px; border-radius: 6px; font-weight: 500; }
+  .tag-blue { background: #e0f2fe; color: #0369a1; }
+  .tag-teal { background: #ccfbf1; color: #0f766e; }
+  .tag-coral { background: #ffedd5; color: #c2410c; }
+  .why-box { background: #f0f9ff; border-radius: 8px; padding: 8px 10px; margin-top: 8px; font-size: 11px; color: #0369a1; line-height: 1.5; font-style: italic; }
+  .badge-preview { font-size: 10px; color: #f97316; margin-top: 8px; font-weight: 500; }
+
+  /* Badge chips */
+  .badge-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .badge-chip { display: flex; align-items: center; gap: 6px; background: white; border: 1px solid #e5e7eb; border-radius: 20px; padding: 6px 14px; font-size: 11px; font-weight: 500; color: #111; }
+  .badge-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  footer { margin-top: 48px; font-size: 11px; color: #bbb; text-align: center; }
+</style>
+</head>
+<body>
+<div class="mode-toggle" onclick="document.body.classList.toggle('dark'); this.textContent = document.body.classList.contains('dark') ? '☀ Light mode' : '☽ Dark mode'">☽ Dark mode</div>
+
+<!-- Header -->
+<div style="display:flex; align-items:center; gap:16px; margin-bottom:8px;">
+  <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+    <rect width="48" height="48" rx="13" fill="#0284c7"/>
+    <line x1="6" y1="28" x2="42" y2="28" stroke="#38bdf8" stroke-width="1" opacity="0.5"/>
+    <path d="M7 28 A17 17 0 0 1 41 28Z" fill="#fb923c"/>
+    <path d="M13 28 A11 11 0 0 1 35 28Z" fill="#fdba74"/>
+    <circle cx="24" cy="28" r="5" fill="#fde68a"/>
+    <path d="M7 28 A17 17 0 0 0 41 28Z" fill="#06c4b0" opacity="0.4"/>
+    <path d="M13 28 A11 11 0 0 0 35 28Z" fill="#06c4b0" opacity="0.25"/>
+    <line x1="6" y1="35" x2="42" y2="35" stroke="#06c4b0" stroke-width="0.8" opacity="0.3"/>
+    <line x1="6" y1="41" x2="42" y2="41" stroke="#06c4b0" stroke-width="0.6" opacity="0.15"/>
+    <line x1="24" y1="15" x2="24" y2="8" stroke="#fde68a" stroke-width="2" stroke-linecap="round"/>
+    <line x1="35" y1="19" x2="38" y2="14" stroke="#fde68a" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/>
+    <line x1="13" y1="19" x2="10" y2="14" stroke="#fde68a" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/>
+    <line x1="39" y1="25" x2="43" y2="23" stroke="#fde68a" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+    <line x1="9" y1="25" x2="5" y2="23" stroke="#fde68a" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+  </svg>
+  <div>
+    <h1>CommonGround</h1>
+    <div class="tagline">Find opportunities that fit you. Build your future, one experience at a time.</div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- Logo -->
+<div class="section-title">Logo</div>
+<div class="logo-row">
+  <div>
+    <div class="logo-box">
+      <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100" height="100" rx="26" fill="#0284c7"/>
+        <line x1="12" y1="58" x2="88" y2="58" stroke="#38bdf8" stroke-width="1.2" opacity="0.5"/>
+        <path d="M14 58 A36 36 0 0 1 86 58Z" fill="#fb923c"/>
+        <path d="M24 58 A26 26 0 0 1 76 58Z" fill="#fdba74"/>
+        <path d="M34 58 A16 16 0 0 1 66 58Z" fill="#fde68a"/>
+        <circle cx="50" cy="58" r="8" fill="white"/>
+        <path d="M14 58 A36 36 0 0 0 86 58Z" fill="#06c4b0" opacity="0.4"/>
+        <path d="M24 58 A26 26 0 0 0 76 58Z" fill="#06c4b0" opacity="0.25"/>
+        <path d="M34 58 A16 16 0 0 0 66 58Z" fill="#06c4b0" opacity="0.15"/>
+        <line x1="12" y1="71" x2="88" y2="71" stroke="#06c4b0" stroke-width="0.9" opacity="0.28"/>
+        <line x1="12" y1="82" x2="88" y2="82" stroke="#06c4b0" stroke-width="0.7" opacity="0.15"/>
+        <line x1="50" y1="32" x2="50" y2="18" stroke="#fde68a" stroke-width="2.8" stroke-linecap="round"/>
+        <line x1="72" y1="40" x2="78" y2="30" stroke="#fde68a" stroke-width="2.2" stroke-linecap="round" opacity="0.85"/>
+        <line x1="28" y1="40" x2="22" y2="30" stroke="#fde68a" stroke-width="2.2" stroke-linecap="round" opacity="0.85"/>
+        <line x1="82" y1="52" x2="90" y2="49" stroke="#fde68a" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+        <line x1="18" y1="52" x2="10" y2="49" stroke="#fde68a" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+      </svg>
+    </div>
+    <div class="logo-label">Primary — light background</div>
+  </div>
+  <div>
+    <div class="logo-box dark">
+      <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100" height="100" rx="26" fill="#0284c7"/>
+        <line x1="12" y1="58" x2="88" y2="58" stroke="#38bdf8" stroke-width="1.2" opacity="0.5"/>
+        <path d="M14 58 A36 36 0 0 1 86 58Z" fill="#fb923c"/>
+        <path d="M24 58 A26 26 0 0 1 76 58Z" fill="#fdba74"/>
+        <path d="M34 58 A16 16 0 0 1 66 58Z" fill="#fde68a"/>
+        <circle cx="50" cy="58" r="8" fill="white"/>
+        <path d="M14 58 A36 36 0 0 0 86 58Z" fill="#06c4b0" opacity="0.4"/>
+        <path d="M24 58 A26 26 0 0 0 76 58Z" fill="#06c4b0" opacity="0.25"/>
+        <line x1="12" y1="71" x2="88" y2="71" stroke="#06c4b0" stroke-width="0.9" opacity="0.28"/>
+        <line x1="50" y1="32" x2="50" y2="18" stroke="#fde68a" stroke-width="2.8" stroke-linecap="round"/>
+        <line x1="72" y1="40" x2="78" y2="30" stroke="#fde68a" stroke-width="2.2" stroke-linecap="round" opacity="0.85"/>
+        <line x1="28" y1="40" x2="22" y2="30" stroke="#fde68a" stroke-width="2.2" stroke-linecap="round" opacity="0.85"/>
+      </svg>
+    </div>
+    <div class="logo-label">Primary — dark background</div>
+  </div>
+  <div style="flex:2; min-width:240px;">
+    <div class="logo-box" style="justify-content:flex-start; gap:18px;">
+      <svg width="56" height="56" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+        <rect width="56" height="56" rx="15" fill="#0284c7"/>
+        <line x1="7" y1="33" x2="49" y2="33" stroke="#38bdf8" stroke-width="0.9" opacity="0.5"/>
+        <path d="M8 33 A20 20 0 0 1 48 33Z" fill="#fb923c"/>
+        <path d="M15 33 A13 13 0 0 1 41 33Z" fill="#fdba74"/>
+        <circle cx="28" cy="33" r="5" fill="#fde68a"/>
+        <path d="M8 33 A20 20 0 0 0 48 33Z" fill="#06c4b0" opacity="0.4"/>
+        <path d="M15 33 A13 13 0 0 0 41 33Z" fill="#06c4b0" opacity="0.22"/>
+        <line x1="7" y1="41" x2="49" y2="41" stroke="#06c4b0" stroke-width="0.7" opacity="0.25"/>
+        <line x1="28" y1="19" x2="28" y2="11" stroke="#fde68a" stroke-width="2" stroke-linecap="round"/>
+        <line x1="40" y1="23" x2="44" y2="17" stroke="#fde68a" stroke-width="1.6" stroke-linecap="round" opacity="0.85"/>
+        <line x1="16" y1="23" x2="12" y2="17" stroke="#fde68a" stroke-width="1.6" stroke-linecap="round" opacity="0.85"/>
+      </svg>
+      <div>
+        <div style="font-size:22px; font-weight:700; color:#0284c7; letter-spacing:-0.3px;">CommonGround</div>
+        <div style="font-size:11px; color:#888; margin-top:3px;">Find opportunities that fit you.</div>
+      </div>
+    </div>
+    <div class="logo-label">Horizontal lockup</div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- Color Palette -->
+<div class="section-title">Color Palette</div>
+<div class="palette">
+  <div class="color-swatch" style="background:#0284c7;"></div>
+  <div class="color-swatch" style="background:#06c4b0;"></div>
+  <div class="color-swatch" style="background:#38bdf8;"></div>
+  <div class="color-swatch" style="background:#fb923c;"></div>
+  <div class="color-swatch" style="background:#fde68a;"></div>
+</div>
+<div class="color-grid">
+  <div class="color-card">
+    <div class="color-block" style="background:#0284c7;"></div>
+    <div class="color-info">
+      <div class="color-name">Ocean Blue</div>
+      <div class="color-hex">#0284c7</div>
+      <div class="color-use">Primary brand color. Backgrounds, nav, headers.</div>
+    </div>
+  </div>
+  <div class="color-card">
+    <div class="color-block" style="background:#06c4b0;"></div>
+    <div class="color-info">
+      <div class="color-name">Bright Teal</div>
+      <div class="color-hex">#06c4b0</div>
+      <div class="color-use">Secondary. Buttons, badges, highlights, reflection.</div>
+    </div>
+  </div>
+  <div class="color-card">
+    <div class="color-block" style="background:#38bdf8;"></div>
+    <div class="color-info">
+      <div class="color-name">Sky Blue</div>
+      <div class="color-hex">#38bdf8</div>
+      <div class="color-use">Light accents, hover states, cards.</div>
+    </div>
+  </div>
+  <div class="color-card">
+    <div class="color-block" style="background:#fb923c;"></div>
+    <div class="color-info">
+      <div class="color-name">Sunrise Coral</div>
+      <div class="color-hex">#fb923c</div>
+      <div class="color-use">Accent. CTAs, badges, highlights, warmth.</div>
+    </div>
+  </div>
+  <div class="color-card">
+    <div class="color-block" style="background:#fde68a;"></div>
+    <div class="color-info">
+      <div class="color-name">Golden Sun</div>
+      <div class="color-hex">#fde68a</div>
+      <div class="color-use">Rays, badges, warm details, progress.</div>
+    </div>
+  </div>
+</div>
+<div style="display:flex; gap:12px; margin-top:12px;">
+  <div class="color-card" style="flex:1;">
+    <div class="color-block" style="background:#f0f9ff;"></div>
+    <div class="color-info">
+      <div class="color-name">Cloud White</div>
+      <div class="color-hex">#f0f9ff</div>
+      <div class="color-use">Page backgrounds, card backgrounds.</div>
+    </div>
+  </div>
+  <div class="color-card" style="flex:1;">
+    <div class="color-block" style="background:#0e1f2e;"></div>
+    <div class="color-info">
+      <div class="color-name">Deep Navy</div>
+      <div class="color-hex">#0e1f2e</div>
+      <div class="color-use">Dark mode backgrounds, text on light.</div>
+    </div>
+  </div>
+  <div class="color-card" style="flex:1;">
+    <div class="color-block" style="background:#64748b;"></div>
+    <div class="color-info">
+      <div class="color-name">Slate</div>
+      <div class="color-hex">#64748b</div>
+      <div class="color-use">Body text, labels, secondary info.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- Typography -->
+<div class="section-title">Typography</div>
+<div class="type-row">
+  <div class="type-card">
+    <div class="type-label">Headings — Inter or SF Pro Display</div>
+    <div class="type-sample-h1">CommonGround</div>
+    <div class="type-sample-h2">Find your match</div>
+  </div>
+  <div class="type-card">
+    <div class="type-label">Body — Inter or System Font</div>
+    <div class="type-sample-body">This matches you because you selected biology, mental health, and community service as your top interests.</div>
+    <div class="type-sample-small">Deadline: Rolling · Free · Beginner-friendly</div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- Buttons -->
+<div class="section-title">Buttons</div>
+<div class="button-row">
+  <div>
+    <div class="btn btn-primary">Get Started</div>
+    <div style="font-size:10px;color:#aaa;margin-top:6px;text-align:center;">Primary</div>
+  </div>
+  <div>
+    <div class="btn btn-secondary">Save Opportunity</div>
+    <div style="font-size:10px;color:#aaa;margin-top:6px;text-align:center;">Secondary</div>
+  </div>
+  <div>
+    <div class="btn btn-coral">Find My Matches</div>
+    <div style="font-size:10px;color:#aaa;margin-top:6px;text-align:center;">CTA / Coral</div>
+  </div>
+  <div>
+    <div class="btn btn-outline">Log In</div>
+    <div style="font-size:10px;color:#aaa;margin-top:6px;text-align:center;">Outline</div>
+  </div>
+  <div>
+    <div class="btn btn-ghost">Learn More</div>
+    <div style="font-size:10px;color:#aaa;margin-top:6px;text-align:center;">Ghost</div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- Cards -->
+<div class="section-title">Opportunity Cards</div>
+<div class="card-row">
+  <div class="opp-card featured">
+    <div class="match-badge">🏆 #1 Match — 94%</div>
+    <div class="opp-name">Hospital Teen Volunteer</div>
+    <div class="opp-tags">
+      <span class="tag tag-blue">Volunteer</span>
+      <span class="tag tag-teal">Local</span>
+      <span class="tag tag-coral">Free</span>
+    </div>
+    <div class="why-box">"You listed medicine as a career curiosity. This puts you in a real healthcare environment."</div>
+    <div class="badge-preview">🏅 Unlocks: Health Explorer</div>
+  </div>
+  <div class="opp-card">
+    <div class="match-badge">#2 Match — 91%</div>
+    <div class="opp-name">Mental Health Awareness Club</div>
+    <div class="opp-tags">
+      <span class="tag tag-blue">Club</span>
+      <span class="tag tag-coral">Free</span>
+    </div>
+    <div class="why-box">"Mental health is both an interest and a cause you care about deeply."</div>
+    <div class="badge-preview">🏅 Unlocks: Wellness Advocate</div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- Badges -->
+<div class="section-title">Badges</div>
+<div class="badge-row">
+  <div class="badge-chip"><div class="badge-dot" style="background:#fb923c;"></div>Community Builder</div>
+  <div class="badge-chip"><div class="badge-dot" style="background:#06c4b0;"></div>Health Explorer</div>
+  <div class="badge-chip"><div class="badge-dot" style="background:#0284c7;"></div>STEM Explorer</div>
+  <div class="badge-chip"><div class="badge-dot" style="background:#fde68a;"></div>Young Entrepreneur</div>
+  <div class="badge-chip"><div class="badge-dot" style="background:#f472b6;"></div>Wellness Advocate</div>
+  <div class="badge-chip"><div class="badge-dot" style="background:#a78bfa;"></div>Story Builder</div>
+  <div class="badge-chip"><div class="badge-dot" style="background:#34d399;"></div>Future Researcher</div>
+  <div class="badge-chip"><div class="badge-dot" style="background:#f97316;"></div>Civic Leader</div>
+</div>
+
+<footer>CommonGround · Brand Guide v1.0 · 2026</footer>
+
+</body>
+</html>
