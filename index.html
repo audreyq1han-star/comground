@@ -36,7 +36,7 @@
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
     padding: 16px 40px;
-    background: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,0.92);
     backdrop-filter: blur(12px);
     border-bottom: 0.5px solid var(--border);
   }
@@ -46,6 +46,7 @@
   .nav-link { font-size: 14px; color: var(--muted); text-decoration: none; }
   .nav-link:hover { color: var(--blue); }
   .nav-cta { background: var(--blue); color: white; border: none; border-radius: 22px; padding: 9px 22px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; }
+  .nav-cta:hover { background: #0369a1; }
 
   /* HERO */
   .hero {
@@ -57,19 +58,20 @@
     position: relative; overflow: hidden;
   }
   .hero-glow {
-    position: absolute; width: 600px; height: 600px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(6,196,176,0.12) 0%, transparent 70%);
+    position: absolute; width: 700px; height: 700px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(6,196,176,0.1) 0%, transparent 70%);
     top: 50%; left: 50%; transform: translate(-50%, -50%);
     pointer-events: none;
   }
-  .hero-content { position: relative; z-index: 1; max-width: 680px; }
+  .hero-content { position: relative; z-index: 1; max-width: 700px; }
   .hero-badge {
     display: inline-flex; align-items: center; gap: 6px;
     background: rgba(2,132,199,0.1); color: var(--blue);
     font-size: 12px; font-weight: 600; padding: 5px 14px; border-radius: 20px;
     margin-bottom: 24px; letter-spacing: 0.3px;
   }
-  .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); }
+  .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
   h1 {
     font-size: clamp(36px, 6vw, 64px);
     font-weight: 800; color: var(--dark);
@@ -78,9 +80,9 @@
   }
   h1 span { color: var(--blue); }
   .hero-sub {
-    font-size: clamp(16px, 2vw, 20px);
-    color: var(--muted); line-height: 1.6;
-    max-width: 520px; margin: 0 auto 36px;
+    font-size: clamp(16px, 2vw, 19px);
+    color: var(--muted); line-height: 1.65;
+    max-width: 540px; margin: 0 auto 36px;
   }
   .hero-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
   .btn-hero-primary {
@@ -101,40 +103,90 @@
   /* PHONE PREVIEW */
   .phone-preview {
     margin-top: 64px;
-    display: flex; justify-content: center;
-    position: relative;
+    display: flex; justify-content: center; gap: 20px;
+    align-items: flex-start; flex-wrap: wrap;
+  }
+  .phone-wrap { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .phone-label {
+    font-size: 11px; font-weight: 600; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.8px;
+    background: rgba(255,255,255,0.7); border-radius: 8px; padding: 4px 10px;
   }
   .phone-frame {
-    width: 240px; height: 480px; background: var(--dark);
-    border-radius: 36px; padding: 10px;
-    box-shadow: 0 32px 80px rgba(14,31,46,0.35), 0 0 0 1px #2a3a4a;
+    width: 210px; height: 430px; background: #1a1a2e;
+    border-radius: 36px; padding: 8px;
+    box-shadow: 0 32px 80px rgba(14,31,46,0.3), 0 0 0 1px #2a3a4a;
   }
-  .phone-screen {
-    width: 100%; height: 100%; background: linear-gradient(170deg, #0284c7, #06c4b0 60%, #fde68a);
-    border-radius: 28px; overflow: hidden; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; text-align: center; padding: 20px;
+  .phone-screen-welcome {
+    width: 100%; height: 100%;
+    background: linear-gradient(160deg, #0c3b5e 0%, #0284c7 35%, #06c4b0 70%, #fbbf24 100%);
+    border-radius: 29px; overflow: hidden;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 0;
+    position: relative;
   }
-  .phone-logo-box {
-    width: 52px; height: 52px; background: white; border-radius: 15px;
-    display: flex; align-items: center; justify-content: center; margin-bottom: 12px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  .phone-status-bar {
+    width: 100%; display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 14px 6px; font-size: 8px; color: rgba(255,255,255,0.8); font-weight: 600;
   }
-  .phone-title { font-size: 18px; font-weight: 700; color: white; letter-spacing: -0.3px; }
-  .phone-sub { font-size: 11px; color: rgba(255,255,255,0.8); margin-top: 6px; line-height: 1.4; }
-  .phone-btn { background: white; color: var(--blue); border: none; border-radius: 20px; padding: 9px 24px; font-size: 12px; font-weight: 600; margin-top: 18px; width: 100%; cursor: pointer; }
-  .phone-cards { display: flex; gap: 6px; margin-top: 14px; width: 100%; }
-  .phone-card { flex: 1; background: rgba(255,255,255,0.9); border-radius: 10px; padding: 7px 8px; }
-  .phone-card-type { font-size: 7px; color: var(--blue); font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; }
-  .phone-card-name { font-size: 8px; font-weight: 600; color: #111; margin-top: 2px; line-height: 1.3; }
-  .phone-card-score { font-size: 8px; color: var(--teal); font-weight: 600; margin-top: 3px; }
+  .phone-notch {
+    width: 60px; height: 6px; background: rgba(0,0,0,0.3);
+    border-radius: 3px;
+  }
+  .phone-welcome-body {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    justify-content: center; padding: 10px 16px 20px; text-align: center;
+  }
+  .phone-logo-ring {
+    width: 56px; height: 56px; background: rgba(255,255,255,0.15);
+    border-radius: 18px; display: flex; align-items: center; justify-content: center;
+    margin-bottom: 10px; backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.25);
+  }
+  .phone-app-name { font-size: 16px; font-weight: 800; color: white; letter-spacing: -0.3px; }
+  .phone-app-tagline { font-size: 9px; color: rgba(255,255,255,0.75); margin-top: 4px; line-height: 1.4; }
+  .phone-get-started {
+    width: 100%; background: white; color: var(--blue);
+    border: none; border-radius: 16px; padding: 9px 0;
+    font-size: 11px; font-weight: 700; margin-top: 16px; cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .phone-sign-in { font-size: 9px; color: rgba(255,255,255,0.65); margin-top: 8px; }
+  .phone-sign-in span { color: rgba(255,255,255,0.9); font-weight: 600; }
+  .phone-bottom-cards {
+    width: 100%; padding: 0 10px 10px;
+    display: flex; flex-direction: column; gap: 5px;
+  }
+  .phone-mini-card {
+    background: rgba(255,255,255,0.12); border-radius: 10px;
+    padding: 7px 9px; border: 1px solid rgba(255,255,255,0.2);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .phone-mini-left { display: flex; flex-direction: column; gap: 2px; }
+  .phone-mini-type { font-size: 7px; color: rgba(255,255,255,0.65); font-weight: 600; text-transform: uppercase; }
+  .phone-mini-name { font-size: 8px; color: white; font-weight: 600; line-height: 1.2; }
+  .phone-mini-score { font-size: 9px; color: var(--gold); font-weight: 700; }
+
+  /* SECTION BASE */
+  .section { padding: 96px 24px; }
+  .section-inner { max-width: 1060px; margin: 0 auto; }
+  .section-label { font-size: 12px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 1.2px; text-align: center; margin-bottom: 12px; }
+  .section-title { font-size: clamp(26px, 4vw, 40px); font-weight: 800; color: var(--dark); text-align: center; letter-spacing: -0.8px; margin-bottom: 14px; }
+  .section-sub { font-size: 16px; color: var(--muted); text-align: center; max-width: 540px; margin: 0 auto 56px; line-height: 1.65; }
+
+  /* PROBLEM SECTION */
+  .problem-section { padding: 96px 24px; background: var(--bg); }
+  .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .problem-card {
+    background: white; border-radius: 20px; padding: 28px 24px;
+    border: 0.5px solid var(--border);
+    border-top: 3px solid var(--coral);
+  }
+  .problem-icon { font-size: 28px; margin-bottom: 12px; }
+  .problem-card h3 { font-size: 16px; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+  .problem-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
 
   /* HOW IT WORKS */
-  .section { padding: 96px 24px; }
-  .section-inner { max-width: 1000px; margin: 0 auto; }
-  .section-label { font-size: 12px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 1.2px; text-align: center; margin-bottom: 12px; }
-  .section-title { font-size: clamp(28px, 4vw, 42px); font-weight: 800; color: var(--dark); text-align: center; letter-spacing: -0.8px; margin-bottom: 16px; }
-  .section-sub { font-size: 16px; color: var(--muted); text-align: center; max-width: 540px; margin: 0 auto 56px; line-height: 1.6; }
-
   .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
   .step { background: var(--bg); border-radius: 20px; padding: 28px 24px; border: 0.5px solid var(--border); }
   .step-num { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; margin-bottom: 16px; }
@@ -146,10 +198,10 @@
 
   /* OPPORTUNITY TYPES */
   .opp-section { padding: 96px 24px; background: var(--bg); }
-  .opp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; max-width: 900px; margin: 0 auto; }
+  .opp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; max-width: 960px; margin: 0 auto; }
   .opp-pill {
     background: white; border: 0.5px solid var(--border);
-    border-radius: 16px; padding: 18px 16px; text-align: center;
+    border-radius: 16px; padding: 18px 14px; text-align: center;
     transition: border-color 0.15s, transform 0.15s;
   }
   .opp-pill:hover { border-color: var(--blue); transform: translateY(-2px); }
@@ -157,31 +209,83 @@
   .opp-pill-name { font-size: 13px; font-weight: 600; color: var(--dark); }
   .opp-pill-desc { font-size: 11px; color: var(--muted); margin-top: 3px; }
 
-  /* CARD PREVIEW */
-  .card-section { padding: 96px 24px; }
-  .match-card-demo {
-    max-width: 480px; margin: 0 auto;
-    background: white; border: 2px solid var(--blue); border-radius: 24px; padding: 24px 26px;
-    box-shadow: 0 8px 32px rgba(2,132,199,0.12);
+  /* EXAMPLE MATCH CARDS */
+  .cards-section { padding: 96px 24px; }
+  .example-banner {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px;
+    padding: 10px 20px; max-width: 560px; margin: 0 auto 48px;
+    font-size: 13px; color: #92400e;
   }
+  .example-banner strong { font-weight: 700; }
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto; }
+  .match-card {
+    background: white; border: 1.5px solid var(--border); border-radius: 20px; padding: 22px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.05); transition: transform 0.15s, box-shadow 0.15s;
+    position: relative;
+  }
+  .match-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.09); }
+  .match-card.top { border-color: var(--blue); box-shadow: 0 4px 20px rgba(2,132,199,0.12); }
   .card-match-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
   .card-pill { background: #f0f9ff; color: var(--blue); font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 8px; }
-  .card-score { font-size: 12px; color: var(--teal); font-weight: 700; }
-  .card-title { font-size: 20px; font-weight: 700; color: var(--dark); }
-  .card-tags { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+  .card-score { font-size: 13px; color: var(--teal); font-weight: 700; }
+  .card-title { font-size: 17px; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+  .card-tags { display: flex; gap: 6px; flex-wrap: wrap; }
   .tag { font-size: 11px; padding: 3px 9px; border-radius: 7px; font-weight: 500; }
   .tag-b { background: #e0f2fe; color: #0369a1; }
   .tag-t { background: #ccfbf1; color: #0f766e; }
   .tag-o { background: #ffedd5; color: #c2410c; }
-  .card-why { background: #f0f9ff; border-radius: 12px; padding: 12px 14px; margin-top: 14px; font-size: 13px; color: #0369a1; line-height: 1.6; font-style: italic; }
+  .tag-p { background: #f3e8ff; color: #7c3aed; }
+  .card-good-for { font-size: 12px; color: var(--muted); margin-top: 10px; }
+  .card-why { background: #f0f9ff; border-radius: 10px; padding: 11px 13px; margin-top: 12px; font-size: 12.5px; color: #0369a1; line-height: 1.6; font-style: italic; }
   .card-why-label { font-size: 10px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; font-style: normal; }
-  .card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; }
-  .card-skill { font-size: 12px; color: var(--muted); }
-  .card-save { background: var(--blue); color: white; border: none; border-radius: 12px; padding: 8px 20px; font-size: 13px; font-weight: 600; cursor: pointer; }
-  .card-badge { font-size: 12px; color: var(--coral); margin-top: 10px; font-weight: 600; }
+  .card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; }
+  .card-builds { font-size: 11.5px; color: var(--muted); }
+  .card-save { background: var(--blue); color: white; border: none; border-radius: 10px; padding: 7px 18px; font-size: 12px; font-weight: 600; cursor: pointer; }
+  .card-badge-unlock { font-size: 11px; color: var(--coral); margin-top: 8px; font-weight: 600; }
 
-  /* BADGES */
+  /* FEATURES */
+  .features-section { padding: 96px 24px; background: var(--bg); }
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+  .feature-card {
+    background: white; border-radius: 16px; padding: 22px 20px;
+    border: 0.5px solid var(--border);
+  }
+  .feature-icon { font-size: 24px; margin-bottom: 10px; }
+  .feature-card h3 { font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 5px; }
+  .feature-card p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  /* GROWTH PORTFOLIO */
+  .growth-section { padding: 96px 24px; }
+  .growth-demo {
+    max-width: 760px; margin: 0 auto;
+    background: var(--dark); border-radius: 28px; padding: 36px 32px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 24px;
+  }
+  .growth-block h4 { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 14px; }
+  .skill-row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 6px; }
+  .skill-item { display: flex; flex-direction: column; gap: 3px; }
+  .skill-label { font-size: 12px; color: rgba(255,255,255,0.8); font-weight: 500; }
+  .skill-bar-bg { height: 5px; background: rgba(255,255,255,0.1); border-radius: 3px; }
+  .skill-bar-fill { height: 5px; border-radius: 3px; }
+  .growth-badge-list { display: flex; flex-direction: column; gap: 8px; }
+  .growth-badge { display: flex; align-items: center; gap: 8px; }
+  .growth-badge-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .growth-badge-name { font-size: 12px; color: rgba(255,255,255,0.8); }
+  .progress-list { display: flex; flex-direction: column; gap: 10px; }
+  .progress-item { display: flex; justify-content: space-between; align-items: center; }
+  .progress-label { font-size: 12px; color: rgba(255,255,255,0.6); }
+  .progress-val { font-size: 14px; font-weight: 700; color: white; }
+  .growth-theme {
+    grid-column: 1 / -1; background: rgba(6,196,176,0.1); border: 1px solid rgba(6,196,176,0.25);
+    border-radius: 12px; padding: 14px 16px;
+  }
+  .growth-theme-label { font-size: 10px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .growth-theme-text { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.5; font-style: italic; }
+
+  /* BADGES / AVATAR */
   .badges-section { padding: 96px 24px; background: var(--dark); }
+  .badges-section .section-label { color: var(--teal); }
   .badges-section .section-title { color: white; }
   .badges-section .section-sub { color: rgba(255,255,255,0.55); }
   .badge-grid { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; max-width: 700px; margin: 0 auto; }
@@ -189,35 +293,119 @@
     display: flex; align-items: center; gap: 8px;
     background: rgba(255,255,255,0.08); border: 0.5px solid rgba(255,255,255,0.15);
     border-radius: 24px; padding: 8px 16px;
+    transition: background 0.15s;
   }
+  .badge-chip:hover { background: rgba(255,255,255,0.13); }
   .badge-dot { width: 8px; height: 8px; border-radius: 50%; }
   .badge-chip-name { font-size: 13px; color: white; font-weight: 500; }
 
-  /* CTA SECTION */
-  .cta-section {
+  /* IMPACT */
+  .impact-section { padding: 96px 24px; background: var(--bg); }
+  .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .impact-card {
+    background: white; border-radius: 18px; padding: 26px 22px;
+    border: 0.5px solid var(--border); border-left: 3px solid var(--teal);
+  }
+  .impact-card h3 { font-size: 15px; font-weight: 700; color: var(--dark); margin-bottom: 7px; }
+  .impact-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* WAITLIST FORM */
+  .waitlist-section {
     padding: 96px 24px;
     background: linear-gradient(135deg, #0284c7 0%, #06c4b0 100%);
-    text-align: center;
   }
-  .cta-section h2 { font-size: clamp(28px, 4vw, 46px); font-weight: 800; color: white; letter-spacing: -0.8px; margin-bottom: 16px; }
-  .cta-section p { font-size: 17px; color: rgba(255,255,255,0.8); margin-bottom: 36px; }
-  .btn-cta-white { background: white; color: var(--blue); border: none; border-radius: 28px; padding: 16px 36px; font-size: 16px; font-weight: 700; cursor: pointer; text-decoration: none; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+  .waitlist-section .section-label { color: rgba(255,255,255,0.75); }
+  .waitlist-section .section-title { color: white; }
+  .waitlist-section .section-sub { color: rgba(255,255,255,0.75); }
+  .waitlist-form {
+    max-width: 560px; margin: 0 auto;
+    background: rgba(255,255,255,0.12); backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.25); border-radius: 24px; padding: 36px 32px;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+  .form-group label { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.85); }
+  .form-group input, .form-group select {
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 10px; padding: 10px 14px; font-size: 14px; color: white;
+    outline: none; transition: border-color 0.15s;
+  }
+  .form-group input::placeholder { color: rgba(255,255,255,0.45); }
+  .form-group input:focus, .form-group select:focus { border-color: rgba(255,255,255,0.7); }
+  .form-group select option { background: #0284c7; color: white; }
+  .checkbox-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+  .checkbox-group label.group-label { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.85); margin-bottom: 6px; }
+  .checkbox-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .checkbox-item { display: flex; align-items: center; gap: 7px; cursor: pointer; }
+  .checkbox-item input[type="checkbox"] { width: 15px; height: 15px; accent-color: white; cursor: pointer; }
+  .checkbox-item span { font-size: 13px; color: rgba(255,255,255,0.85); }
+  .btn-join {
+    width: 100%; background: white; color: var(--blue);
+    border: none; border-radius: 14px; padding: 14px;
+    font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  }
+  .btn-join:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.18); }
+  .form-fine { font-size: 11px; color: rgba(255,255,255,0.5); text-align: center; margin-top: 12px; }
 
   /* FOOTER */
   footer {
-    background: var(--dark); padding: 32px 40px;
-    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    background: var(--dark); padding: 40px 40px 32px;
   }
+  .footer-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    flex-wrap: wrap; gap: 24px; margin-bottom: 32px;
+    padding-bottom: 28px; border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .footer-brand { display: flex; flex-direction: column; gap: 8px; }
   .footer-logo { display: flex; align-items: center; gap: 8px; }
-  .footer-logo-text { font-size: 14px; font-weight: 700; color: white; }
-  .footer-note { font-size: 12px; color: rgba(255,255,255,0.35); }
-  .footer-link { font-size: 12px; color: rgba(255,255,255,0.4); text-decoration: none; }
+  .footer-logo-text { font-size: 15px; font-weight: 700; color: white; }
+  .footer-mission { font-size: 12px; color: rgba(255,255,255,0.4); max-width: 220px; line-height: 1.5; }
+  .footer-links { display: flex; gap: 32px; flex-wrap: wrap; }
+  .footer-col { display: flex; flex-direction: column; gap: 10px; }
+  .footer-col-title { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 2px; }
+  .footer-link { font-size: 13px; color: rgba(255,255,255,0.5); text-decoration: none; }
   .footer-link:hover { color: var(--teal); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .footer-note { font-size: 11px; color: rgba(255,255,255,0.25); }
+  .footer-tag { font-size: 11px; color: rgba(255,255,255,0.25); }
+
+  /* SECTION TABS */
+  .section-tabs {
+    position: sticky; top: 57px; z-index: 90;
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .section-tabs::-webkit-scrollbar { display: none; }
+  .tabs-inner {
+    display: flex; gap: 0; padding: 0 32px;
+    min-width: max-content;
+  }
+  .tab-link {
+    padding: 13px 18px; font-size: 13px; font-weight: 500;
+    color: var(--muted); text-decoration: none; white-space: nowrap;
+    border-bottom: 2px solid transparent; transition: color 0.15s, border-color 0.15s;
+  }
+  .tab-link:hover { color: var(--blue); }
+  .tab-link.active { color: var(--blue); border-bottom-color: var(--blue); font-weight: 600; }
 
   @media (max-width: 600px) {
     nav { padding: 14px 20px; }
     .nav-links { display: none; }
-    .section { padding: 64px 20px; }
+    .tabs-inner { padding: 0 16px; }
+    .tab-link { padding: 12px 14px; font-size: 12px; }
+    .section, .problem-section, .opp-section, .cards-section,
+    .features-section, .growth-section, .badges-section,
+    .impact-section, .waitlist-section { padding: 64px 20px; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-top { flex-direction: column; }
+    .footer-links { flex-direction: column; gap: 16px; }
+    .phone-preview { flex-direction: column; align-items: center; }
+    .growth-demo { padding: 24px 20px; }
+    .waitlist-form { padding: 24px 20px; }
   }
 </style>
 </head>
@@ -229,41 +417,86 @@
     <svg width="28" height="28" viewBox="0 0 48 48"><rect width="48" height="48" rx="13" fill="#0284c7"/><path d="M7 28 A17 17 0 0 1 41 28Z" fill="#fb923c"/><path d="M13 28 A11 11 0 0 1 35 28Z" fill="#fde68a"/><circle cx="24" cy="28" r="5" fill="white"/><path d="M7 28 A17 17 0 0 0 41 28Z" fill="#06c4b0" opacity="0.4"/><line x1="24" y1="15" x2="24" y2="8" stroke="#fde68a" stroke-width="2" stroke-linecap="round"/><line x1="35" y1="19" x2="38" y2="14" stroke="#fde68a" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/><line x1="13" y1="19" x2="10" y2="14" stroke="#fde68a" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/></svg>
     <span class="nav-logo-text">CommonGround</span>
   </a>
-  <div class="nav-links">
-    <a class="nav-link" href="#how-it-works">How it works</a>
-    <a class="nav-link" href="#opportunities">Opportunities</a>
-    <a class="nav-link" href="#growth">Growth</a>
-  </div>
   <a class="nav-cta" href="#waitlist">Get Early Access</a>
 </nav>
 
+<!-- SECTION TABS -->
+<div class="section-tabs" id="section-tabs">
+  <div class="tabs-inner">
+    <a class="tab-link active" href="#hero" data-section="hero">App Preview</a>
+    <a class="tab-link" href="#problem" data-section="problem">The Problem</a>
+    <a class="tab-link" href="#how-it-works" data-section="how-it-works">How It Works</a>
+    <a class="tab-link" href="#opportunities" data-section="opportunities">Opportunities</a>
+    <a class="tab-link" href="#matches" data-section="matches">Matches</a>
+    <a class="tab-link" href="#features" data-section="features">Features</a>
+    <a class="tab-link" href="#growth" data-section="growth">Growth</a>
+    <a class="tab-link" href="#badges" data-section="badges">Badges</a>
+    <a class="tab-link" href="#impact" data-section="impact">Impact</a>
+    <a class="tab-link" href="#waitlist" data-section="waitlist">Join</a>
+  </div>
+</div>
+
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="hero">
   <div class="hero-glow"></div>
   <div class="hero-content">
     <div class="hero-badge"><div class="hero-badge-dot"></div> Free for all high school students</div>
     <h1>Find opportunities<br>that fit <span>you.</span></h1>
-    <p class="hero-sub">CommonGround matches you to internships, volunteering, clubs, competitions, and programs — then explains exactly why each one fits you.</p>
+    <p class="hero-sub">CommonGround helps high school students discover personalized internships, volunteer opportunities, clubs, competitions, and academic programs — then tracks your growth over time.</p>
     <div class="hero-buttons">
       <a class="btn-hero-primary" href="#waitlist">Get Early Access</a>
       <a class="btn-hero-secondary" href="#how-it-works">See how it works</a>
     </div>
     <p class="hero-note">No account needed to explore. 100% free.</p>
 
+    <!-- PHONE: welcome screen matching the app -->
     <div class="phone-preview">
-      <div class="phone-frame">
-        <div class="phone-screen">
-          <div class="phone-logo-box">
-            <svg width="28" height="28" viewBox="0 0 48 48"><rect width="48" height="48" rx="13" fill="#0284c7"/><path d="M7 28 A17 17 0 0 1 41 28Z" fill="#fb923c"/><path d="M13 28 A11 11 0 0 1 35 28Z" fill="#fde68a"/><circle cx="24" cy="28" r="5" fill="white"/><path d="M7 28 A17 17 0 0 0 41 28Z" fill="#06c4b0" opacity="0.4"/><line x1="24" y1="15" x2="24" y2="8" stroke="#fde68a" stroke-width="2" stroke-linecap="round"/><line x1="13" y1="19" x2="10" y2="14" stroke="#fde68a" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/><line x1="35" y1="19" x2="38" y2="14" stroke="#fde68a" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/></svg>
-          </div>
-          <div class="phone-title">CommonGround</div>
-          <div class="phone-sub">Find opportunities that fit you.</div>
-          <button class="phone-btn">Get Started</button>
-          <div class="phone-cards">
-            <div class="phone-card"><div class="phone-card-type">Volunteer</div><div class="phone-card-name">Hospital Teen Program</div><div class="phone-card-score">94% match</div></div>
-            <div class="phone-card"><div class="phone-card-type">Club</div><div class="phone-card-name">Mental Health Awareness</div><div class="phone-card-score">91% match</div></div>
+      <div class="phone-wrap">
+        <div class="phone-frame">
+          <div class="phone-screen-welcome">
+            <div class="phone-status-bar">
+              <span>9:41</span>
+              <div class="phone-notch"></div>
+              <span>●●● ▲</span>
+            </div>
+            <div class="phone-welcome-body">
+              <div class="phone-logo-ring">
+                <svg width="32" height="32" viewBox="0 0 48 48"><rect width="48" height="48" rx="13" fill="#0284c7"/><path d="M7 28 A17 17 0 0 1 41 28Z" fill="#fb923c"/><path d="M13 28 A11 11 0 0 1 35 28Z" fill="#fde68a"/><circle cx="24" cy="28" r="5" fill="white"/><path d="M7 28 A17 17 0 0 0 41 28Z" fill="#06c4b0" opacity="0.4"/><line x1="24" y1="15" x2="24" y2="8" stroke="#fde68a" stroke-width="2" stroke-linecap="round"/><line x1="35" y1="19" x2="38" y2="14" stroke="#fde68a" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/><line x1="13" y1="19" x2="10" y2="14" stroke="#fde68a" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/></svg>
+              </div>
+              <div class="phone-app-name">CommonGround</div>
+              <div class="phone-app-tagline">Find opportunities that fit you.</div>
+              <button class="phone-get-started">Get Started</button>
+              <div class="phone-sign-in">Already have an account? <span>Sign in</span></div>
+            </div>
           </div>
         </div>
+        <div class="phone-label">App Welcome Screen</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem-section" id="problem">
+  <div class="section-inner">
+    <div class="section-label">The problem</div>
+    <h2 class="section-title">Finding meaningful opportunities is harder than it should be.</h2>
+    <p class="section-sub" style="margin-bottom:40px;">Most students are told to volunteer, join clubs, and find internships — but given no real guidance on where to actually start.</p>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-icon">📋</div>
+        <h3>Too many random lists</h3>
+        <p>Students waste time searching through outdated or irrelevant opportunities with no sense of what actually fits them.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">🤷</div>
+        <h3>Hard to know what fits</h3>
+        <p>Most platforms don't explain which activities match a student's goals, grade, schedule, or interests — they just list everything.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">📦</div>
+        <h3>Growth gets forgotten</h3>
+        <p>Students rarely track what they did, what they learned, or how their experiences shaped them over time.</p>
       </div>
     </div>
   </div>
@@ -273,34 +506,34 @@
 <section class="section" id="how-it-works">
   <div class="section-inner">
     <div class="section-label">How it works</div>
-    <h2 class="section-title">Three steps to finding your fit</h2>
-    <p class="section-sub">No more endless searching. CommonGround does the matching for you — and explains every recommendation.</p>
+    <h2 class="section-title">How CommonGround works</h2>
+    <p class="section-sub">Three steps to go from "I don't know where to start" to a personalized match list with explanations.</p>
     <div class="steps">
       <div class="step">
         <div class="step-num step-num-1">1</div>
-        <h3>Tell us who you are</h3>
-        <p>Share your interests, goals, grade, and availability in a quick profile setup. No essay required.</p>
+        <h3>Build your profile</h3>
+        <p>Choose your interests, goals, grade level, location, and availability. Quick setup — no essay required.</p>
       </div>
       <div class="step">
         <div class="step-num step-num-2">2</div>
-        <h3>Get your matches</h3>
-        <p>Our AI recommends real opportunities and explains exactly why each one fits your profile.</p>
+        <h3>Get personalized matches</h3>
+        <p>AI recommends internships, volunteering, clubs, competitions, and programs that fit you — and explains why each one matches.</p>
       </div>
       <div class="step">
         <div class="step-num step-num-3">3</div>
-        <h3>Build your growth story</h3>
-        <p>Save opportunities, track progress, earn badges, and turn your experiences into a visual portfolio.</p>
+        <h3>Track your growth</h3>
+        <p>Save opportunities, update your progress, earn badges, and build a visual portfolio of your experiences over time.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- OPPORTUNITIES -->
+<!-- OPPORTUNITY TYPES -->
 <section class="opp-section" id="opportunities">
   <div class="section-inner">
     <div class="section-label">What we match you to</div>
     <h2 class="section-title">Every type of opportunity, in one place</h2>
-    <p class="section-sub">From volunteer hours to national competitions — all personalized to you.</p>
+    <p class="section-sub">From volunteer hours to national competitions — all personalized to who you are.</p>
     <div class="opp-grid">
       <div class="opp-pill"><div class="opp-pill-icon">🤝</div><div class="opp-pill-name">Volunteering</div><div class="opp-pill-desc">Local & online</div></div>
       <div class="opp-pill"><div class="opp-pill-icon">💼</div><div class="opp-pill-name">Internships</div><div class="opp-pill-desc">Career exploration</div></div>
@@ -312,43 +545,200 @@
   </div>
 </section>
 
-<!-- CARD DEMO -->
-<section class="card-section" id="matches">
+<!-- EXAMPLE MATCH CARDS -->
+<section class="cards-section" id="matches" data-tab="matches">
   <div class="section-inner">
     <div class="section-label">Your matches</div>
-    <h2 class="section-title">Not just a list — an explanation</h2>
-    <p class="section-sub">Every match tells you exactly why it fits you, what skill it builds, and how to start today.</p>
-    <div class="match-card-demo">
-      <div class="card-match-row">
-        <span class="card-pill">#1 Match</span>
-        <span class="card-score">94% fit</span>
+    <h2 class="section-title">Personalized matches, not random suggestions.</h2>
+    <p class="section-sub">Every match tells you why it fits you, what it builds, and how to get started.</p>
+    <div class="example-banner">
+      ✨ <strong>Example only</strong> — Your real matches are generated from your actual profile and interests.
+    </div>
+    <div class="cards-grid">
+      <div class="match-card top">
+        <div class="card-match-row">
+          <span class="card-pill">#1 Match</span>
+          <span class="card-score">92% fit</span>
+        </div>
+        <div class="card-title">Teen Library Volunteer Program</div>
+        <div class="card-tags">
+          <span class="tag tag-b">Volunteer</span>
+          <span class="tag tag-t">Local</span>
+          <span class="tag tag-o">Free</span>
+          <span class="tag tag-b">Beginner-friendly</span>
+        </div>
+        <div class="card-good-for">Good for: service hours, community involvement</div>
+        <div class="card-why">
+          <div class="card-why-label">Why it matches you</div>
+          "You selected education, helping others, and local service. This puts you directly in a community environment where you can see if working with people is your path."
+        </div>
+        <div class="card-footer">
+          <div class="card-builds">Builds: responsibility, communication</div>
+          <button class="card-save">Save</button>
+        </div>
+        <div class="card-badge-unlock">Unlocks: Community Builder badge</div>
       </div>
-      <div class="card-title">Hospital Teen Volunteer Program</div>
-      <div class="card-tags">
-        <span class="tag tag-b">Volunteer</span>
-        <span class="tag tag-t">Local</span>
-        <span class="tag tag-o">Free</span>
-        <span class="tag tag-b">Beginner-friendly</span>
+
+      <div class="match-card">
+        <div class="card-match-row">
+          <span class="card-pill">#2 Match</span>
+          <span class="card-score">87% fit</span>
+        </div>
+        <div class="card-title">Youth Entrepreneurship Challenge</div>
+        <div class="card-tags">
+          <span class="tag tag-o">Competition</span>
+          <span class="tag tag-p">Business</span>
+          <span class="tag tag-b">Online</span>
+        </div>
+        <div class="card-good-for">Good for: business, leadership, competitions</div>
+        <div class="card-why">
+          <div class="card-why-label">Why it matches you</div>
+          "You selected entrepreneurship and problem-solving as top interests. This competition lets you build and pitch a real idea — exactly what you said you want to try."
+        </div>
+        <div class="card-footer">
+          <div class="card-builds">Builds: pitching, creativity, strategy</div>
+          <button class="card-save">Save</button>
+        </div>
+        <div class="card-badge-unlock">Unlocks: Young Entrepreneur badge</div>
       </div>
-      <div class="card-why">
-        <div class="card-why-label">Why it matches you</div>
-        "You listed medicine as a career curiosity and helping as your work style. This puts you directly in a healthcare environment where you can see if medicine is the right path for you."
+
+      <div class="match-card">
+        <div class="card-match-row">
+          <span class="card-pill">#3 Match</span>
+          <span class="card-score">84% fit</span>
+        </div>
+        <div class="card-title">Mental Health Awareness Club</div>
+        <div class="card-tags">
+          <span class="tag tag-t">Club</span>
+          <span class="tag tag-b">Advocacy</span>
+          <span class="tag tag-o">Leadership</span>
+        </div>
+        <div class="card-good-for">Good for: advocacy, leadership, service</div>
+        <div class="card-why">
+          <div class="card-why-label">Why it matches you</div>
+          "You care about mental health and peer support. This club lets you turn that into real action — running campaigns and supporting students in your school community."
+        </div>
+        <div class="card-footer">
+          <div class="card-builds">Builds: communication, empathy</div>
+          <button class="card-save">Save</button>
+        </div>
+        <div class="card-badge-unlock">Unlocks: Wellness Advocate badge</div>
       </div>
-      <div class="card-footer">
-        <div class="card-skill">Builds: Empathy & professionalism</div>
-        <button class="card-save">Save</button>
-      </div>
-      <div class="card-badge">Unlocks: Health Explorer badge</div>
     </div>
   </div>
 </section>
 
-<!-- BADGES / GROWTH -->
-<section class="badges-section" id="growth">
+<!-- FEATURES -->
+<section class="features-section" id="features">
   <div class="section-inner">
-    <div class="section-label" style="color:var(--teal);">Growth map</div>
-    <h2 class="section-title">Turn your effort into a story</h2>
-    <p class="section-sub">Every opportunity you save or complete builds your growth portfolio — with badges, skill bars, and a running theme of who you're becoming.</p>
+    <div class="section-label">Features</div>
+    <h2 class="section-title">Everything students need to take the next step.</h2>
+    <p class="section-sub">Built specifically for high school students — no fluff, no paywalls.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <h3>AI opportunity matching</h3>
+        <p>Personalized recommendations based on your actual interests, goals, and schedule.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💬</div>
+        <h3>"Why this fits you" explanations</h3>
+        <p>Every match comes with a reason — not just a score, but a sentence that actually makes sense to you.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔖</div>
+        <h3>Saved opportunity tracker</h3>
+        <p>Save anything you're interested in and come back to it whenever you're ready.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Application status tracking</h3>
+        <p>Move opportunities from Saved → Planning → Applied → Completed, all in one place.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎖️</div>
+        <h3>Avatar and badges</h3>
+        <p>Personalize your profile and earn badges as you explore and complete opportunities.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🗺️</div>
+        <h3>Growth map</h3>
+        <p>A visual portfolio showing your skills, paths, and the story you're building over time.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📝</div>
+        <h3>Reflection journal</h3>
+        <p>Log what you learned from each experience in a few sentences — builds your story over time.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⭐</div>
+        <h3>Skills summary</h3>
+        <p>See the skills you've been building across all your experiences at a glance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GROWTH PORTFOLIO -->
+<section class="growth-section" id="growth">
+  <div class="section-inner">
+    <div class="section-label">Growth portfolio</div>
+    <h2 class="section-title">Turn activities into a story of growth.</h2>
+    <p class="section-sub">CommonGround tracks everything — what you saved, applied to, completed, and learned — so your experiences become something you can actually talk about.</p>
+    <div class="growth-demo">
+      <div class="growth-block">
+        <h4>Skills developed</h4>
+        <div class="skill-row">
+          <div class="skill-item">
+            <div class="skill-label">Leadership</div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:70%;background:#06c4b0;"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-label">Service</div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:85%;background:#fb923c;"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-label">Communication</div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:55%;background:#38bdf8;"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-label">Research</div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:40%;background:#a78bfa;"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="growth-block">
+        <h4>Badges earned</h4>
+        <div class="growth-badge-list">
+          <div class="growth-badge"><div class="growth-badge-dot" style="background:#fb923c;"></div><div class="growth-badge-name">Community Builder</div></div>
+          <div class="growth-badge"><div class="growth-badge-dot" style="background:#06c4b0;"></div><div class="growth-badge-name">Health Explorer</div></div>
+          <div class="growth-badge"><div class="growth-badge-dot" style="background:#fde68a;"></div><div class="growth-badge-name">Young Entrepreneur</div></div>
+          <div class="growth-badge"><div class="growth-badge-dot" style="background:#f472b6;"></div><div class="growth-badge-name">Wellness Advocate</div></div>
+        </div>
+      </div>
+      <div class="growth-block">
+        <h4>Progress</h4>
+        <div class="progress-list">
+          <div class="progress-item"><div class="progress-label">Saved</div><div class="progress-val">5</div></div>
+          <div class="progress-item"><div class="progress-label">Applied</div><div class="progress-val">2</div></div>
+          <div class="progress-item"><div class="progress-label">Completed</div><div class="progress-val">1</div></div>
+          <div class="progress-item"><div class="progress-label">Reflections</div><div class="progress-val">3</div></div>
+        </div>
+      </div>
+      <div class="growth-theme">
+        <div class="growth-theme-label">Your growth theme</div>
+        <div class="growth-theme-text">"Your early pattern shows a consistent interest in healthcare and community advocacy. You're building empathy and service skills through every experience."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BADGES / AVATAR -->
+<section class="badges-section" id="badges">
+  <div class="section-inner">
+    <div class="section-label">Avatar & badges</div>
+    <h2 class="section-title">Make growth feel motivating.</h2>
+    <p class="section-sub">Students personalize an avatar and unlock badges as they save, apply to, and complete opportunities. Small rewards for real effort.</p>
     <div class="badge-grid">
       <div class="badge-chip"><div class="badge-dot" style="background:#fb923c;"></div><span class="badge-chip-name">Community Builder</span></div>
       <div class="badge-chip"><div class="badge-dot" style="background:#06c4b0;"></div><span class="badge-chip-name">Health Explorer</span></div>
@@ -358,26 +748,168 @@
       <div class="badge-chip"><div class="badge-dot" style="background:#a78bfa;"></div><span class="badge-chip-name">Story Builder</span></div>
       <div class="badge-chip"><div class="badge-dot" style="background:#34d399;"></div><span class="badge-chip-name">Future Researcher</span></div>
       <div class="badge-chip"><div class="badge-dot" style="background:#f97316;"></div><span class="badge-chip-name">Civic Leader</span></div>
+      <div class="badge-chip"><div class="badge-dot" style="background:#38bdf8;"></div><span class="badge-chip-name">Service Spark</span></div>
+      <div class="badge-chip"><div class="badge-dot" style="background:#e879f9;"></div><span class="badge-chip-name">Creative Leader</span></div>
+      <div class="badge-chip"><div class="badge-dot" style="background:#4ade80;"></div><span class="badge-chip-name">Career Starter</span></div>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-section" id="waitlist">
-  <h2>Ready to find your fit?</h2>
-  <p>CommonGround is free for every high school student. No cost, no catch.</p>
-  <a class="btn-cta-white" href="mailto:audreyq1han@gmail.com?subject=CommonGround Early Access">Get Early Access</a>
+<!-- IMPACT -->
+<section class="impact-section" id="impact">
+  <div class="section-inner">
+    <div class="section-label">Why it matters</div>
+    <h2 class="section-title">Built to make opportunity discovery more accessible.</h2>
+    <p class="section-sub">The students who find the best opportunities early are usually the ones with more guidance. CommonGround changes that.</p>
+    <div class="impact-grid">
+      <div class="impact-card">
+        <h3>Levels the playing field</h3>
+        <p>Students without private counselors or professional networks get the same personalized guidance as anyone else.</p>
+      </div>
+      <div class="impact-card">
+        <h3>Reduces overwhelm</h3>
+        <p>Instead of endless searching, students get a short ranked list of matches that actually make sense for them.</p>
+      </div>
+      <div class="impact-card">
+        <h3>Connects interests to action</h3>
+        <p>CommonGround bridges the gap between "I'm interested in medicine" and "here's exactly what you can do about it."</p>
+      </div>
+      <div class="impact-card">
+        <h3>Builds self-awareness over time</h3>
+        <p>Tracking experiences and reflections helps students understand who they are — not just what they did.</p>
+      </div>
+      <div class="impact-card">
+        <h3>Supports students who don't know where to start</h3>
+        <p>Designed specifically for students who feel behind or lost — not just those who already have a plan.</p>
+      </div>
+      <div class="impact-card">
+        <h3>Free forever for students</h3>
+        <p>No subscription, no premium tier. Every feature is available to every high school student at no cost.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAITLIST FORM -->
+<section class="waitlist-section" id="waitlist">
+  <div class="section-inner">
+    <div class="section-label">Early access</div>
+    <h2 class="section-title">Join early access.</h2>
+    <p class="section-sub">CommonGround is free for every high school student. Be the first to know when it launches.</p>
+    <form class="waitlist-form" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label>First name</label>
+          <input type="text" placeholder="Maya" required>
+        </div>
+        <div class="form-group">
+          <label>Last name</label>
+          <input type="text" placeholder="Chen" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email address</label>
+        <input type="email" placeholder="you@email.com" required>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Grade level</label>
+          <select required>
+            <option value="" disabled selected>Select grade</option>
+            <option>9th grade</option>
+            <option>10th grade</option>
+            <option>11th grade</option>
+            <option>12th grade</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>City or school (optional)</label>
+          <input type="text" placeholder="Orange County, CA">
+        </div>
+      </div>
+      <div class="checkbox-group">
+        <label class="group-label">What are you looking for? (select all that apply)</label>
+        <div class="checkbox-row">
+          <label class="checkbox-item"><input type="checkbox"><span>Volunteering</span></label>
+          <label class="checkbox-item"><input type="checkbox"><span>Internships</span></label>
+          <label class="checkbox-item"><input type="checkbox"><span>Competitions</span></label>
+          <label class="checkbox-item"><input type="checkbox"><span>Clubs</span></label>
+          <label class="checkbox-item"><input type="checkbox"><span>Academic programs</span></label>
+        </div>
+      </div>
+      <button type="submit" class="btn-join">Join Early Access</button>
+      <div class="form-fine">No spam. No cost. Unsubscribe anytime.</div>
+    </form>
+  </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">
-    <svg width="22" height="22" viewBox="0 0 48 48"><rect width="48" height="48" rx="13" fill="#0284c7"/><path d="M7 28 A17 17 0 0 1 41 28Z" fill="#fb923c"/><path d="M13 28 A11 11 0 0 1 35 28Z" fill="#fde68a"/><circle cx="24" cy="28" r="5" fill="white"/><path d="M7 28 A17 17 0 0 0 41 28Z" fill="#06c4b0" opacity="0.4"/></svg>
-    <span class="footer-logo-text">CommonGround</span>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <svg width="22" height="22" viewBox="0 0 48 48"><rect width="48" height="48" rx="13" fill="#0284c7"/><path d="M7 28 A17 17 0 0 1 41 28Z" fill="#fb923c"/><path d="M13 28 A11 11 0 0 1 35 28Z" fill="#fde68a"/><circle cx="24" cy="28" r="5" fill="white"/><path d="M7 28 A17 17 0 0 0 41 28Z" fill="#06c4b0" opacity="0.4"/></svg>
+        <span class="footer-logo-text">CommonGround</span>
+      </div>
+      <div class="footer-mission">AI-powered opportunity matching for high school students. Free forever.</div>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <div class="footer-col-title">Product</div>
+        <a class="footer-link" href="#how-it-works">How it works</a>
+        <a class="footer-link" href="#opportunities">Opportunities</a>
+        <a class="footer-link" href="#growth">Growth</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Company</div>
+        <a class="footer-link" href="mailto:audreyq1han@gmail.com">Contact</a>
+        <a class="footer-link" href="#">Privacy</a>
+      </div>
+    </div>
   </div>
-  <span class="footer-note">comground.app · Built for high school students · Free forever</span>
-  <a class="footer-link" href="mailto:audreyq1han@gmail.com">Contact</a>
+  <div class="footer-bottom">
+    <div class="footer-note">© 2025 CommonGround · comground.app</div>
+    <div class="footer-tag">Built for high school students</div>
+  </div>
 </footer>
+
+<script>
+// Scrollspy for section tabs
+const sections = ['hero','problem','how-it-works','opportunities','matches','features','growth','badges','impact','waitlist'];
+const tabLinks = document.querySelectorAll('.tab-link');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      tabLinks.forEach(t => t.classList.remove('active'));
+      const active = document.querySelector(`.tab-link[data-section="${id}"]`);
+      if (active) {
+        active.classList.add('active');
+        // Auto-scroll the tab bar so active tab is visible
+        active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+
+sections.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) observer.observe(el);
+});
+
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.btn-join');
+  btn.textContent = 'You\'re on the list!';
+  btn.style.background = '#06c4b0';
+  btn.style.color = 'white';
+  btn.disabled = true;
+  // In production, send form data to a backend/email service
+  const email = e.target.querySelector('input[type="email"]').value;
+  window.location.href = `mailto:audreyq1han@gmail.com?subject=CommonGround Early Access&body=New signup: ${email}`;
+}
+</script>
 
 </body>
 </html>
