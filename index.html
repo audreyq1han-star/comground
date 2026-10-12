@@ -797,24 +797,30 @@
     <h2 class="section-title">Join early access.</h2>
     <p class="section-sub">CommonGround is free for every high school student. Be the first to know when it launches.</p>
     <form class="waitlist-form" onsubmit="handleSubmit(event)">
+      <!-- Web3Forms: free access key (safe to be public) — manage at https://web3forms.com -->
+      <input type="hidden" name="access_key" value="b4c0edc2-e3c9-4dcf-bc9d-999290221656">
+      <input type="hidden" name="subject" value="New CommonGround Early Access signup">
+      <input type="hidden" name="from_name" value="CommonGround Waitlist">
+      <!-- Honeypot spam filter: real users never fill this; bots do -->
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
       <div class="form-row">
         <div class="form-group">
           <label>First name</label>
-          <input type="text" placeholder="Maya" required>
+          <input type="text" name="first_name" placeholder="Maya" required>
         </div>
         <div class="form-group">
           <label>Last name</label>
-          <input type="text" placeholder="Chen" required>
+          <input type="text" name="last_name" placeholder="Chen" required>
         </div>
       </div>
       <div class="form-group">
         <label>Email address</label>
-        <input type="email" placeholder="you@email.com" required>
+        <input type="email" name="email" placeholder="you@email.com" required>
       </div>
       <div class="form-row">
         <div class="form-group">
           <label>Grade level</label>
-          <select required>
+          <select name="grade" required>
             <option value="" disabled selected>Select grade</option>
             <option>9th grade</option>
             <option>10th grade</option>
@@ -824,21 +830,21 @@
         </div>
         <div class="form-group">
           <label>City or school (optional)</label>
-          <input type="text" placeholder="Orange County, CA">
+          <input type="text" name="city_or_school" placeholder="Orange County, CA">
         </div>
       </div>
       <div class="checkbox-group">
         <label class="group-label">What are you looking for? (select all that apply)</label>
         <div class="checkbox-row">
-          <label class="checkbox-item"><input type="checkbox"><span>Volunteering</span></label>
-          <label class="checkbox-item"><input type="checkbox"><span>Internships</span></label>
-          <label class="checkbox-item"><input type="checkbox"><span>Competitions</span></label>
-          <label class="checkbox-item"><input type="checkbox"><span>Clubs</span></label>
-          <label class="checkbox-item"><input type="checkbox"><span>Academic programs</span></label>
+          <label class="checkbox-item"><input type="checkbox" name="interests" value="Volunteering"><span>Volunteering</span></label>
+          <label class="checkbox-item"><input type="checkbox" name="interests" value="Internships"><span>Internships</span></label>
+          <label class="checkbox-item"><input type="checkbox" name="interests" value="Competitions"><span>Competitions</span></label>
+          <label class="checkbox-item"><input type="checkbox" name="interests" value="Clubs"><span>Clubs</span></label>
+          <label class="checkbox-item"><input type="checkbox" name="interests" value="Academic programs"><span>Academic programs</span></label>
         </div>
       </div>
       <button type="submit" class="btn-join">Join Early Access</button>
-      <div class="form-fine">No spam. No cost. Unsubscribe anytime.</div>
+      <div class="form-fine" id="formMessage">No spam. No cost. Unsubscribe anytime.</div>
     </form>
   </div>
 </section>
@@ -898,16 +904,37 @@ sections.forEach(id => {
   if (el) observer.observe(el);
 });
 
-function handleSubmit(e) {
+async function handleSubmit(e) {
   e.preventDefault();
-  const btn = e.target.querySelector('.btn-join');
-  btn.textContent = 'You\'re on the list!';
-  btn.style.background = '#06c4b0';
-  btn.style.color = 'white';
+  const form = e.target;
+  const btn = form.querySelector('.btn-join');
+  const msg = document.getElementById('formMessage');
+  const originalLabel = btn.textContent;
   btn.disabled = true;
-  // In production, send form data to a backend/email service
-  const email = e.target.querySelector('input[type="email"]').value;
-  window.location.href = `mailto:audreyq1han@gmail.com?subject=CommonGround Early Access&body=New signup: ${email}`;
+  btn.textContent = 'Joining…';
+
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(form),
+    });
+    const data = await res.json();
+    if (data.success) {
+      btn.textContent = 'You\'re on the list!';
+      btn.style.background = '#06c4b0';
+      btn.style.color = 'white';
+      msg.textContent = 'Thanks for joining — we\'ll email you the moment CommonGround launches.';
+      form.querySelectorAll('input:not([type="hidden"]), select').forEach(el => { el.disabled = true; });
+    } else {
+      throw new Error(data.message || 'Submission failed');
+    }
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = originalLabel;
+    msg.textContent = 'Something went wrong — please try again, or email audreyq1han@gmail.com.';
+    msg.style.color = '#fecaca';
+  }
 }
 </script>
 
