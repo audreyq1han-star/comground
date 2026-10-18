@@ -28,7 +28,7 @@ jobs:
       - run: npm test
       - run: node scripts/with-local-node.mjs --experimental-strip-types --test apps/public-site/preview-model.test.ts
       - run: npm run build
-      - run: node scripts/with-local-node.mjs node_modules/next/dist/bin/next build apps/public-site --webpack
+      - run: npm run build:public
       - run: npm run test:production-http
       # No deploy, image pull, provider call or scheduled workflow is configured.
       # Browser acceptance and current dependency audit remain release gates.

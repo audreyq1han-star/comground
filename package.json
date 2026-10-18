@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "node scripts/with-local-node.mjs scripts/start-local.mjs",
     "build": "node scripts/with-local-node.mjs node_modules/next/dist/bin/next build apps/web --webpack",
+    "build:public": "node scripts/with-local-node.mjs node_modules/next/dist/bin/next build apps/public-site --webpack && node scripts/audit-public-export.mjs",
+    "preview:public": "node scripts/serve-public-preview.mjs",
     "typecheck": "node scripts/with-local-node.mjs node_modules/typescript/bin/tsc --noEmit",
     "test": "node scripts/with-local-node.mjs --experimental-strip-types --test packages/domain/*.test.ts apps/web/lib/*.test.ts tests/*.test.ts",
     "test:http": "node scripts/with-local-node.mjs tests/api-e2e.mjs",
