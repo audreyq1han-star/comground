@@ -471,3 +471,43 @@ svg { flex-shrink: 0; }
   .preview-boundary-section { padding: 25px 22px; }
   .guide-action { align-items: start; }
 }
+
+/* Second visual pass: preserve a visible activity on compact phone screens. */
+.hero { position: relative; }
+.hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 46px; background: #d4d8ba; }
+.hero-art { z-index: 1; }
+@media (max-width: 650px) {
+  .hero::after { display: none; }
+  .listing-layout { gap: 25px; }
+  .filter-panel { gap: 20px; }
+  .page-wrap:has(.listing-layout) .page-intro { margin-bottom: 24px; }
+  .page-wrap:has(.listing-layout) .page-intro h1 { margin-bottom: 13px; }
+  .page-wrap:has(.listing-layout) .page-intro .eyebrow { margin-bottom: 12px; }
+}
+@media (max-width: 370px) {
+  .hero-copy { padding-top: 20px; }
+  .hero h1 { max-width: none; font-size: 38px; margin-block: 12px; }
+  .hero-actions { margin-top: 16px; }
+  .hero-actions .text-link { display: none; }
+}
+
+/* The sample age check is optional while browsing, and expanded on details. */
+.sample-disclosure { padding-top: 5px; border-top: 1px solid var(--line); }
+.sample-disclosure > summary { min-height: 48px; padding: 13px 0; font-size: 14px; font-weight: 600; line-height: 1.5; }
+.sample-disclosure > summary::marker { color: var(--ocean); }
+.sample-disclosure .sample-current, .sample-disclosure .sample-disclosure-value { display: block; margin: 4px 0 0 16px; font-size: 13px; font-weight: 400; color: var(--muted); }
+.sample-disclosure > .sample-control { padding: 10px 0 3px; margin: 0; border: 0; }
+@media (max-width: 850px) {
+  .sample-disclosure { grid-column: 1 / -1; }
+  .sample-disclosure .sample-control { display: block; max-width: 440px; }
+  .sample-disclosure .sample-control > .small-note { margin: 0 0 12px; }
+}
+
+/* The count must never widen the phone header beyond its available grid track. */
+@media (max-width: 650px) {
+  .shortlist-link { min-width: 0; max-width: 110px; white-space: normal; line-height: 1.3; }
+  .shortlist-count { flex-shrink: 0; }
+}
+@media (max-width: 370px) {
+  .shortlist-link { max-width: 91px; font-size: 12px; }
+}

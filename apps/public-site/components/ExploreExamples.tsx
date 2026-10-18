@@ -16,7 +16,7 @@ export function ExploreExamples() {
     <aside className="filter-panel" aria-label="Example choices">
       <fieldset className="filter-group"><legend>Type of activity</legend><div className="filter-options">{categories.map(value => <button type="button" key={value} aria-pressed={category === value} onClick={() => setCategory(value)}>{value}</button>)}</div></fieldset>
       <fieldset className="filter-group"><legend>How to take part</legend><div className="filter-options">{formats.map(value => <button type="button" key={value} aria-pressed={format === value} onClick={() => setFormat(value)}>{value}</button>)}</div></fieldset>
-      <SampleAgeControl />
+      <details className="sample-disclosure"><summary><span>Try a sample age range</span><span className="sample-disclosure-value">{age} sample</span></summary><SampleAgeControl /></details>
       {shortlist.length > 0 && <Link href="/shortlist" className="text-link">View example shortlist ({shortlist.length}) <span aria-hidden="true">↗</span></Link>}
     </aside>
     <section className="example-results" aria-labelledby="results-title">
