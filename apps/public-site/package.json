@@ -1,0 +1,14 @@
+{
+  "name": "comground-public-preview",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node ../../scripts/with-local-node.mjs ../../node_modules/next/dist/bin/next dev . --hostname 127.0.0.1 --port 3120",
+    "build": "node ../../scripts/with-local-node.mjs ../../node_modules/next/dist/bin/next build . --webpack",
+    "start": "node ../../scripts/with-local-node.mjs ../../node_modules/next/dist/bin/next start . --hostname 127.0.0.1 --port 3120"
+  },
+  "dependencies": { "next": "16.4.2", "react": "19.3.1", "react-dom": "19.3.1" },
+  "devDependencies": { "typescript": "7.0.2", "@types/node": "22.20.5", "@types/react": "19.3.0", "@types/react-dom": "19.3.0" },
+  "engines": { "node": ">=22.23.3 <23" }
+}

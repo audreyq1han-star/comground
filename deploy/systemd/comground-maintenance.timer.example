@@ -1,0 +1,12 @@
+# Template only. Retention is disabled until separately configured and activated.
+[Unit]
+Description=CommonGround approved retention schedule
+
+[Timer]
+OnCalendar=*-*-* 03:15:00 UTC
+RandomizedDelaySec=15m
+Persistent=false
+Unit=comground-maintenance.service
+
+[Install]
+WantedBy=timers.target

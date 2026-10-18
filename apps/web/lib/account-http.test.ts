@@ -1,0 +1,91 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { mkdtempSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { randomBytes } from 'node:crypto';
+import type { IdentityNotification } from '../../../packages/domain/identity-contracts.ts';
+import { createAccountRepository } from './account-repository.ts';
+import { bindDatabaseMode } from './database-mode.ts';
+import { accountSessionToken, createAccountCookie } from './account-auth.ts';
+import { accounts } from './account-runtime.ts';
+import { confirmAccountVerification, deleteAccountProfile, exportAccountData, getAccountSession, loginAccount, logoutAccount, registerAccount, revokeAllAccountSessions } from './account-handlers.ts';
+import { createSessionCookie, hasReviewerSession, validLoginToken } from './auth.ts';
+import { createStudentCookie, requireStudent, studentIdentity } from './student-auth.ts';
+import { requireReviewer } from './auth.ts';
+
+const managedKeys=['COMGROUND_MODE','COMGROUND_ORIGIN','COMGROUND_DB_PATH','COMGROUND_OUTBOX_KEY','COMGROUND_ADULT_POLICY_ACK','LOCAL_REVIEW_TOKEN','COMGROUND_EMAIL_ENABLED','COMGROUND_AI_ENABLED'];
+test('account handlers enforce modes, exact origin, private cookies and durable student/operator separation',async()=>{
+  const previous=new Map(managedKeys.map(key=>[key,process.env[key]]));
+  const folder=mkdtempSync(join(tmpdir(),'comground-account-http-')),file=join(folder,'test.sqlite');
+  const messages:IdentityNotification[]=[];
+  let fixture:ReturnType<typeof createAccountRepository>|undefined;
+  try{
+    process.env.COMGROUND_MODE='demo';delete process.env.COMGROUND_ORIGIN;
+    process.env.LOCAL_REVIEW_TOKEN='synthetic-local-reviewer-token-for-test';
+    process.env.COMGROUND_EMAIL_ENABLED='0';process.env.COMGROUND_AI_ENABLED='0';
+    const local=new Request('http://localhost:3109/api/account/session',{headers:{host:'localhost:3109'}});
+    const demoStudent=createStudentCookie(local,'demo-alex').split(';')[0];
+    const demoReviewer=createSessionCookie(local).split(';')[0];
+    process.env.COMGROUND_DB_PATH=file;process.env.COMGROUND_OUTBOX_KEY=randomBytes(32).toString('base64');
+    process.env.COMGROUND_MODE='production';process.env.COMGROUND_ORIGIN='https://comground.example.invalid';process.env.COMGROUND_ADULT_POLICY_ACK='adult-account-v1';delete process.env.LOCAL_REVIEW_TOKEN;
+    assert.equal(validLoginToken('synthetic-local-reviewer-token-for-test'),false);
+    assert.throws(()=>createStudentCookie(local,'demo-alex'),{code:'DEMO_AUTH_DISABLED'});
+    assert.throws(()=>createSessionCookie(local),{code:'DEMO_AUTH_DISABLED'});
+    const productionCookie=createAccountCookie('a'.repeat(43));
+    assert.match(productionCookie,/^__Host-comground_account=/);assert.match(productionCookie,/; Secure/);assert.match(productionCookie,/HttpOnly/);assert.match(productionCookie,/SameSite=Strict/);assert.match(productionCookie,/Path=\//);
+    process.env.COMGROUND_MODE='test';process.env.COMGROUND_ORIGIN='http://localhost:3109';
+    bindDatabaseMode(file,'test');
+    fixture=createAccountRepository(file,{notificationSink:(_db,message)=>messages.push(message),beforeDelete:()=>{}});
+    const password='Synthetic private account passphrase';
+    await fixture.register({email:'adult@example.invalid',password,adultConfirmed:true});
+    const request=(path:string,body?:unknown,cookie?:string,origin='http://localhost:3109')=>new Request(`http://localhost:3109/api/account/${path}`,{method:body===undefined?'GET':'POST',headers:{host:'localhost:3109',origin,'content-type':'application/json',...(cookie?{cookie}:{})},...(body===undefined?{}:{body:JSON.stringify(body)})});
+    const demoRequest=request('session',undefined,`${demoStudent}; ${demoReviewer}`);
+    assert.equal(studentIdentity(demoRequest),null);assert.equal(hasReviewerSession(demoRequest),false);
+    assert.throws(()=>requireStudent(demoRequest),{code:'UNAUTHENTICATED'});
+    const denied=await loginAccount(request('session',{email:'adult@example.invalid',password},undefined,'https://other.example.invalid'));
+    assert.equal(denied.status,403);
+    const unknownBody=await loginAccount(request('session',{email:'adult@example.invalid',password,role:'OPERATOR'}));assert.equal(unknownBody.status,422);
+    let response=await loginAccount(request('session',{email:'adult@example.invalid',password}));assert.equal(response.status,200);
+    let cookie=response.headers.get('set-cookie')!.split(';')[0];
+    let state=await response.json();assert.equal(state.account.emailVerified,false);assert.equal(state.token,undefined);
+    const unverifiedRequest=request('session',undefined,cookie);assert.throws(()=>requireStudent(unverifiedRequest),{code:'EMAIL_VERIFICATION_REQUIRED'});
+    const initialExport=await (await exportAccountData(request('export',undefined,cookie))).json();
+    assert.equal(initialExport.identity.account.emailVerified,false);assert.equal(initialExport.student,null);
+    assert.equal(initialExport.identity.securityEvents.length>0,true);assert.equal(JSON.stringify(initialExport).includes('password_hash'),false);
+    response=await confirmAccountVerification(request('verification/confirm',{token:messages[0].token,password}));assert.equal(response.status,200);
+    response=await getAccountSession(request('session',undefined,cookie));assert.equal((await response.json()).authenticated,false,'verification revokes unverified sessions');
+    response=await loginAccount(request('session',{email:'adult@example.invalid',password}));cookie=response.headers.get('set-cookie')!.split(';')[0];
+    response=await getAccountSession(request('session',undefined,cookie));state=await response.json();assert.equal(state.account.emailVerified,true);
+    assert.equal(requireStudent(request('session',undefined,cookie)),state.account.id);
+    assert.throws(()=>requireReviewer(request('session',undefined,cookie)),{code:'FORBIDDEN'});
+    const raw=accountSessionToken(request('session',undefined,cookie))!;
+    assert.equal(accountSessionToken(request('session',undefined,`${cookie}; ${cookie}`)),null);
+    assert.equal(JSON.stringify(state).includes(raw),false);
+    assert.equal(response.headers.get('cache-control'),'no-store');
+    response=await revokeAllAccountSessions(new Request('http://localhost:3109/api/account/sessions',{method:'DELETE',headers:{host:'localhost:3109',origin:'http://localhost:3109',cookie}}));assert.equal(response.status,200);
+    assert.equal((await (await getAccountSession(request('session',undefined,cookie))).json()).authenticated,false);
+    response=await registerAccount(request('register',{email:'never-onboarded@example.invalid',password,adultConfirmed:true}));assert.equal(response.status,202);
+    response=await loginAccount(request('session',{email:'never-onboarded@example.invalid',password}));assert.equal(response.status,200);cookie=response.headers.get('set-cookie')!.split(';')[0];
+    const fullExport=await (await exportAccountData(request('export',undefined,cookie))).json();
+    assert.equal(fullExport.student,null);assert.equal(fullExport.notifications.outbox.length,1);assert.equal(fullExport.notifications.outbox[0].state,'BLOCKED');
+    assert.equal(JSON.stringify(fullExport).includes('envelope'),false);assert.equal(JSON.stringify(fullExport).includes('token_hash'),false);
+    response=await deleteAccountProfile(new Request('http://localhost:3109/api/account/profile',{method:'DELETE',headers:{host:'localhost:3109',origin:'http://localhost:3109',cookie,'content-type':'application/json'},body:JSON.stringify({confirmation:'DELETE'})}));
+    assert.equal(response.status,200);assert.equal((await response.json()).authenticated,false);
+    fixture.bootstrapOperator(state.account.id);
+    response=await loginAccount(request('session',{email:'adult@example.invalid',password}));cookie=response.headers.get('set-cookie')!.split(';')[0];
+    assert.doesNotThrow(()=>requireReviewer(request('session',undefined,cookie)));
+    assert.throws(()=>requireStudent(request('session',undefined,cookie)),{code:'FORBIDDEN'});
+    response=await logoutAccount(new Request('http://localhost:3109/api/account/session',{method:'DELETE',headers:{host:'localhost:3109',origin:'http://localhost:3109',cookie}}));assert.equal(response.status,200);
+    assert.equal((await (await getAccountSession(request('session',undefined,cookie))).json()).authenticated,false);
+    process.env.COMGROUND_MODE='demo';delete process.env.COMGROUND_ORIGIN;
+    response=await registerAccount(request('register',{email:'hidden@example.invalid',password,adultConfirmed:true}));assert.equal(response.status,503);
+  }finally{
+    fixture?.close();
+    // The only retained runtime handle was opened for this disposable test database.
+    process.env.COMGROUND_MODE='test';process.env.COMGROUND_ORIGIN='http://localhost:3109';
+    try{accounts().close();}catch{}
+    for(const [key,value] of previous){if(value===undefined)delete process.env[key];else process.env[key]=value;}
+    rmSync(folder,{recursive:true,force:true});
+  }
+});

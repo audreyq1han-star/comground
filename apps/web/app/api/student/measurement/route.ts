@@ -1,0 +1,5 @@
+import { getMeasurementConsent, putMeasurementConsent } from '../../../../lib/measurement-handlers.ts';
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+export const GET = getMeasurementConsent;
+export const PUT = putMeasurementConsent;

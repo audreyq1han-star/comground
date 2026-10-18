@@ -1,0 +1,34 @@
+name: Local application contracts
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: contracts-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.23.3"
+          cache: npm
+      # Future CI installation uses the reviewed lockfile; no lifecycle scripts or secrets.
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: git diff --check
+      - run: npm run typecheck
+      - run: node scripts/with-local-node.mjs node_modules/typescript/bin/tsc -p apps/public-site/tsconfig.json --noEmit
+      - run: npm test
+      - run: node scripts/with-local-node.mjs --experimental-strip-types --test apps/public-site/preview-model.test.ts
+      - run: npm run build
+      - run: node scripts/with-local-node.mjs node_modules/next/dist/bin/next build apps/public-site --webpack
+      - run: npm run test:production-http
+      # No deploy, image pull, provider call or scheduled workflow is configured.
+      # Browser acceptance and current dependency audit remain release gates.

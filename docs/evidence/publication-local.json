@@ -1,0 +1,17 @@
+{
+  "verifiedAt": "2026-10-18T03:12:20.406753+00:00",
+  "scope": "Publication preparation from the previously reviewed local implementation; original HTML assets unchanged. Reversible cleanup affects documentation, artifact exclusions, CI coverage and branch-specific deployment suppression.",
+  "priorLocalCheckpoint": "a4981eceb5ea6f85497f1e02b062f5e21f1e2af8",
+  "upstreamBase": "5109d51b7f26e71a3b75cb4bde100f91154a00a3",
+  "applicationRuntimeAndTestCodeChanged": false,
+  "unitTests": 411,
+  "publicPreviewModelTests": 2,
+  "strictTypechecks": "main and public preview passed",
+  "productionBuilds": "main and public preview passed",
+  "syntheticAccountHttpGroups": 21,
+  "localPerformanceRoutes": 6,
+  "browserEvidence": "Previous 106 application and 7 public-preview browser groups retained with original timestamps; runtime behavior unchanged, so browser suites were not repeated during publication cleanup.",
+  "externalProviderCalls": 0,
+  "deployment": "Not requested; exact feature branch disabled in vercel.json. Remote outcome is checked after push.",
+  "hostingCi": "Reported separately by GitHub for the actual pushed commit; local checks are not hosted CI."
+}

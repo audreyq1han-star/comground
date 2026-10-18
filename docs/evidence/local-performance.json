@@ -1,0 +1,193 @@
+{
+  "format": "comground-local-performance-v1",
+  "measuredAt": "2026-10-18T03:11:29.773Z",
+  "status": "PASSED",
+  "scope": "Sequential loopback HTTP on a disposable empty production-mode database, with delivery and AI disabled",
+  "machine": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpu": "Apple M3 Ultra",
+    "node": "v22.23.3"
+  },
+  "buildId": "Vf5rE6AwBIyUsfmFIZ4a0",
+  "commit": "5109d51b7f26e71a3b75cb4bde100f91154a00a3",
+  "workingTreeDirty": true,
+  "budgets": {
+    "warmP95Ms": 2000,
+    "htmlBytes": 307200,
+    "apiBytes": 262144,
+    "samplesPerRoute": 5,
+    "warmupsPerRoute": 1,
+    "totalDeadlineMs": 120000
+  },
+  "routes": [
+    {
+      "path": "/",
+      "samples": [
+        {
+          "elapsedMs": 6.181,
+          "bytes": 8949
+        },
+        {
+          "elapsedMs": 6.254,
+          "bytes": 8949
+        },
+        {
+          "elapsedMs": 6.61,
+          "bytes": 8949
+        },
+        {
+          "elapsedMs": 5.97,
+          "bytes": 8949
+        },
+        {
+          "elapsedMs": 5.028,
+          "bytes": 8949
+        }
+      ],
+      "p95Ms": 6.61,
+      "maxBytes": 8949
+    },
+    {
+      "path": "/opportunities",
+      "samples": [
+        {
+          "elapsedMs": 6.467,
+          "bytes": 11827
+        },
+        {
+          "elapsedMs": 8.248,
+          "bytes": 11827
+        },
+        {
+          "elapsedMs": 4.163,
+          "bytes": 11827
+        },
+        {
+          "elapsedMs": 4.328,
+          "bytes": 11827
+        },
+        {
+          "elapsedMs": 4.388,
+          "bytes": 11827
+        }
+      ],
+      "p95Ms": 8.248,
+      "maxBytes": 11827
+    },
+    {
+      "path": "/account/login",
+      "samples": [
+        {
+          "elapsedMs": 2.902,
+          "bytes": 10687
+        },
+        {
+          "elapsedMs": 2.963,
+          "bytes": 10687
+        },
+        {
+          "elapsedMs": 3.669,
+          "bytes": 10687
+        },
+        {
+          "elapsedMs": 2.994,
+          "bytes": 10687
+        },
+        {
+          "elapsedMs": 2.682,
+          "bytes": 10687
+        }
+      ],
+      "p95Ms": 3.669,
+      "maxBytes": 10687
+    },
+    {
+      "path": "/account/signup",
+      "samples": [
+        {
+          "elapsedMs": 2.704,
+          "bytes": 10706
+        },
+        {
+          "elapsedMs": 3.379,
+          "bytes": 10706
+        },
+        {
+          "elapsedMs": 3.001,
+          "bytes": 10706
+        },
+        {
+          "elapsedMs": 3.469,
+          "bytes": 10706
+        },
+        {
+          "elapsedMs": 2.869,
+          "bytes": 10706
+        }
+      ],
+      "p95Ms": 3.469,
+      "maxBytes": 10706
+    },
+    {
+      "path": "/api/runtime",
+      "samples": [
+        {
+          "elapsedMs": 1.314,
+          "bytes": 281
+        },
+        {
+          "elapsedMs": 1.432,
+          "bytes": 281
+        },
+        {
+          "elapsedMs": 1.27,
+          "bytes": 281
+        },
+        {
+          "elapsedMs": 0.964,
+          "bytes": 281
+        },
+        {
+          "elapsedMs": 0.91,
+          "bytes": 281
+        }
+      ],
+      "p95Ms": 1.432,
+      "maxBytes": 281
+    },
+    {
+      "path": "/api/opportunities",
+      "samples": [
+        {
+          "elapsedMs": 1.843,
+          "bytes": 21
+        },
+        {
+          "elapsedMs": 1.179,
+          "bytes": 21
+        },
+        {
+          "elapsedMs": 0.956,
+          "bytes": 21
+        },
+        {
+          "elapsedMs": 0.69,
+          "bytes": 21
+        },
+        {
+          "elapsedMs": 0.707,
+          "bytes": 21
+        }
+      ],
+      "p95Ms": 1.843,
+      "maxBytes": 21
+    }
+  ],
+  "failures": [],
+  "limits": [
+    "Local machine timing only; this is not public TLS, nginx, browser rendering, Web Vitals, load, production capacity or populated-data evidence.",
+    "Five warm samples use nearest-rank p95 (the slowest sample); startup and the first request to each route are excluded.",
+    "Byte counts are uncompressed response bodies, excluding headers and browser assets. No external provider is enabled."
+  ]
+}

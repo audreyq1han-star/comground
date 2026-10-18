@@ -1,0 +1,198 @@
+{
+  "verifiedAt": "2026-10-17T21:26:56.962Z",
+  "checks": [
+    "Sampled student and operator routes have one main landmark, one visible h1 and labeled form controls",
+    "Computed sampled visible text contrast meets 4.5:1 normal /3:1 large thresholds",
+    "768px tablet/laptop routes fit without page overflow",
+    "1024px tablet/laptop routes fit without page overflow",
+    "Ten Tab and six Shift+Tab moves stay inside the modal; Escape restores opener focus",
+    "Reduced-motion preference is active during all audited journeys"
+  ],
+  "results": [
+    {
+      "path": "/",
+      "mainCount": 1,
+      "h1Count": 1,
+      "fields": 0,
+      "unlabeled": [],
+      "contrastIssues": []
+    },
+    {
+      "path": "/profile",
+      "mainCount": 1,
+      "h1Count": 1,
+      "fields": 26,
+      "unlabeled": [],
+      "contrastIssues": []
+    },
+    {
+      "path": "/opportunities",
+      "mainCount": 1,
+      "h1Count": 1,
+      "fields": 7,
+      "unlabeled": [],
+      "contrastIssues": []
+    },
+    {
+      "path": "/matches",
+      "mainCount": 1,
+      "h1Count": 1,
+      "fields": 1,
+      "unlabeled": [],
+      "contrastIssues": []
+    },
+    {
+      "path": "/saved",
+      "mainCount": 1,
+      "h1Count": 1,
+      "fields": 0,
+      "unlabeled": [],
+      "contrastIssues": []
+    },
+    {
+      "path": "/activity",
+      "mainCount": 1,
+      "h1Count": 1,
+      "fields": 1,
+      "unlabeled": [],
+      "contrastIssues": []
+    },
+    {
+      "path": "/alerts",
+      "mainCount": 1,
+      "h1Count": 1,
+      "fields": 3,
+      "unlabeled": [],
+      "contrastIssues": []
+    },
+    {
+      "path": "/admin",
+      "mainCount": 1,
+      "h1Count": 1,
+      "fields": 0,
+      "unlabeled": [],
+      "contrastIssues": []
+    },
+    {
+      "path": "/admin/sources",
+      "mainCount": 1,
+      "h1Count": 1,
+      "fields": 4,
+      "unlabeled": [],
+      "contrastIssues": []
+    },
+    {
+      "path": "/admin/opportunities",
+      "mainCount": 1,
+      "h1Count": 1,
+      "fields": 2,
+      "unlabeled": [],
+      "contrastIssues": []
+    },
+    {
+      "path": "/admin/reports",
+      "mainCount": 1,
+      "h1Count": 1,
+      "fields": 1,
+      "unlabeled": [],
+      "contrastIssues": []
+    },
+    {
+      "path": "/admin/measurement",
+      "mainCount": 1,
+      "h1Count": 1,
+      "fields": 0,
+      "unlabeled": [],
+      "contrastIssues": []
+    },
+    {
+      "path": "/admin/acquisition",
+      "mainCount": 1,
+      "h1Count": 1,
+      "fields": 1,
+      "unlabeled": [],
+      "contrastIssues": []
+    },
+    {
+      "path": "/settings/alerts",
+      "mainCount": 1,
+      "h1Count": 1,
+      "fields": 3,
+      "unlabeled": [],
+      "contrastIssues": []
+    },
+    {
+      "path": "/digest",
+      "mainCount": 1,
+      "h1Count": 1,
+      "fields": 1,
+      "unlabeled": [],
+      "contrastIssues": []
+    },
+    {
+      "path": "/evidence",
+      "mainCount": 1,
+      "h1Count": 1,
+      "fields": 4,
+      "unlabeled": [],
+      "contrastIssues": []
+    },
+    {
+      "path": "/safety",
+      "mainCount": 1,
+      "h1Count": 1,
+      "fields": 0,
+      "unlabeled": [],
+      "contrastIssues": []
+    },
+    {
+      "path": "/admin/distribution",
+      "mainCount": 1,
+      "h1Count": 1,
+      "fields": 1,
+      "unlabeled": [],
+      "contrastIssues": []
+    },
+    {
+      "path": "/admin/community-pages",
+      "mainCount": 1,
+      "h1Count": 1,
+      "fields": 4,
+      "unlabeled": [],
+      "contrastIssues": []
+    },
+    {
+      "path": "/admin/evidence",
+      "mainCount": 1,
+      "h1Count": 1,
+      "fields": 8,
+      "unlabeled": [],
+      "contrastIssues": []
+    },
+    {
+      "path": "/admin/safety",
+      "mainCount": 1,
+      "h1Count": 1,
+      "fields": 0,
+      "unlabeled": [],
+      "contrastIssues": []
+    },
+    {
+      "path": "/admin/source-control",
+      "mainCount": 1,
+      "h1Count": 1,
+      "fields": 0,
+      "unlabeled": [],
+      "contrastIssues": []
+    },
+    {
+      "path": "/admin/readiness",
+      "mainCount": 1,
+      "h1Count": 1,
+      "fields": 0,
+      "unlabeled": [],
+      "contrastIssues": []
+    }
+  ],
+  "limits": "Focused automated and visual accessibility checks; not a complete assistive-technology or formal WCAG conformance audit."
+}

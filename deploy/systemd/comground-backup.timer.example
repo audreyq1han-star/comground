@@ -1,0 +1,12 @@
+# Template only; approve frequency, retention, capacity and independent custody first.
+[Unit]
+Description=CommonGround encrypted backup schedule
+
+[Timer]
+OnCalendar=*-*-* 02:15:00 UTC
+RandomizedDelaySec=15m
+Persistent=false
+Unit=comground-backup.service
+
+[Install]
+WantedBy=timers.target

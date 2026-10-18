@@ -1,0 +1,16 @@
+{
+  "verifiedAt": "2026-10-17T21:28:54.150Z",
+  "mode": "synthetic-local-only",
+  "checks": [
+    "Source operations require operator authentication and same-origin mutations",
+    "Permission version, due run, leased fixture batch and staged catalogue import persist through the UI",
+    "Source permission, run and staging controls fit 390px and 320px viewports",
+    "Narrowing a current source contract removes an existing publication from public reads"
+  ],
+  "pageErrors": [],
+  "externalRequests": [],
+  "screenshots": [
+    "output/playwright/source-control/source-desktop.png",
+    "output/playwright/source-control/source-phone.png"
+  ]
+}

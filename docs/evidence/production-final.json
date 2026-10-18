@@ -1,0 +1,137 @@
+{
+  "verifiedAt": "2026-10-17T21:33:12.925850+00:00",
+  "baseCommit": "4edb31c4f7b6452e64df9acc446d677221ba4f59",
+  "scope": "Final integrated high-school local implementation. Exact clean delivery commit is in external checkpoint.json; the code fingerprint binds the tested runtime, harnesses and configuration without a self-referencing commit field.",
+  "unitTests": 411,
+  "unitFailures": 0,
+  "strictTypecheck": "passed",
+  "productionBuild": "passed",
+  "productionBuildId": "5j9BsRRORbo_sn7NRDZhg",
+  "codeFingerprint": {
+    "algorithm": "sha256(path UTF-8 + NUL + bytes + NUL), sorted unique Git nonignored paths excluding docs and original assets plus DEVELOPMENT.md",
+    "fileCount": 449,
+    "sha256": "1d25b212dfe878174512b9cb93eda0185a7f57d0bcd3b98d453913e6cc655383"
+  },
+  "evidence": {
+    "full-app-http": {
+      "groups": 32,
+      "verifiedAt": "2026-10-17T21:27:41.585Z"
+    },
+    "occurrence-measurement-http": {
+      "groups": 23,
+      "verifiedAt": "2026-10-17T21:27:57.832Z"
+    },
+    "production-http": {
+      "groups": 21,
+      "verifiedAt": "2026-10-17T21:28:25.268Z"
+    },
+    "browser-e2e": {
+      "groups": 38,
+      "verifiedAt": "2026-10-17T21:29:59.129Z"
+    },
+    "occurrence-measurement-browser": {
+      "groups": 21,
+      "verifiedAt": "2026-10-17T21:30:31.747Z"
+    },
+    "production-browser": {
+      "groups": 16,
+      "verifiedAt": "2026-10-17T21:29:20.460Z"
+    },
+    "high-school-browser": {
+      "groups": 8,
+      "verifiedAt": "2026-10-17T21:29:42.552Z"
+    },
+    "safety-browser": {
+      "groups": 3,
+      "verifiedAt": "2026-10-17T21:29:48.188Z"
+    },
+    "distribution-browser": {
+      "groups": 5,
+      "verifiedAt": "2026-10-17T21:29:31.028Z"
+    },
+    "independent-browser": {
+      "groups": 11,
+      "verifiedAt": "2026-10-17T21:29:46.188Z"
+    },
+    "source-control-browser": {
+      "groups": 4,
+      "verifiedAt": "2026-10-17T21:28:54.150Z"
+    },
+    "public-preview": {
+      "groups": 7,
+      "verifiedAt": "2026-10-17T21:06:11.359Z"
+    },
+    "accessibility-e2e": {
+      "groups": 6,
+      "verifiedAt": "2026-10-17T21:26:56.962Z"
+    }
+  },
+  "applicationHttpGroups": 76,
+  "applicationBrowserGroups": 106,
+  "publicPreviewBrowserGroups": 7,
+  "publicPreviewModelTests": 2,
+  "accessibilityGroups": 6,
+  "accessibilitySampledRoutes": 23,
+  "summaryRows": [
+    [
+      "Unit / contracts",
+      "411 pass; zero failures. Identity, youth, evidence, matching, supply, distribution, measurement and recovery."
+    ],
+    [
+      "TypeScript / builds",
+      "Main application and isolated public preview typecheck and production builds pass; 2 additional public-model tests pass."
+    ],
+    [
+      "Application HTTP",
+      "76 groups pass: 32 application, 23 occurrence/measurement and 21 durable-account groups."
+    ],
+    [
+      "Real browser journeys",
+      "106 application groups plus 7 public-preview groups pass. Desktop and 320/390px phone journeys; zero unexpected external requests."
+    ],
+    [
+      "Focused accessibility",
+      "6 groups over 23 sampled app routes, keyboard modal behavior, reduced motion and 768/1024px layouts. Not certification."
+    ],
+    [
+      "Local performance",
+      "6 routes pass; maximum warm p95 8.545 ms and response 11,827 bytes on this Mac. Five sequential samples/route; not load or Web Vitals."
+    ]
+  ],
+  "localPerformance": {
+    "routes": 6,
+    "maximumWarmP95Ms": 8.545,
+    "maximumResponseBytes": 11827,
+    "source": "local-performance.json"
+  },
+  "externalProviderCalls": 0,
+  "realDataUsed": false,
+  "deployment": "not performed",
+  "originalMainClean": true,
+  "originalAssetsUnchanged": true,
+  "credentialPatternScan": "Recorded separately in final-source-review.json; original HTML excluded from delivery overlay.",
+  "restoreSuppressionReplay": "Unit and HTTP coverage passed encrypted backup/restore quarantine, atomic/idempotent deletion and suppression replay, digest invalidation and rollback cases.",
+  "securityReview": {
+    "newConfirmedFindingsFixed": [
+      "Permission-scope bypass across source import, linking and public reads",
+      "Synthetic community mutation allowed in production mode"
+    ],
+    "independentRecheck": "Both fixes independently reproduced; no remaining substantive finding reported in bounded identity/youth/evidence, A3 safety, A7 measurement, supply/distribution or A15 metric follow-up reviews.",
+    "metricRepairs": [
+      "Repeated material-change deduplication and first-detection clocks",
+      "Unknown historical alias provenance excluded explicitly",
+      "Continuous permission-episode attribution for due-run reliability"
+    ],
+    "audienceDecision": "High school first, including age 18+; college later; real minor admission disabled",
+    "newAccountVideoRecorded": false
+  },
+  "limits": [
+    "All teen, source-control, community and scoped evidence workflows use synthetic local fixtures. Real-minor enrollment remains disabled.",
+    "Self-attested age and synthetic adult review do not establish age, guardian identity, school authority or lawful consent.",
+    "No permitted real feed extraction, external email/AI, live webhook registration, public TLS, deployment or real student pilot.",
+    "Local performance is empty-database sequential loopback HTTP, not populated-data, browser rendering, production capacity or load evidence.",
+    "Focused accessibility is not a native screen-reader or formal conformance audit.",
+    "Historical alias detection clocks without immutable provenance are explicit unknown/excluded metrics.",
+    "Single application writer, no MFA, credential abuse/capacity and production operations remain documented release concerns."
+  ]
+}

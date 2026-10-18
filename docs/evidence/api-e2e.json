@@ -1,0 +1,69 @@
+{
+  "scope": "localhost synthetic fixture acceptance",
+  "checks": [
+    {
+      "name": "unauthenticated review access is rejected",
+      "passed": true
+    },
+    {
+      "name": "cross-origin login is rejected",
+      "passed": true
+    },
+    {
+      "name": "missing-origin mutation is rejected",
+      "passed": true
+    },
+    {
+      "name": "ephemeral reviewer login succeeds with protected cookie",
+      "passed": true
+    },
+    {
+      "name": "fixture import creates one private draft",
+      "passed": true
+    },
+    {
+      "name": "same fixture replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "reviewed publication exposes only safe public fields",
+      "passed": true
+    },
+    {
+      "name": "eligible preferences produce template explanations",
+      "passed": true
+    },
+    {
+      "name": "under-age preferences cannot bypass the hard gate",
+      "passed": true
+    },
+    {
+      "name": "missing-age remains unpublishable",
+      "passed": true
+    },
+    {
+      "name": "expired remains unpublishable",
+      "passed": true
+    },
+    {
+      "name": "cancelled remains unpublishable",
+      "passed": true
+    },
+    {
+      "name": "no-permission remains unpublishable",
+      "passed": true
+    },
+    {
+      "name": "material reimport suspends publication and stale reviews conflict",
+      "passed": true
+    },
+    {
+      "name": "malformed and unsafe mutations are rejected",
+      "passed": true
+    },
+    {
+      "name": "logout revokes reviewer access",
+      "passed": true
+    }
+  ]
+}
