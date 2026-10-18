@@ -1,0 +1,21 @@
+# Template only. No unit or timer is installed/enabled by this repository.
+[Unit]
+Description=CommonGround encrypted local backup
+After=docker.service
+Requires=docker.service
+ConditionPathExists=/etc/comground/enabled/backup
+
+[Service]
+Type=oneshot
+User=comground
+WorkingDirectory=/opt/comground
+EnvironmentFile=/etc/comground/compose.env
+ExecStart=/usr/bin/docker compose -f /opt/comground/deploy/compose.yaml run --rm --no-deps --pull never --no-build --name comground-backup-job app scripts/production-backup.mjs --scheduled
+ExecStopPost=-/usr/bin/docker rm --force comground-backup-job
+TimeoutStartSec=300
+TimeoutStopSec=20
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict

@@ -1,0 +1,12 @@
+{
+  "verifiedAt": "2026-10-17T14:25:23.152901+00:00",
+  "scope": "Tracked/new implementation files only; original marketing HTML excluded from delivery archives",
+  "fileCount": 194,
+  "secretPatternFindings": [],
+  "manualNotes": [
+    "No runtime credentials, database, dependency directory or portable runtime included.",
+    "Synthetic source and signup URLs use example.invalid.",
+    "Reviewer and student signing keys are generated in memory.",
+    "Targeted pattern scan and manual boundary review are not a comprehensive secret/security audit."
+  ]
+}

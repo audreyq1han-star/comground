@@ -1,0 +1,20 @@
+{
+  "verifiedAt": "2026-10-17T21:29:46.188Z",
+  "runtime": "v22.23.3",
+  "scope": "Independent production-build journeys in installed Mac Chrome; isolated synthetic database",
+  "checks": [
+    "Fresh desktop onboarding requires consent and reaches a real persistent dashboard",
+    "Cross-tab profile changes update match facts and results atomically on manual and focus refresh",
+    "Unsaved reminder choices survive focus revalidation, failed refresh and retry",
+    "Manual digest preview shows current explained choices and never claims scheduled delivery",
+    "Save status must load before toggling; save/remove remains consistent after delayed reads",
+    "Private fit feedback and idempotent factual reports are distinct from application activity",
+    "Unsaved activity edits survive focus, applied unsaved events get reminders, and dismissal appears in export",
+    "Reviewer sees factual reports only and resolution returns to the reporting persona",
+    "Committed edits retain success after refresh failure, block stale controls, and expose exact before/after facts on retry",
+    "Phone journey completes second-persona onboarding, matching, save, signup preview, activity and digest with isolated feedback",
+    "New student/operator controls fit at 390px and 320px"
+  ],
+  "errors": [],
+  "externalRequests": []
+}

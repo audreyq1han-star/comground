@@ -1,0 +1,32 @@
+{
+  "verifiedAt": "2026-10-18T03:11:29.699Z",
+  "checks": [
+    "Production configuration fails closed and test mode cannot enable live adapters",
+    "Database binding prevents cross-mode reuse before application writes",
+    "Test account mode exposes truthful disabled integrations and an unseeded catalogue",
+    "Account mutations enforce exact origin, request metadata and bounded DTOs before registration",
+    "Signup creates only student accounts and stores verification messages encrypted without API tokens",
+    "Unverified sessions cannot use private profiles, operator data or optional delivery",
+    "Verification is purpose-bound and one-use; replacement invalidates the former link",
+    "Offline verified-adult bootstrap creates an operator without enabling a role-granting HTTP path",
+    "Adult profile admission and independent personalization consent are enforced server-side",
+    "Every private mutation namespace rejects cross-origin requests without changing persisted choices",
+    "Optional notification consent remains independent and visibly delivery-disabled with safe queue projections",
+    "Durable account sessions and privacy choices survive process restart without demo re-selection",
+    "Revocation while a real HTTP JSON body is held prevents student, notification, AI and operator work",
+    "Session listing and revocation are owner-bound and invalidate only selected sessions",
+    "Password recovery is generic, purpose-bound, one-use and revokes all prior account sessions",
+    "Password change checks current credentials, rotates the current session and revokes other sessions",
+    "Full account export and destructive controls require recent authentication, with safe complete owned export after confirmation",
+    "Profile deletion removes private and notification state while retaining only its account identity",
+    "Account deletion invalidates tokens and sessions and removes owned rows without touching another account",
+    "Authentication limits reject repeated wrong credentials without exposing internal errors",
+    "Configured production stays empty, rejects demo entry points and uses secure host-only account cookies"
+  ],
+  "scope": "Synthetic durable accounts through isolated test mode plus loopback reverse-proxy-header simulation of production; no live adapters",
+  "externalProviderCalls": 0,
+  "limits": [
+    "No live email delivery, public TLS endpoint, deployed proxy, verified age, real accounts or feed data is claimed.",
+    "Notification retries and AI transports are verified separately through injected unit seams."
+  ]
+}

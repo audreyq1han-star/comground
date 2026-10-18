@@ -1,0 +1,43 @@
+{
+  "recordedAt": "2026-10-18",
+  "publishedCommit": "4c55d3bf3bcd47c4cfcbba7a9b5c330a7081f6f8",
+  "uiCandidateCommit": "773330ec5653c8f206a75241fa2c71ed1aaba034",
+  "draftPullRequest": "https://github.com/audreyq1han-star/comground/pull/1",
+  "ci": {
+    "conclusion": "success",
+    "url": "https://github.com/audreyq1han-star/comground/actions/runs/39094200869",
+    "unitTests": 413,
+    "publicModelTests": 3,
+    "productionHttpGroups": 21,
+    "mainBuild": "passed",
+    "publicBuild": "passed",
+    "exportedFiles": 74
+  },
+  "localBrowser": {
+    "routeChecks": 191,
+    "journeyChecks": 24,
+    "phoneInteractionChecks": 16,
+    "total": 231,
+    "browser": "Chrome 151.0.7922.34",
+    "widths": [
+      1440,
+      768,
+      390,
+      320
+    ]
+  },
+  "deployment": {
+    "state": "blocked",
+    "projects": [
+      "comground",
+      "comground-t5p5"
+    ],
+    "buildResult": "Both existing Vercel integrations reported failure. The detailed cause is not yet available.",
+    "logAccess": "The checked in-app browser redirects to Vercel login; no existing CLI credential was available.",
+    "smallestNextStep": "An existing signed-in Audrey-team browser session, or the build-error section with secrets removed. No new credential, account, permission, provider or paid resource is requested.",
+    "verifiedOnlineUrl": null,
+    "finalOnlineBrowserReview": "pending",
+    "finalOnlineWalkthrough": "pending"
+  },
+  "scope": "Static fictional preview only; authenticated app remains local; no main merge, real enrollment or external providers."
+}

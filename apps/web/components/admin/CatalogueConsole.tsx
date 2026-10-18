@@ -1,0 +1,18 @@
+'use client';
+import Link from 'next/link';
+import { useState } from 'react';
+import type { AdminCatalogueRecord } from '../../../../packages/domain/app-contracts.ts';
+import { matchesCatalogueStatus } from './catalogue-view';
+import { AdminPageHeading, ResourceState, StatusPill, Timestamp, useAdminResource } from './AdminShared';
+
+export function CatalogueConsole({reviewOnly=false}:{reviewOnly?:boolean}){
+  const state=useAdminResource<AdminCatalogueRecord[]>('/api/admin/opportunities');
+  const [query,setQuery]=useState(''); const [filter,setFilter]=useState(reviewOnly?'DRAFT':'ALL');
+  const data=state.data||[];
+  const visible=data.filter(item=>matchesCatalogueStatus(item,filter)&&`${item.record.title} ${item.record.organization.name} ${item.record.source.name}`.toLowerCase().includes(query.toLowerCase()));
+  return <><AdminPageHeading eyebrow={reviewOnly?'CATALOGUE / HUMAN REVIEW':'SUPPLY / CATALOGUE'} title={reviewOnly?'Review the facts. Own the decision.':'Every listing, with its history.'} description={reviewOnly?'Inspect source evidence, resolve missing facts and make a versioned publication decision.':'Published, draft and unavailable records stay traceable. Public visibility is checked again at read time.'} action={<Link prefetch={false} className="button primary" href="/admin/import-runs">Import a fixture</Link>}/>
+    <div className="op-toolbar"><div className="field"><label htmlFor="op-query">Find a record</label><input id="op-query" type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Title, source or organization"/></div><div className="field"><label htmlFor="op-status-filter">Status</label><select id="op-status-filter" value={filter} onChange={e=>setFilter(e.target.value)}><option value="ALL">All statuses</option><optgroup label="Review status">{['DRAFT','PUBLISHED','REJECTED'].map(value=><option key={value} value={value}>{value}</option>)}</optgroup><optgroup label="Current availability">{['WITHDRAWN','EXPIRED','CANCELLED','SOURCE_PAUSED'].map(value=><option key={value} value={value}>{value.replaceAll('_',' ')}</option>)}</optgroup></select></div><button className="button secondary" onClick={()=>void state.reload()} disabled={state.loading}>Refresh records</button></div>
+    <ResourceState {...state} empty={!state.data} retry={()=>void state.reload()}/>
+    {state.data&&<><p className="op-result-count" role="status">{visible.length} of {data.length} synthetic records{state.loading?' · refreshing…':''}</p>{visible.length?<div className="op-catalogue-list" aria-busy={state.loading}>{visible.map(item=><article className="op-catalogue-row" key={item.id}><div><div className="op-inline"><StatusPill value={item.status}/>{item.effectiveStatus!==item.status&&<StatusPill value={item.effectiveStatus}/>}<span className="op-version">Version {item.version}</span></div><h2><Link prefetch={false} href={`/admin/opportunities/${encodeURIComponent(item.id)}`}>{item.record.title}</Link></h2><p>{item.record.organization.name} · Synthetic — not verified</p><p className="op-meta">{item.record.source.name} · Updated <Timestamp value={item.updatedAt}/></p>{item.issues.length>0&&<p className="op-blocked">{item.issues.length} publication {item.issues.length===1?'issue':'issues'} to inspect</p>}</div><Link prefetch={false} className="button secondary" href={`/admin/opportunities/${encodeURIComponent(item.id)}`}>{item.status==='DRAFT'?'Inspect and review':'Open record'} →</Link></article>)}</div>:<div className="op-empty"><h2>No records in this view.</h2><p>Try another status or search. Existing records are never deleted by a filter.</p><button className="button secondary" onClick={()=>{setFilter('ALL');setQuery('');}}>Clear filters</button></div>}</>}
+  </>;
+}

@@ -1,0 +1,8 @@
+{
+  "verifiedAt": "2026-10-17T21:33:28.074651+00:00",
+  "scope": "Implementation overlay and delivery verification logs; original HTML containing pre-existing form reference excluded. Pattern scan is not a proof that every possible secret is absent.",
+  "implementationFiles": 490,
+  "forbiddenFiles": [],
+  "credentialPatternFindings": [],
+  "originalAssetDifferences": false
+}

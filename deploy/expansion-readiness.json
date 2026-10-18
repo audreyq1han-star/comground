@@ -1,0 +1,20 @@
+{
+  "format": "comground-expansion-review-v1",
+  "version": 1,
+  "previousReview": null,
+  "recordedAt": null,
+  "validUntil": null,
+  "scope": { "stage": "HIGH_SCHOOL", "geography": null, "cohort": null, "ageBands": ["TEEN_13_17", "ADULT_HIGH_SCHOOL"] },
+  "release": { "commit": null, "imageDigest": null },
+  "gates": {
+    "admission": { "status": "UNKNOWN", "evidence": [], "reviewedBy": null, "reviewedAt": null },
+    "safeguarding": { "status": "UNKNOWN", "evidence": [], "reviewedBy": null, "reviewedAt": null },
+    "supply": { "status": "UNKNOWN", "evidence": [], "reviewedBy": null, "reviewedAt": null },
+    "pilotEvidence": { "status": "UNKNOWN", "evidence": [], "reviewedBy": null, "reviewedAt": null },
+    "operations": { "status": "UNKNOWN", "evidence": [], "reviewedBy": null, "reviewedAt": null },
+    "security": { "status": "UNKNOWN", "evidence": [], "reviewedBy": null, "reviewedAt": null },
+    "recovery": { "status": "UNKNOWN", "evidence": [], "reviewedBy": null, "reviewedAt": null },
+    "ownerApproval": { "status": "UNKNOWN", "evidence": [], "reviewedBy": null, "reviewedAt": null }
+  },
+  "decision": { "requested": "NO_GO", "reference": null }
+}

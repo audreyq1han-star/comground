@@ -1,0 +1,16 @@
+'use client';
+import { EXPANSION_GATES, type ExpansionEvaluation, type ExpansionGate } from '../../../../packages/domain/expansion-readiness.ts';
+import { AdminPageHeading, ResourceState, StatusPill, Timestamp, useAdminResource } from './AdminShared';
+
+export function ExpansionReadinessPage() {
+  const state = useAdminResource<ExpansionEvaluation>('/api/admin/readiness'), data = state.data, record = data?.record;
+  return <><AdminPageHeading eyebrow="OPERATIONS / EXPANSION" title="A reviewed step, before expansion." description="High-school geography, cohort and release evidence. Unknown or expired evidence blocks a go decision." action={<button className="button secondary" onClick={() => void state.reload()} disabled={state.loading}>Refresh review</button>} />
+    <ResourceState {...state} empty={!data} retry={() => void state.reload()} />
+    {data && <><p className={`notice ${data.decision === 'GO' ? 'success' : 'warning'}`} role="status">Recorded review result: {data.decision.replace('_', ' ')}. This record does not verify its evidence or authorize deployment. Production teen admission remains unavailable.</p>
+      {data.blockers.length > 0 && <section className="op-panel"><h2>Before a go decision</h2><ul>{data.blockers.map(blocker => <li key={blocker}>{blocker}</li>)}</ul></section>}
+      {record && <><section className="op-panel"><h2>Review version {record.version}</h2><p>Geography: {record.scope.geography ?? 'Not selected'}. Cohort: {record.scope.cohort ?? 'Not selected'}. Stage: high school, including students aged 18 and above.</p><p>Age bands: {record.scope.ageBands.map(band => band === 'ADULT_HIGH_SCHOOL' ? '18+ high-school students' : '13–17 high-school students').join('; ')}.</p><p>Recorded <Timestamp value={record.recordedAt} />. Expires <Timestamp value={record.validUntil} />.</p><p>Decision reference: {record.decision.reference ?? 'Not recorded'}. Previous review: {record.previousReview ?? 'None'}.</p><p>Commit: {record.release.commit ?? 'Not recorded'}. Image digest: {record.release.imageDigest ?? 'Not recorded'}.</p></section>
+        <section className="op-panel"><h2>Evidence and accountable review</h2><div className="op-record-list">{Object.entries(EXPANSION_GATES).map(([key, label]) => { const gate = record.gates[key as ExpansionGate]; return <article className="settings-panel" key={key}><h3>{label}</h3><StatusPill value={gate.status} /><p>Reviewer reference: {gate.reviewedBy ?? 'Not recorded'}. Reviewed <Timestamp value={gate.reviewedAt} />.</p>{gate.evidence.length ? <ul>{gate.evidence.map((reference, index) => <li key={index}>{reference}</li>)}</ul> : <p>No evidence recorded.</p>}</article>; })}</div></section></>}
+      <section className="op-panel"><h2>How this record changes</h2><p>An accountable operator updates the versioned local review with evidence references, review dates and an explicit decision. Retain the previous review. This display reads the record bundled with this release; it cannot approve expansion or activate a service.</p><p>Evidence references should identify reviewed documents, aggregate cohort results, capacity checks and recovery drills. Do not include personal student details or credentials. Checked <Timestamp value={data.evaluatedAt} />.</p></section>
+    </>}
+  </>;
+}

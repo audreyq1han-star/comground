@@ -1,0 +1,15 @@
+import Link from 'next/link';
+import { CommunityScene } from '../../components/CommunityScene';
+
+export const metadata = { title: 'For families, schools, and organizers' };
+export default function ForFamiliesPage() {
+  return <div className="page-wrap reading-page families-page"><header className="page-intro"><p className="eyebrow">Supporting a student’s next step</p><h1>A useful conversation<br />starts with the details.</h1><p className="page-lead">Students can explore what interests them while the adults helping them ask practical questions. Start with the work, the requirements, and the support needed to take part.</p><p className="preview-note">CommonGround is a prelaunch preview with fictional activities. Real student enrollment is not available here.</p></header>
+    <nav className="guide-sections" aria-label="On this page"><a href="#families">For families</a><a href="#schools">For schools</a><a href="#organizers">For organizers</a></nav>
+    <div className="family-guide-image"><CommunityScene scene="garden" decorative crop="wide" /></div>
+    <section className="guidance-section" id="families"><span className="step-number">01</span><div><h2>For families</h2><p>Look at the activity together. Ask who will supervise, what permission is needed, and how travel or access needs will be handled. A listing or a requirement check cannot answer every question about an experience.</p><ul className="question-list"><li>What interests you about this activity?</li><li>What would help you feel prepared?</li><li>What should we ask the organizer before making a plan?</li></ul></div></section>
+    <section className="guidance-section" id="schools"><span className="step-number">02</span><div><h2>For schools and counselors</h2><p>An activity can be interesting without meeting a school’s service-hour or credit requirements. Explain your approval process, what evidence you need, and which questions students should ask before taking part. This preview does not award or certify hours.</p></div></section>
+    <section className="guidance-section" id="organizers"><span className="step-number">03</span><div><h2>For organizers</h2><p>Clear listings help students decide whether to ask for more information. Age limits, tasks, dates, supervision, access arrangements, costs, and the right contact person all matter. The activities here are invented; no organization or school is presented as a partner.</p></div></section>
+    <section className="preview-boundary-section"><p className="eyebrow">Where things stand</p><h2>What this preview does today</h2><p>Anyone can explore three fictional activities and try a temporary shortlist. There are no live feeds, applications, accounts, guardian approvals, or email subscriptions on this site. Before real minor enrollment, the age, consent, and safeguarding approach still needs review.</p></section>
+    <div className="guide-action"><Link href="/explore" className="primary-link">Look at an example together <span aria-hidden="true">↗</span></Link></div>
+  </div>;
+}

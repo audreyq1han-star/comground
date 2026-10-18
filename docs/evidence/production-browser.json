@@ -1,0 +1,30 @@
+{
+  "verifiedAt": "2026-10-17T21:29:20.460Z",
+  "checks": [
+    "Dynamic documents carry fresh nonce CSP and hydrate without allowing inline or eval scripts",
+    "Synthetic adult signup uses real controls, clears password input and reports disabled delivery honestly",
+    "Encrypted local verification link is consumed through its real screen without a URL/query leak or automatic login",
+    "Adult onboarding requires separate storage consent and leaves personalization, AI, measurement and email off",
+    "Privacy controls persist the independent personalization choice while optional AI remains disabled",
+    "Account-mode matching displays an empty real catalogue without synthetic opportunity cards",
+    "Optional email reminder controls persist opt-in and opt-out while showing that nothing is delivered",
+    "Session-management UI revokes another authenticated session while preserving the current session",
+    "Password change, sign-out, recovery and fragment reset complete through real controls with no token URL leak",
+    "Recent-auth account export includes owned identity and private data while excluding credentials, tokens and message bodies",
+    "Account privacy, email, sessions and password controls fit 390px and 320px without horizontal overflow",
+    "Storage withdrawal deletes private student state, preserves login and permits new explicitly consented onboarding",
+    "Account deletion visibly signs out and removes the durable account after explicit confirmation",
+    "Offline-bootstrapped operator signs in through account UI and sees empty supply with privacy-safe notification status",
+    "Demo account URLs explain shared personas and never collect email or password credentials",
+    "All account journeys complete with no page exceptions, CSP violations or external requests"
+  ],
+  "screenshots": "output/playwright/production-account",
+  "walkthrough": null,
+  "externalProviderCalls": 0,
+  "mode": "test",
+  "syntheticAccountsOnly": true,
+  "limits": [
+    "Verification/reset tokens were independently decrypted from this run’s disposable encrypted outbox; no mailbox or external provider was contacted.",
+    "No actual email delivery, external AI, public TLS, deployment or verified age is claimed."
+  ]
+}

@@ -1,0 +1,12 @@
+# Template only. Starting this timer can send real mail when delivery is enabled.
+[Unit]
+Description=CommonGround bounded worker schedule
+
+[Timer]
+OnCalendar=minutely
+RandomizedDelaySec=5s
+Persistent=false
+Unit=comground-worker.service
+
+[Install]
+WantedBy=timers.target

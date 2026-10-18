@@ -1,0 +1,44 @@
+{
+  "name": "comground-local",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/with-local-node.mjs scripts/start-local.mjs",
+    "build": "node scripts/with-local-node.mjs node_modules/next/dist/bin/next build apps/web --webpack",
+    "build:public": "node scripts/with-local-node.mjs node_modules/next/dist/bin/next build apps/public-site --webpack && node scripts/audit-public-export.mjs",
+    "preview:public": "node scripts/serve-public-preview.mjs",
+    "typecheck": "node scripts/with-local-node.mjs node_modules/typescript/bin/tsc --noEmit",
+    "test": "node scripts/with-local-node.mjs --experimental-strip-types --test packages/domain/*.test.ts apps/web/lib/*.test.ts tests/*.test.ts",
+    "test:http": "node scripts/with-local-node.mjs tests/api-e2e.mjs",
+    "test:browser": "node scripts/with-local-node.mjs tests/browser-e2e.mjs",
+    "test:full-http": "node scripts/with-local-node.mjs tests/full-app-http.mjs",
+    "test:accessibility": "node scripts/with-local-node.mjs tests/accessibility-e2e.mjs",
+    "runtime:check": "node scripts/with-local-node.mjs",
+    "test:review": "node scripts/with-local-node.mjs tests/independent-review-e2e.mjs",
+    "test:occurrences-http": "node scripts/with-local-node.mjs tests/occurrence-measurement-http.mjs",
+    "test:occurrences-browser": "node scripts/with-local-node.mjs tests/occurrence-measurement-browser.mjs",
+    "test:production-http": "node scripts/with-local-node.mjs --experimental-strip-types scripts/test-production-http.mjs",
+    "test:production-browser": "node scripts/with-local-node.mjs --experimental-strip-types scripts/test-production-browser.mjs",
+    "test:performance": "node scripts/with-local-node.mjs --experimental-strip-types scripts/test-local-performance.mjs",
+    "quality:local": "node scripts/with-local-node.mjs scripts/check-local-quality.mjs",
+    "production:check": "node scripts/with-local-node.mjs --experimental-strip-types scripts/production-check.mjs",
+    "production:migrate": "node scripts/with-local-node.mjs --experimental-strip-types scripts/production-migrate.mjs",
+    "production:start": "node scripts/with-local-node.mjs --experimental-strip-types scripts/production-start.mjs",
+    "notifications:worker": "node scripts/with-local-node.mjs --experimental-strip-types scripts/notifications-worker.mjs"
+  },
+  "dependencies": {
+    "next": "16.4.2",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2",
+    "@types/node": "22.20.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0"
+  },
+  "engines": {
+    "node": ">=22.23.3 <23"
+  }
+}

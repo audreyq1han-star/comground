@@ -1,0 +1,45 @@
+name: comground
+services:
+  app:
+    # Set an immutable release tag/digest after the local validation gates pass.
+    image: ${COMGROUND_IMAGE:?Set a reviewed CommonGround image tag or digest}
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    init: true
+    user: "1000:1000"
+    restart: unless-stopped
+    env_file:
+      - path: ${COMGROUND_ENV_FILE:?Set an absolute private runtime environment file outside the checkout}
+        required: true
+    environment:
+      NODE_ENV: production
+      COMGROUND_MODE: production
+      COMGROUND_DB_PATH: /data/comground.sqlite
+      PORT: "3100"
+      NEXT_TELEMETRY_DISABLED: "1"
+    # Only a trusted TLS proxy on this same host may expose the application.
+    ports:
+      - "127.0.0.1:3100:3100"
+    volumes:
+      - data:/data
+      - backups:/backups
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=512m,uid=1000,gid=1000,mode=1700
+      - /app/apps/web/.next/cache:rw,noexec,nosuid,size=128m,uid=1000,gid=1000,mode=0700
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 128
+    mem_limit: 1g
+    stop_grace_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+volumes:
+  data:
+  backups:

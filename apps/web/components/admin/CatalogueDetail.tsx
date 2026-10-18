@@ -1,0 +1,30 @@
+'use client';
+import Link from 'next/link';
+import { useEffect, useState, type FormEvent } from 'react';
+import type { AdminCatalogueRecord } from '../../../../packages/domain/app-contracts.ts';
+import { api } from '../Api';
+import { AdminPageHeading, MutationNotice, ReasonAction, ResourceState, StatusPill, useAdminMutation, useAdminResource, useVersionFocus } from './AdminShared';
+import { CatalogueFacts } from './CatalogueFacts';
+import { OpportunityEditor } from './OpportunityEditor';
+import { OccurrencesEditor } from './OccurrencesEditor';
+
+export function CatalogueDetail({id}:{id:string}){
+  const state=useAdminResource<AdminCatalogueRecord>(`/api/admin/opportunities/${encodeURIComponent(id)}`);
+  const item=state.data;
+  return <><Link prefetch={false} href="/admin/opportunities" className="op-back">← Catalogue</Link><AdminPageHeading eyebrow="SOURCE RECORD / VERSIONED DECISIONS" title={item?.record.title||'Opportunity record'} description="Synthetic data only. Material changes return a record to review before publication." action={<button className="button secondary" onClick={()=>void state.reload()} disabled={state.loading}>Reload record</button>}/><ResourceState {...state} empty={!item} retry={()=>void state.reload()}/>{item&&<><div className="op-record-meta" role="status"><StatusPill value={item.status}/>{item.effectiveStatus!==item.status&&<StatusPill value={item.effectiveStatus}/>}<span>Version {item.version}</span><span>{item.record.organization.name} · Synthetic — not verified</span></div><div className="op-detail-grid"><div className="op-stack"><CatalogueFacts item={item}/></div><div className="op-stack"><PublicationDecision key={`review-${item.id}`} item={item} reload={state.reload} loading={state.loading||!!state.error}/><OpportunityEditor key={`edit-${item.id}`} item={item} reload={state.reload} loading={state.loading||!!state.error}/><OccurrencesEditor key={`dates-${item.id}`} item={item} reload={state.reload} loading={state.loading||!!state.error}/></div></div></>}</>;
+}
+
+function PublicationDecision({item,reload,loading}:{item:AdminCatalogueRecord;reload:()=>Promise<void>;loading:boolean}){
+  const action=useAdminMutation(); const [reason,setReason]=useState('');
+  const blocked=item.issues.length>0||item.effectiveStatus==='SOURCE_PAUSED'||item.effectiveStatus==='EXPIRED'||item.effectiveStatus==='CANCELLED'||item.withdrawn;
+  const [decision,setDecision]=useState<'PUBLISH'|'REJECT'>(blocked?'REJECT':'PUBLISH');
+  const heading = useVersionFocus(item.version);
+  useEffect(() => { setReason(''); setDecision(blocked ? 'REJECT' : 'PUBLISH'); }, [item.version, blocked]);
+  async function review(e:FormEvent<HTMLFormElement>){e.preventDefault();await action.run(async()=>{await api('/api/admin/reviews',{method:'POST',body:JSON.stringify({id:item.id,expectedVersion:item.version,decision,reason:reason.trim()})});await reload();},decision==='PUBLISH'?'Synthetic example published.':'Draft rejected.');}
+  async function visibility(kind:'WITHDRAW'|'RESTORE',why:string){return action.run(async()=>{await api(`/api/admin/opportunities/${encodeURIComponent(item.id)}/actions`,{method:'POST',body:JSON.stringify({expectedVersion:item.version,action:kind,reason:why})});await reload();},kind==='WITHDRAW'?'Listing withdrawn from public results.':'Restore decision recorded. Inspect the current status before any publication.');}
+  return <section className="op-panel op-decision"><p className="eyebrow">PUBLICATION DECISION</p><h2 ref={heading} tabIndex={-1}>Review version {item.version}</h2><MutationNotice state={action} reload={()=>void reload()}/>{item.issues.length>0?<div className="notice warning"><strong>Publication issues</strong><ul>{item.issues.map(issue=><li key={issue}>{issue}</li>)}</ul></div>:<p className="op-checkline">No automated field issues. Evidence still needs human review.</p>}
+    {item.status==='DRAFT'&&!item.withdrawn?<form onSubmit={review}><div className="field"><label htmlFor="review-decision">Decision</label><select id="review-decision" value={decision} onChange={e=>setDecision(e.target.value as 'PUBLISH'|'REJECT')} disabled={action.pending||loading}><option value="PUBLISH" disabled={blocked}>Publish example</option><option value="REJECT">Reject draft</option></select></div><div className="field"><label htmlFor="review-reason">Review reason</label><textarea id="review-reason" value={reason} onChange={e=>setReason(e.target.value)} rows={3} required minLength={3} maxLength={1000} placeholder="What facts and evidence did you inspect?" disabled={action.pending||loading}/></div><button className={`button ${decision==='PUBLISH'?'primary':'danger'}`} disabled={action.pending||loading||reason.trim().length<3||(decision==='PUBLISH'&&blocked)} type="submit">{action.pending?'Recording decision…':decision==='PUBLISH'?'Publish example':'Reject draft'}</button>{blocked&&<p className="op-help">Resolve the current blockers before publishing. Rejecting records the reason without exposing the draft.</p>}</form>:<p className="op-quiet">{item.withdrawn?'This record is withdrawn. Restoring it never bypasses current validation.':item.status==='PUBLISHED'?'A publication decision exists. Public reads still enforce source state, freshness and cancellation.':'This draft was rejected. Edit the underlying facts to create a version for review.'}</p>}
+    {item.withdrawn?<ReasonAction key={item.version} id="restore-record" label="Restore record" description="Restore the record to the workflow. Availability and publication checks still apply." pending={action.pending||loading} onSubmit={reason=>visibility('RESTORE',reason)}/>:item.status==='PUBLISHED'?<ReasonAction key={item.version} id="withdraw-record" label="Withdraw listing" description="Remove this listing from public results immediately and preserve its history." pending={action.pending||loading} danger onSubmit={reason=>visibility('WITHDRAW',reason)}/>:null}
+    {item.effectiveStatus==='PUBLISHED'&&<Link className="text-link" href={`/opportunities/${encodeURIComponent(item.id)}`}>Inspect student detail →</Link>}
+  </section>;
+}

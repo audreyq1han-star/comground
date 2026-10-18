@@ -1,0 +1,33 @@
+{
+  "verifiedAt": "2026-10-17T21:27:57.832Z",
+  "scope": "Independent occurrence and measurement HTTP acceptance against an isolated production process",
+  "checks": [
+    "A manually imported recurring fixture has three stable dates and requires publication review",
+    "Date selection is exact and date filters choose an occurrence before parent pagination",
+    "Persisted date IDs cannot be removed or renamed and invalid transitions leave the reviewed record unchanged",
+    "Consented profiles retain default-off measurement and signed role boundaries",
+    "Saves and handoffs are independently idempotent for two dates and reject forged references",
+    "Reminders and factual reports retain exact dates and one dismissal cannot suppress its sibling",
+    "Reviewed rescheduling updates only its pending occurrence and stale edits conflict",
+    "Cancelling the primary date preserves reviewed active siblings and exact unavailable saves",
+    "Full-interval matching selects the second date once and source pause suppresses the series",
+    "Measurement, attribution and campaign APIs enforce the signed role and mutation boundaries",
+    "Default-off measurement does not track reads, unconsented recommendations or campaign visits",
+    "Explicit measurement consent and valid first touch persist without accepting arbitrary campaigns",
+    "A presentation request is uncounted until acknowledgement; forged, foreign and stale tokens fail",
+    "Acknowledged exposure preserves exact occurrence references and repeated acknowledgements are idempotent",
+    "Relevance is private, exact, owner-bound, retry-safe and independent of application state",
+    "Self-reported application after exposure stays measured after later withdrawal",
+    "Historical shown choices accept negative feedback after withdrawal but reject stale positive confirmation",
+    "Empty presentations are acknowledged as seekers without inventing a recipient or relevance response",
+    "Live measurement suppresses both small cohorts and complementary cells without leaking private rows",
+    "Campaign pause is versioned, blocks new attribution and preserves earlier first touch",
+    "Process restart preserves occurrence IDs, measurement consent, exposures and first-touch attribution",
+    "Measurement opt-out purges its records, stops collection and preserves ordinary student state",
+    "Profile deletion purges occurrence and measurement state for only its signed owner"
+  ],
+  "externalRequests": [],
+  "limitations": [
+    "Legacy migration is exercised by repository tests; no power-loss or backup recovery claim."
+  ]
+}

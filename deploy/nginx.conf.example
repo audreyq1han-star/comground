@@ -1,0 +1,90 @@
+# Reviewed template only. Replace the exact host and certificate paths before activation.
+# Install in nginx's http {} context. No certificate is generated or requested here.
+# This host is the internet-facing edge: do not enable real_ip_header, set_real_ip_from,
+# proxy_protocol, or trust an incoming Forwarded/X-Forwarded-For header here.
+# Review limits against measured single-process KDF capacity before activation.
+log_format comground '$time_iso8601 $request_method $uri $status $request_time';
+limit_req_zone $binary_remote_addr zone=comground_per_ip:10m rate=10r/s;
+limit_conn_zone $binary_remote_addr zone=comground_connections:10m;
+limit_conn_zone $server_name zone=comground_total_connections:1m;
+# Empty keys are not counted. Include all account mutations, including recovery and
+# future account endpoints, so alternate login/password paths cannot evade the budget.
+map "$request_method:$uri" $comground_auth_ip {
+    default "";
+    ~^(POST|PUT|PATCH|DELETE):/api/account(?:/|$) $binary_remote_addr;
+    ~^(POST|PUT|PATCH|DELETE):/api/admin/session(?:/|$) $binary_remote_addr;
+}
+map $comground_auth_ip $comground_auth_global {
+    "" "";
+    default "auth";
+}
+limit_req_zone $comground_auth_ip zone=comground_auth_per_ip:10m rate=10r/m;
+limit_req_zone $comground_auth_global zone=comground_auth_total:1m rate=4r/s;
+limit_conn_zone $comground_auth_ip zone=comground_auth_connections:10m;
+limit_conn_zone $comground_auth_global zone=comground_auth_total_connections:1m;
+
+server {
+    listen 80 default_server;
+    server_name _;
+    return 444;
+}
+server {
+    listen 80;
+    server_name app.example.invalid;
+    return 308 https://app.example.invalid$request_uri;
+}
+server {
+    listen 443 ssl default_server;
+    server_name _;
+    ssl_reject_handshake on;
+}
+server {
+    listen 443 ssl;
+    server_name app.example.invalid;
+    # Also reject a mismatching HTTP Host after an accepted TLS SNI handshake.
+    if ($http_host !~* "^app\.example\.invalid(?::443)?$") { return 421; }
+    ssl_certificate /etc/comground/tls/fullchain.pem;
+    ssl_certificate_key /etc/comground/tls/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    add_header Strict-Transport-Security "max-age=31536000" always;
+    add_header X-Content-Type-Options nosniff always;
+    add_header X-Frame-Options DENY always;
+    add_header Referrer-Policy no-referrer always;
+    server_tokens off;
+    client_max_body_size 64k;
+    client_body_buffer_size 64k;
+    client_body_timeout 10s;
+    client_header_timeout 10s;
+    keepalive_timeout 15s;
+    keepalive_requests 100;
+    send_timeout 15s;
+    access_log /var/log/nginx/comground.access.log comground;
+    error_log /var/log/nginx/comground.error.log warn;
+    location / {
+        limit_req zone=comground_per_ip burst=30 nodelay;
+        limit_req zone=comground_auth_per_ip burst=5 nodelay;
+        limit_req zone=comground_auth_total burst=4 nodelay;
+        limit_req_status 429;
+        limit_conn comground_connections 20;
+        limit_conn comground_total_connections 128;
+        limit_conn comground_auth_connections 2;
+        limit_conn comground_auth_total_connections 8;
+        limit_conn_status 429;
+        proxy_pass http://127.0.0.1:3100;
+        proxy_http_version 1.1;
+        proxy_set_header Host app.example.invalid;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-Host app.example.invalid;
+        proxy_set_header X-Forwarded-Port 443;
+        proxy_set_header Forwarded "";
+        proxy_set_header Connection "";
+        proxy_hide_header X-Powered-By;
+        proxy_request_buffering on;
+        proxy_buffering off;
+        proxy_connect_timeout 5s;
+        proxy_read_timeout 30s;
+        proxy_send_timeout 30s;
+    }
+}

@@ -1,0 +1,33 @@
+{
+  "verifiedAt": "2026-10-17T00:52:44.016Z",
+  "scope": "Production build on loopback; isolated database across three server processes",
+  "checks": [
+    "Fresh database shows the actual empty catalogue state",
+    "Catalogue error state recovers through its Try again button",
+    "Reversed availability dates show validation without sending a match request",
+    "Operator can reject a blocked draft through the UI; it stays private",
+    "Graceful process restart preserves published, draft, rejected, source, organization, import and audit records",
+    "Restart with a new reviewer token invalidates the previous signed cookie",
+    "Same-day fixture replay after restart remains idempotent and published",
+    "A rotated reviewer session clears the stale console and prompts sign-in",
+    "Abrupt process termination preserves acknowledged writes and suspended publication on restart",
+    "Closeout browser paths have no runtime errors or external requests"
+  ],
+  "countsBefore": {
+    "sources": 1,
+    "organizations": 2,
+    "opportunities": 3,
+    "import_runs": 3,
+    "review_events": 2
+  },
+  "countsBeforeCrash": {
+    "sources": 1,
+    "organizations": 2,
+    "opportunities": 3,
+    "import_runs": 5,
+    "review_events": 2
+  },
+  "runtimeErrors": [],
+  "externalRequests": [],
+  "limits": "This proves process restart recovery, not machine power-loss durability, backup restoration or production authentication."
+}

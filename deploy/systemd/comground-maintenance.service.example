@@ -1,0 +1,22 @@
+# Template only. Explicit approved account retention periods must be configured.
+[Unit]
+Description=CommonGround approved retention maintenance
+After=docker.service
+Requires=docker.service
+ConditionPathExists=/etc/comground/enabled/maintenance
+
+[Service]
+Type=oneshot
+User=comground
+WorkingDirectory=/opt/comground
+EnvironmentFile=/etc/comground/compose.env
+EnvironmentFile=/etc/comground/maintenance.env
+ExecStart=/usr/bin/docker compose -f /opt/comground/deploy/compose.yaml run --rm --no-deps --pull never --no-build --name comground-maintenance-job app scripts/production-maintain.mjs --confirm-policy-approved --unverified-days ${COMGROUND_APPROVED_UNVERIFIED_DAYS} --security-event-days ${COMGROUND_APPROVED_SECURITY_EVENT_DAYS}
+ExecStopPost=-/usr/bin/docker rm --force comground-maintenance-job
+TimeoutStartSec=300
+TimeoutStopSec=20
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict

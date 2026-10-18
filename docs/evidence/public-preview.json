@@ -1,0 +1,21 @@
+{
+  "verifiedAt": "2026-10-17T21:06:11.359Z",
+  "base": "http://127.0.0.1:3120",
+  "checks": [
+    "Built public preview renders with one H1, no signup form, and noindex headers",
+    "No horizontal page overflow at 320, 390, 768, 1024, and 1440 pixels",
+    "Full age range fails closed; explicit narrowing changes comparison; adult selection does not waive guardian condition",
+    "Keyboard opens native modal, Escape dismisses, focus returns, and booking boundary is visible",
+    "All activity selectors work and reduced motion disables Magic UI animation",
+    "FAQ disclosure works and every navigation/CTA anchor resolves",
+    "Actual production browser session has no external requests, mutations, console warnings, or page errors"
+  ],
+  "externalRequests": [],
+  "errors": [],
+  "requestCount": 28,
+  "build": "passed",
+  "typecheck": "passed",
+  "modelTests": 2,
+  "screenshots": "apps/public-site/output/playwright",
+  "scope": "Isolated public-site app; original HTML preserved; no real data or API writes"
+}

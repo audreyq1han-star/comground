@@ -1,0 +1,6 @@
+import { getStudentProfile, putStudentProfile, deleteStudentProfile } from '../../../../lib/student-handlers.ts';
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+export const GET = getStudentProfile;
+export const PUT = putStudentProfile;
+export const DELETE = deleteStudentProfile;

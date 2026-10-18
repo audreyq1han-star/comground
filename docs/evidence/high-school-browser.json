@@ -1,0 +1,21 @@
+{
+  "verifiedAt": "2026-10-17T21:29:42.552Z",
+  "checks": [
+    "Under-13 forms collect nothing; fictional teen signup sends no email and cannot store a profile before local review",
+    "Only an offline-assigned adult can approve the request; review DTO excludes teen identity and profile",
+    "High-school onboarding supports optional single-age clarification; teen AI transport, measurement and outbound email stay disabled",
+    "Private failed-fit reasons stay separate; a one-time share creates only assigned minimal operator evidence, never a self-confirmation",
+    "Synthetic school-program evidence records exact organization/program/opportunity scope, expiry, actor and version",
+    "Teen review/privacy, assigned adult reviews and both evidence screens fit 390px and 320px with real server states",
+    "Revoked local approval blocks private reads while recent-auth export and storage withdrawal remain available and purge shared claim history",
+    "No page exceptions, CSP violations or external requests occurred"
+  ],
+  "screenshots": "output/playwright/high-school",
+  "syntheticAccountsOnly": true,
+  "externalProviderCalls": 0,
+  "limits": [
+    "Local fixture teen access is not mailbox, age, guardian or school verification.",
+    "All operator outcome and program records remain SYNTHETIC_NOT_VERIFIED.",
+    "No real minor enrollment, email delivery, certified hours, school credit or production deployment is claimed."
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "verifiedAt": "2026-10-17T21:30:31.747Z",
+  "scope": "Independent real Chrome occurrence and measurement UI acceptance against an isolated production build",
+  "checks": [
+    "Operator imports the real recurring fixture through its UI; it starts as an unpublished draft",
+    "Operator adds and discards unsaved dates, generates a bounded UTC repeat, cancels one date and edits another before a fresh review",
+    "The synthetic campaign travels through the community and onboarding URL while optional measurement remains off",
+    "Actual rendered shortlists acknowledge consented exposures; Relevant feedback refers to that choice and creates no application",
+    "Selecting dates updates the URL/back-forward state and independent saves and previews retain both exact occurrences",
+    "Empty and repeated occurrence deep links show a failure without silently substituting a date",
+    "Saved and activity cards identify each date; applying to week two does not update primary and future attendance remains blocked",
+    "Dismissing one dated reminder leaves its sibling; manual digest preview does not count a measured exposure",
+    "Operator measurement separates suppressed live cohorts from the labeled synthetic calculation with all-recipient denominators",
+    "An interrupted measurement read exposes a real retry control and recovers without fabricated totals",
+    "Operator pauses the allowlisted campaign while the earlier consented first touch remains intact",
+    "A paused community has no enrollment CTA; a separate phone persona using its stale campaign code consents independently and remains unattributed",
+    "At 390px, actual date selection, independent save toggles, relevance feedback and campaign pause/resume work; supporting routes fit",
+    "At 320px, actual date selection, independent save toggles, relevance feedback and campaign pause/resume work; supporting routes fit",
+    "A held Matches consent read cannot continue campaign attribution after switching to an already opted-in persona",
+    "A held consent-save response cannot write its previous persona campaign into the newly selected persona",
+    "A focus refresh queued during a held shortlist discards stale cards, reads the latest preferences and adds no exposure",
+    "A delayed committed acknowledgement survives an unchanged focus refresh and exposes usable feedback for exactly one batch",
+    "Captured a short real Chrome walkthrough of selected dates, separate saves, measured shortlist and truthful operator measurement",
+    "The visible opt-out control deletes measurement and attribution while keeping ordinary dated saves intact",
+    "Independent Chrome journeys have no runtime exceptions, unexpected console errors or external requests"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "externalRequests": [],
+  "viewports": [
+    "1440×1000",
+    "390×844",
+    "320×844"
+  ]
+}

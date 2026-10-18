@@ -1,0 +1,23 @@
+# Template only. Do not install or enable before owner approval of actual email delivery.
+[Unit]
+Description=CommonGround bounded notification worker
+After=docker.service
+Requires=docker.service
+ConditionPathExists=/etc/comground/enabled/worker
+
+[Service]
+Type=oneshot
+User=comground
+WorkingDirectory=/opt/comground
+# Contains COMGROUND_IMAGE and COMGROUND_ENV_FILE; runtime secrets stay in the latter.
+EnvironmentFile=/etc/comground/compose.env
+ExecStart=/usr/bin/docker compose -f /opt/comground/deploy/compose.yaml run --rm --no-deps --pull never --no-build --name comground-worker-job app scripts/production-worker.mjs --once --confirm-delivery-approved
+# Docker CLI termination alone does not stop its container. Reserve this name for this unit.
+ExecStopPost=-/usr/bin/docker rm --force comground-worker-job
+TimeoutStartSec=45
+TimeoutStopSec=20
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict

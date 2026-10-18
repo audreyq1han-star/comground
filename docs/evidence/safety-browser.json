@@ -1,0 +1,15 @@
+{
+  "verifiedAt": "2026-10-17T21:29:48.188Z",
+  "checks": [
+    "Pending synthetic teen without profile can consent, report an exact listing date and read receipt at 390px/320px",
+    "Operator review and withdrawal request persist with bounded rationale and no reporter identity",
+    "Reporter receives in-app status and can delete the report and review history"
+  ],
+  "pageErrors": [],
+  "externalRequests": [],
+  "mode": "synthetic-local-only",
+  "screenshots": [
+    "output/playwright/safety/safety-phone.png",
+    "output/playwright/safety/safety-operator.png"
+  ]
+}

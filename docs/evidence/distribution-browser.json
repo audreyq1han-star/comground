@@ -1,0 +1,20 @@
+{
+  "verifiedAt": "2026-10-17T21:29:31.028Z",
+  "checks": [
+    "Private preview and distinct default-off digest subscription work at 320/390/768/1440px",
+    "Operator reviews exact public dates, approves a version and queues only an encrypted blocked request; student identity stays hidden",
+    "Student withdrawal removes prepared selections and cancels the pending digest",
+    "Manual community draft, review, public disclosure, pause and audited archival work across phone and desktop widths",
+    "Real session logout while the body is held blocks both student subscription and operator batch mutations"
+  ],
+  "pageErrors": [],
+  "externalRequests": [],
+  "externalProviderCalls": 0,
+  "mode": "synthetic-local-only",
+  "screenshots": [
+    "output/playwright/distribution/digest-phone.png",
+    "output/playwright/distribution/digest-choice-phone.png",
+    "output/playwright/distribution/digest-review-desktop.png",
+    "output/playwright/distribution/community-phone.png"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "verifiedAt": "2026-10-17T14:25:23.152901+00:00",
+  "unitTests": 176,
+  "unitFailures": 0,
+  "strictTypecheck": "passed",
+  "productionBuild": "passed",
+  "legacyHttpChecks": 16,
+  "fullHttpGroups": 32,
+  "browserGroups": 38,
+  "accessibilityGroups": 6,
+  "browserRuntimeErrors": [],
+  "unexpectedConsoleErrors": [],
+  "externalBrowserRequests": [],
+  "viewports": [
+    320,
+    390,
+    768,
+    1024,
+    1440
+  ],
+  "originalMainClean": true,
+  "originalMainCommit": "5109d51b7f26e71a3b75cb4bde100f91154a00a3",
+  "localCommit": "See external delivery checkpoint.json or git log -1; this file is included in that commit.",
+  "limits": [
+    "Synthetic fixed demo personas, not production identity.",
+    "Process restart tested, not power-loss or backup recovery.",
+    "Focused accessibility audit, not formal certification."
+  ],
+  "runtime": "v22.23.3",
+  "independentBrowserGroups": 11,
+  "occurrenceMeasurementHttpGroups": 23,
+  "occurrenceMeasurementBrowserGroups": 21
+}
