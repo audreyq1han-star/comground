@@ -26,5 +26,8 @@
     "720 CSS-pixel reflow models 200% scaling; browser zoom-control was not measured",
     "All activities and choices are fictional; no enrollment or provider is connected",
     "Pattern export scan is bounded and does not prove absence of every possible secret"
-  ]
+  ],
+  "phoneInteractionChecks": 16,
+  "totalBrowserChecks": 231,
+  "phoneEvidence": "Independent actual interaction journeys at 390\u00d7844 and 320\u00d7640; all 16 checks passed."
 }
