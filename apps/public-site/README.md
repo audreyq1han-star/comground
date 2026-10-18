@@ -1,51 +1,53 @@
 # CommonGround public preview
 
-An isolated, working public-site redesign. The original `index.html`, `brand.html`, and `mockup.html`, and the existing `apps/web` application are preserved. This app has its own Next configuration, TypeScript project, output directory, port, and declared dependency versions, and resolves the already installed dependencies from the repository root. No installation is needed in the prepared workspace.
+An isolated public demonstration for high-school students: browse three fictional activities, inspect practical requirements, keep a temporary example shortlist and work through questions to ask before a real application. The original root site and the authenticated application in `apps/web` are separate from this static export.
 
-## Run locally
+## Run and build
 
-From the repository root:
+Use the repository's reviewed, already installed dependencies. From the repository root:
 
 ```sh
-NEXT_TELEMETRY_DISABLED=1 node scripts/with-local-node.mjs node_modules/next/dist/bin/next build apps/public-site --webpack
-NEXT_TELEMETRY_DISABLED=1 node scripts/with-local-node.mjs node_modules/next/dist/bin/next start apps/public-site --hostname 127.0.0.1 --port 3120
+NEXT_TELEMETRY_DISABLED=1 npm run build:public
+npm run preview:public
 ```
 
-For local editing, use `next dev apps/public-site --hostname 127.0.0.1 --port 3120` with the same wrapper instead of `build`/`start`. Stop the production process before running development on that port. Its `.next` directory is separate from the main application.
+Open `http://127.0.0.1:3120`. `PUBLIC_PREVIEW_PORT` changes the local port. The server serves the exact exported files and the configured response headers on loopback only. For editing, use `npm run dev --prefix apps/public-site`, after stopping any other server on that port. No development server is exposed online.
 
-Open **http://127.0.0.1:3120**. No account, database, runtime mode, credentials, source feeds, AI provider, email service, or API server is used. Every primary CTA goes to `#preview`. There are no forms, external links, external assets, analytics, persistence, or API mutations in this app. Selectors keep fictional values only in React memory. Responses and metadata request no indexing. This remains a local preview, not a deployment.
+`build:public` uses Next static export and audits the output. Root `vercel.json` explicitly selects `apps/public-site/out`; no application API, account system, admin route, database, worker or server function belongs to that output. See [deployment boundary](../../docs/public-preview-deployment.md) for the existing-hosting release process. A successful local build alone is not deployment evidence.
 
-## Design and content
+## Journey and state
 
-The direction is **A clear first step**: retain the original navy/ocean/teal/coral identity, give the welcome a strong typographic hierarchy and an original community-garden illustration, then use a solid starting line to connect **Facts → Check before joining → Next step**. One practical comparison area replaces repeated marketing card grids. The pantry and remote-reading illustrations are also original code-native SVG; none depicts a real program, person, organization, or partnership. The garden is an illustration, not evidence of an actual opportunity.
+| Route | Purpose |
+| --- | --- |
+| `/` | Introduce the idea and show a concrete example |
+| `/explore` | Filter three examples by activity type and participation format |
+| `/explore/garden`, `/explore/pantry`, `/explore/reading` | Explain tasks, sample requirements and questions to check |
+| `/shortlist` | Compare temporary choices, remove them and continue to the checklist |
+| `/how-it-works` | Explain the preview and offer a practical checklist |
+| `/for-families` | Provide family, school and organizer guidance |
 
-Content and brand decisions are documented in `../../docs/public-site-copy.md` and `../../docs/public-site-brand-audit.md`. High-school students, including those aged 18+, are the initial audience. The copy does not promise connected feeds, AI recommendations, attendance verification, school credit, vetted safety, or real enrollment. A visible boundary states that real minor enrollment is disabled. The former early-access form is replaced by a functioning in-page example, so no personal contact information is requested.
+All choices are fixed fictional examples. There are no personal-detail inputs, forms, accounts, applications, email subscriptions, analytics, external assets or provider connections. React context keeps choices across internal navigation and clears them on reload. The application does not use cookies, local storage or session storage. Hosting infrastructure may retain normal request logs.
 
-The interactive example compares the **entire** chosen age range. Ages 13–15 fail an activity with a minimum age of 14. An explicitly selected narrower 14–15 range can pass that age check, but cannot satisfy the separate guardian condition. The age-18+ high-school choice remains available. Example-age fit is not approval or a complete eligibility decision. Dates, access, supervision, credit, and organizer details still require confirmation. A native modal presents the same facts, checks, and next-step boundary, with Escape dismissal and focus return.
+The sample age comparison uses the entire range. Ages 13–15 fail a minimum age of 14; an explicitly chosen 14–15 sample can meet that age rule while the separate guardian requirement remains visible. An 18+ high-school sample is available. Age fit is not permission to participate, evidence of safety or a complete eligibility decision. An example shortlist is not an application or an attendance record.
 
-## Components and accessibility
+## Content and design
 
-Actual MIT-licensed **Magic UI ShimmerButton and GridPattern** source is adapted to ordinary CSS, with no dependency installer. See `vendor/README.md` for official-source provenance and `vendor/LICENSE.magicui.txt` for the retained notice. The restrained perimeter animation is used on the example-details action. The faint grid sits behind the starting-line steps. All motion stops under `prefers-reduced-motion`; important content is never hidden pending animation.
+The reviewed goal is a sunny community field guide with CommonGround's original sunrise/horizon mark and navy, ocean, teal and coral palette. Original SVG scenes illustrate planting, packing and reading preparation; they do not depict a real program or partnership. The homepage invites exploration; interior pages focus on the next task. No fictional testimonials, usage totals, partner logos, live-feed claims, AI claims or credit guarantees are used.
 
-The page uses semantic landmarks, a skip link, one H1, real labeled controls, pressed state for activity selection, an atomic live status, visible focus, a native modal, native FAQ disclosures, local system fonts, and responsive text/facts. Its artwork has descriptive accessible names. These choices and the browser checks are useful evidence, not an accessibility certification.
+- [Full route inventory and copy packet](../../docs/public-journey-content.md)
+- [Visual goal and responsive requirements](../../docs/public-preview-design-goal.md)
+- [Independent content/design review](../../docs/public-preview-independent-review.md)
 
-## Verification and mockups
+Actual MIT-licensed Magic UI `GridPattern` and `ShimmerButton` adaptations are retained. See [provenance](vendor/README.md) and [license](vendor/LICENSE.magicui.txt). Motion is restrained and disabled under reduced-motion preferences. Native links, labeled controls, one H1 per route, skip navigation, visible focus and useful empty states are part of the design; browser evidence is required to verify their implementation.
+
+## Verification
 
 ```sh
-node scripts/with-local-node.mjs --experimental-strip-types --test apps/public-site/preview-model.test.ts
 node scripts/with-local-node.mjs node_modules/typescript/bin/tsc -p apps/public-site/tsconfig.json --noEmit
-PLAYWRIGHT_MODULE=/absolute/path/to/installed/playwright/index.mjs node scripts/with-local-node.mjs apps/public-site/browser-check.mjs
+node scripts/with-local-node.mjs --experimental-strip-types --test apps/public-site/preview-model.test.ts tests/public-preview-boundary.test.ts
+npm run build:public
 ```
 
-The browser script expects the built preview at port 3120. `PUBLIC_PREVIEW_URL` can select another localhost origin. `PLAYWRIGHT_BROWSER_PATH` can select an already installed Chromium executable; otherwise it uses installed Chrome. It never downloads a browser or package. It blocks external browser requests, records unexpected attempts, checks no non-GET requests occurred, and saves real browser captures under `output/playwright/` (ignored generated artifacts). The selected verified runtime in this workspace is the pre-existing Chrome headless shell 152; installed Chrome 154 produced screenshot tiling artifacts after viewport resizing, so it was not used for final captures.
+The independent browser review covers real local and deployed routes at desktop, tablet and phone widths, direct loads, back/forward, filters, age/guardian explanations, shortlist changes/reset, unknown routes, keyboard operation, reduced motion, request methods and storage. Final screenshots and walkthroughs are generated outside the repository. Earlier captures under `output/playwright` and `browser-check.mjs` describe the previous single-page preview and are historical evidence, not validation of the revised route journey.
 
-Capture annotations:
-
-- `desktop-hero-1440.png`: actual first screen; readable promise, original artwork, audience, and preview boundary.
-- `desktop-1440.png`: actual full-page composition, not a fabricated screenshot.
-- `mobile-hero-390.png`, `mobile-preview-390.png`, `mobile-390.png`: actual mobile welcome, interaction area, and full page.
-- `mobile-320.png`, `tablet-768.png`: narrow-phone and tablet compositions.
-- `example-details-1440.png`: native detail modal with the guardian requirement and no-booking boundary.
-- `verification.json`: execution timestamp, checks passed, request count, console/page errors, and external-request count.
-
-The supplied source and screenshots are review artifacts. No live user research, production usage, legal consent approval, real opportunity availability, or release readiness is inferred from them.
+This preview does not establish live opportunity availability, user research, legal consent approval, safeguarding readiness or production enrollment readiness. The authenticated application's separate tests and operational gates remain in force.

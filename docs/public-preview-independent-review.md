@@ -69,6 +69,27 @@ Read `vercel.json`, `apps/public-site/next.config.mjs`, `scripts/audit-public-ex
 
 Independently ran the two public-boundary tests: **2/2 passed**. The current baseline export audit passed for **31 static files**. This does not establish the contents of the expanded future export or the hosting project's effective deployment settings. The final artifact audit should also inspect provider-key names and token patterns; the current script's credential checks cover only selected configuration/private-key/path markers. Direct online account/admin/API absence and actual response headers still require fresh verification.
 
+## First implementation source review
+
+Reviewed the implemented home, Explore, three fixed detail URLs, shortlist, how-it-works and family guide, plus not-found/error recovery, shared navigation, React context, requirement model and shortlist actions. This pass precedes completed styling and fresh browser verification.
+
+The source follows the approved content goal. The three detail pages are statically enumerated; unknown slugs use not-found recovery. All internal journey links use Next links, preserving layout context during navigation. Shortlist additions are deduplicated; removals announce their result and move focus to a remaining removal action or the empty-state Explore link. Reload creates the documented empty initial context. Category/format filters use fixed values, keep the sample age separate, and expose their selected state. All age comparisons cover the full band; the pantry guardian requirement remains explicit for both failing and passing age results. Unspecified guardian/training/date facts are not presented as approval.
+
+All eight normal URLs provide useful content and a next step. Empty shortlist, empty filters, unknown routes and generic errors have recovery actions. Detail DOM order now places the requirement/action area before the longer narrative on narrow screens. Claims remain fictional, with no live organizer, actual application, service-hour certification or AI matching claim.
+
+Independently reran model and public-boundary tests: **4/4 passed**. A source scan found no `fetch`, browser persistence, cookies, beacon, forms, free-text/email/password controls, external URLs, account/admin/API links or imports in the public app/components. This is a source-level observation, not a browser network result.
+
+Two concrete accessibility findings were sent to the content owner:
+
+| Priority | Location at review | Issue | Acceptance |
+| --- | --- | --- | --- |
+| Medium | `components/ExampleRequirements.tsx:23` | On a detail page, changing the sample range replaces the requirement result without a status announcement. | Add a polite atomic status region for the noncompact detail result. Do not make every compact Explore card announce simultaneously. Verify with the final accessibility/browser pass. |
+| Medium | `components/ExploreExamples.tsx:27` | The no-results “Show all examples” action removes its own focused button when results return, leaving no explicit focus recovery. | Focus a persistent results heading or useful filter after resetting, or retain a persistent reset control. Verify a keyboard-only empty-filter → reset journey. |
+
+**Resolution:** the integration owner repaired both findings, and the independent reviewer re-read both changes. The noncompact requirement result now has `role="status"`, `aria-live="polite"` and atomic announcements, while compact list results remain quiet. The results heading now has `tabIndex={-1}`, and the reset action focuses that persistent heading when restoring filters. Both findings are resolved at source level; the browser pass must still verify the observed behavior.
+
+After these repairs and the addition of the filter-combination regression case, the independently rerun model/boundary suite passed **5/5** tests. No remaining content, privacy, claim, route or focused source-accessibility blocker was identified. Final visual and deployed acceptance remain outstanding.
+
 ## Review limits
 
 Runtime, deployment isolation and hosting authorization are being handled separately by the integration owner. This review does not certify accessibility, legal consent, age/guardian identity, service-hour approval, real source permission or production readiness. The source/capture observations above should not be presented as results from the future deployed preview.
