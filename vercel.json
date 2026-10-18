@@ -20,7 +20,7 @@
   ],
   "git": {
     "deploymentEnabled": {
-      "feat/local-catalogue-matching": false
+      "feat/local-catalogue-matching": true
     }
   }
 }

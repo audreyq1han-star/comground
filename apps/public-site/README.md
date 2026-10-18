@@ -46,8 +46,11 @@ Actual MIT-licensed Magic UI `GridPattern` and `ShimmerButton` adaptations are r
 node scripts/with-local-node.mjs node_modules/typescript/bin/tsc -p apps/public-site/tsconfig.json --noEmit
 node scripts/with-local-node.mjs --experimental-strip-types --test apps/public-site/preview-model.test.ts tests/public-preview-boundary.test.ts
 npm run build:public
+PLAYWRIGHT_MODULE=/path/to/installed/playwright/index.mjs PLAYWRIGHT_BROWSER_PATH=/path/to/installed/chromium PUBLIC_PREVIEW_URL=http://127.0.0.1:3120 node scripts/with-local-node.mjs apps/public-site/browser-check.mjs
 ```
 
-The independent browser review covers real local and deployed routes at desktop, tablet and phone widths, direct loads, back/forward, filters, age/guardian explanations, shortlist changes/reset, unknown routes, keyboard operation, reduced motion, request methods and storage. Final screenshots and walkthroughs are generated outside the repository. Earlier captures under `output/playwright` and `browser-check.mjs` describe the previous single-page preview and are historical evidence, not validation of the revised route journey.
+The portable browser runner covers all eight public URLs at desktop, tablet and phone widths, direct loads, back/forward, filters, age/guardian explanations, shortlist changes/reset, unknown routes, keyboard operation, reduced motion, request methods and storage. It uses installed Playwright/Chromium without downloading them. `PUBLIC_PREVIEW_OUTPUT` chooses the artifact directory; the default is ignored `apps/public-site/output/browser`. For final online evidence, also set `PUBLIC_PREVIEW_EVIDENCE_KIND=final` and `FINAL_CANDIDATE_CONFIRMED=1`; that mode refuses localhost. Both test groups produce separate verification JSON. Deliberate 404 probes are labeled separately from normal journey errors. The 720 CSS-pixel reflow check models 200% scaling of a 1440px window; it is not a browser zoom-control measurement.
+
+Final screenshots and walkthroughs are delivered separately from the source tree. Earlier captures under `output/playwright` describe the previous single-page preview and remain historical evidence.
 
 This preview does not establish live opportunity availability, user research, legal consent approval, safeguarding readiness or production enrollment readiness. The authenticated application's separate tests and operational gates remain in force.

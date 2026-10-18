@@ -1,0 +1,30 @@
+{
+  "verifiedAt": "2026-10-18T03:35:56.593006+00:00",
+  "candidateCommit": "773330ec5653c8f206a75241fa2c71ed1aaba034",
+  "scope": "Local static public preview; deployment verification follows separately",
+  "routeChecks": 191,
+  "journeyChecks": 24,
+  "publicUrls": 8,
+  "templates": 6,
+  "browser": "Chrome 151.0.7922.34",
+  "viewportWidths": [
+    1440,
+    768,
+    390,
+    320
+  ],
+  "staticFiles": 74,
+  "knownProductionDependencyAdvisories": 0,
+  "iterations": [
+    "Reviewed route inventory, copy and visual goal before implementation",
+    "Fixed live requirement announcements and empty-filter focus after independent source review",
+    "Fixed populated shortlist header overflow at 320px after actual browser capture",
+    "Refined narrow-phone hero, illustration layering and optional sample-age disclosure after visual review"
+  ],
+  "limitations": [
+    "Computed text contrast samples and keyboard inspection are not accessibility certification",
+    "720 CSS-pixel reflow models 200% scaling; browser zoom-control was not measured",
+    "All activities and choices are fictional; no enrollment or provider is connected",
+    "Pattern export scan is bounded and does not prove absence of every possible secret"
+  ]
+}

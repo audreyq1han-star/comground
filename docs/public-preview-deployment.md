@@ -10,7 +10,7 @@ The static browser policy restricts connections and assets to this deployment, d
 
 ## Release process
 
-The first sanitized code publication at `35364e3` disabled this feature branch's automatic deployments. Enable only this feature branch after the public export and visitor journey pass review. The existing production branch is unchanged. Do not use a main merge to obtain a preview URL.
+The first sanitized code publication at `35364e3` disabled this feature branch's automatic deployments. After separate content/design review and two local implementation passes, candidate `773330e` passed 191 route/matrix/boundary checks and 24 journey checks. Branch deployment is now enabled only for this feature branch in the explicit configuration map. Other branch behavior is unchanged. The existing production branch is unchanged; do not use a main merge to obtain a preview URL. Deployment receipt and fresh online browser acceptance are still required before calling the preview online and verified.
 
 Build with `NEXT_TELEMETRY_DISABLED=1 npm run build:public`. Run `npm run preview:public` for a loopback-only static server on port 3120; `PUBLIC_PREVIEW_PORT` can change the local port. This serves the exact exported files and response policy. No tunnel exposes the local application.
 
